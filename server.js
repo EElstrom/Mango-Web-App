@@ -20,10 +20,10 @@ app.use((req, res, next) =>
 // Frontend Routes -> If someone pings the express server looking
 //                    for the frontend pages, this will forward
 //                    the frontend pages to the requester
-app.use(express.static('./frontend/build'));
+app.use(express.static('./build'));
 app.get('*', function(req, res)
 {
-	res.sendFile('./frontend/build/index.html', {root: __dirname});
+	res.sendFile('./build/index.html', {root: __dirname});
 });
 
 // Start the server listening on port 5000
