@@ -29,4 +29,4 @@ app.get('*', function(req, res)
 // Start the server listening on port 5000
 var port = process.env.PORT || 5000;
 
-app.listen(port, () => console.log('Express: Server Started'));
+app.listen(port, () => console.log('Express: Server Listening on port ' + port));
