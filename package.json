@@ -4,7 +4,8 @@
   "description": "A MERN Web Application that helps you maintain your greenhouse",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+	"deploy": "(cd frontend && npm run build) && node server.js"
   },
   "repository": {
     "type": "git",
