@@ -1,0 +1,19 @@
+{
+  "name": "mango-backend",
+  "version": "0.0.1",
+  "description": "A MERN Web Application that helps you maintain your greenhouse",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devon-gadarowski/Mango-Web-App.git"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.2"
+  }
+}
