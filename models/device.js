@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const mongoose = require('mongoose');
 
 const sensor = new mongoose.Schema(
@@ -24,3 +25,6 @@ const sensor = new mongoose.Schema(
 
     }
 );
+=======
+
+>>>>>>> 54cb494e86fa21073c49eb95762fadf20ec08855
