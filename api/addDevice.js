@@ -11,6 +11,7 @@ const Device = require('../models/device');
 // validation only requires name, all other attributes currently unrequired
 function validateDevice(data)
 {
+    // can this be const errors to maintain js version?
     var errors = {};
 
     if (isEmpty(data.name) || validator.isEmpty(data.name))
@@ -18,7 +19,10 @@ function validateDevice(data)
         errors.name = 'device name required';
     }
 
-    return{errors, isValid:isEmpty(errors)};
+    return {
+        errors, 
+        isValid:isEmpty(errors)
+    };
 };
 
 router.post('/api/addDevice', (req,res,) => {
@@ -40,7 +44,9 @@ router.post('/api/addDevice', (req,res,) => {
             if (err)
             {
                 console.log(err);
-                res.status(500).json({success: false, errors: 'failed to register device'})
+                res.status(500).json({
+                    success: false, 
+                    errors: 'failed to register device'});
             }
 
             else
@@ -52,7 +58,9 @@ router.post('/api/addDevice', (req,res,) => {
 
     else
     {
-        res.status(400).json({success: false, errors: validation.errors});
+        res.status(400).json({
+            success: false, 
+            errors: validation.errors});
     }
 });
 
