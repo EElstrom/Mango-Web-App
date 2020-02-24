@@ -5,18 +5,29 @@ const isEmpty = require('is-empty');
 
 const Device = require('../models/device');
 
-// How to adquately prove a device doesn't exist?
-// TODO: decide whether to prevent doubles on devices
-
 // validation only requires name, all other attributes currently unrequired
 function validateDevice(data)
 {
-    // can this be const errors to maintain js version?
+    // can this be "const errors" to maintain js version?
     var errors = {};
 
     if (isEmpty(data.name) || validator.isEmpty(data.name))
     {
         errors.name = 'device name required';
+    }
+
+    // ensure device name is unique
+    // I'm not convinced exists() will check correct table, I think it needs more specification
+    else
+    {
+        await Device.exists({
+            name: data.name
+        }, (err, result) => {
+            if (err)
+                errors.name = 'unable to verify device availability'
+            if (result)
+                errors.name = 'device already exists under that name'
+        });
     }
 
     return {
@@ -40,7 +51,7 @@ router.post('/api/addDevice', (req,res,) => {
             installDate: req.body.installDate
         });
 
-        device.create(newDevice, (err,device) => {
+        Device.create(newDevice, (err,device) => {
             if (err)
             {
                 console.log(err);
