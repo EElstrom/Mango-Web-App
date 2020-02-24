@@ -1,6 +1,8 @@
 # Mango-Web-App
 A MERN Web Application that helps you maintain your greenhouse
 
+http://mango-env.msrndbb6dp.us-east-2.elasticbeanstalk.com/
+
 ## NodeJS Commands
 
 * `npm install` - Install all existing app dependencies
