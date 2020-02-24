@@ -60,7 +60,7 @@ router.post('/api/addPlant', async (req, res) => {
         // can now send the body packet to the db
         // I don't see a reason to encrypt this part.
         const newPlant = new Plant({
-            // plantId : req.body.id,
+            // plantId : req.body.plantId,
             name : req.body.name,
             alias : req.body.alias,
             deviceName : req.body.deviceName,

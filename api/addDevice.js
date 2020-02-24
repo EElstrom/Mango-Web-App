@@ -18,6 +18,8 @@ function validateDevice(data)
 
     // ensure device name is unique
     // I'm not convinced exists() will check correct table, I think it needs more specification
+    // research proves it won't. Might need to write a specific function that will separate collections
+    // .exists() needs to traverse a collection, so not a model necessarily
     else
     {
         await Device.exists({
