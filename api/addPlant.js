@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 const express = require('express');
 const router = express.Router();
 const validator = require('valildator');
@@ -87,6 +87,3 @@ router.post('/api/addPlant',function(req,res,next)
 });///end router.post function
 
 module.exports = router;
-=======
-
->>>>>>> 54cb494e86fa21073c49eb95762fadf20ec08855
