@@ -9,14 +9,6 @@ const plantSchema = new mongoose.Schema(
             required: true
         },
 
-        // assigned by DB
-        plantId:
-        {
-            type: String,
-            required: false,
-            default: ''
-        },
-
         name: {
             type: String, 
             required: true

@@ -9,14 +9,6 @@ const deviceSchema = new mongoose.Schema(
             required: true
         },
 
-        // populated from DB
-        deviceId: 
-        {
-            type: String,
-            required: false,
-            default: ''
-        },
-
         name: {
             type: String,
             required: true

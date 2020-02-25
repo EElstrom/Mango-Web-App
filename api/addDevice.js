@@ -5,24 +5,24 @@ const isEmpty = require('is-empty');
 
 const Device = require('../models/device');
 
-// validation only requires name, all other attributes currently unrequired
+// validation only requires name and userID, all other attributes currently unrequired
 function validateDevice(data)
 {
     // can this be "const errors" to maintain js version?
     var errors = {};
+    // UserID needs to be pulled from jwt, I believe
 
+    // name requirement
     if (isEmpty(data.name) || validator.isEmpty(data.name))
     {
         errors.name = 'device name required';
     }
 
     // ensure device name is unique
-    // I'm not convinced exists() will check correct table, I think it needs more specification
-    // research proves it won't. Might need to write a specific function that will separate collections
-    // .exists() needs to traverse a collection, so not a model necessarily
     else
     {
         await Device.exists({
+            // userID: user.id,
             name: data.name
         }, (err, result) => {
             if (err)
