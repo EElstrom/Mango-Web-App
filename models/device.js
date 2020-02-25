@@ -1,9 +1,9 @@
-
 const mongoose = require('mongoose');
 
-const sensor = new mongoose.Schema(
+const deviceSchema = new mongoose.Schema(
     {
-        deviceId: 
+        // FK: must be extracted from user
+        userID:
         {
             type: String,
             required: true
@@ -15,13 +15,18 @@ const sensor = new mongoose.Schema(
 
         location: {
             type: String,
-            required: true
+            required: false,
+            default: ''
         },
 
+        // TODO: better type for date: int array?
+        // maybe have this required, but is assigned with like.. now()?
         installDate: {
             type: String,
-            required: false
+            required: false,
+            default: ''
         }
-
     }
 );
+
+module.exports = Device = mongoose.model('device', deviceSchema);
