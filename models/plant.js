@@ -2,6 +2,14 @@ const mongoose = require('mongoose');
 
 const plantSchema = new mongoose.Schema(
     {
+        // FK: extracted from user
+        userID:
+        {
+            type: String,
+            required: true
+        },
+
+        // assigned by DB
         plantId:
         {
             type: String,

@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema(
     {
+        // PK for this table, FK for others
         userId:
         {
             type: String,
@@ -41,7 +42,7 @@ const userSchema = new mongoose.Schema(
         },
 
         noOfDevices: {
-            type: Int16Array,
+            type: Number,
             required: false,
             default: 0
         }

@@ -2,6 +2,14 @@ const mongoose = require('mongoose');
 
 const deviceSchema = new mongoose.Schema(
     {
+        // FK: must be extracted from user
+        userID:
+        {
+            type: String,
+            required: true
+        },
+
+        // populated from DB
         deviceId: 
         {
             type: String,

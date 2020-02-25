@@ -2,12 +2,14 @@ const mongoose = require('mongoose');
 
 const conditionsSchema = new mongoose.Schema(
     {
+        // FK: extracted from userID, to then DeviceID
         deviceID: 
         {
-            type: Int16Array,
+            type: Number,
             required: true
         },
 
+        // guaranteed uniqueness, up to user to be smart about it
         deviceName:
         {
             type: String,
@@ -16,13 +18,13 @@ const conditionsSchema = new mongoose.Schema(
 
         curTemp: 
         {
-            type: Int16Array,
+            type: Number,
             required: true
         },
 
         curHumidity:
         {
-            type: Int16Array,
+            type: Number,
             required: true
         },
 
@@ -33,13 +35,13 @@ const conditionsSchema = new mongoose.Schema(
         // temporary guesses
         rangeTemp: 
         {
-            type: [Int16Array],
+            type: [Number],
             required: true
         }, 
 
         rangeHumidity:
         {
-            type: [Int16Array],
+            type: [Number],
             required: true
         }
     }
