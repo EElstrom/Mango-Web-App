@@ -4,8 +4,8 @@ const router = express.Router();
 const validator = require('valildator');
 const isEmpty = require('is-empty');
 
-//const jwt = require('jsonwebtoken');
-//const keys = reqire('../config/keys');
+const jwt = require('jsonwebtoken');
+const keys = reqire('../config/keys');
 
 const plant = require('../models/plant');
 
@@ -40,15 +40,15 @@ router.post('/api/addPlant',function(req,res,next)
 {
     console.log('Express: POST /api/addPlant');
 
-    ///const authToken = req.cookies.session;
-    ///jwt.verify(authToken, keys.secretOrKey, function(err,plant))
-    ///{
-        ///if(err || !plant)
-        ///{
-            ///res.status(401).jason({success: false, errors: 'access denied: please login'});
-        ///}
-        ///else
-        ///{
+    const authToken = req.cookies.session;
+    jwt.verify(authToken, keys.secretOrKey, function(err,plant)
+    {
+        if(err || !plant)
+        {
+            res.status(401).jason({success: false, errors: 'access denied: please login'});
+        }
+        else
+        {
             const validation = validateInput(req.body);
             if(validation.isValid)
             {
@@ -82,8 +82,9 @@ router.post('/api/addPlant',function(req,res,next)
             {
                 res.stutus(400).json({success: false, errors: validation.errors});
             }
-        ///}end first else statement
-    ///}); end jwt.verify(authToken,keys.secretOrKey, function(err,user))
+        }//end first else statement
+    }); //end jwt.verify(authToken,keys.secretOrKey, function(err,user))
 });///end router.post function
 
 module.exports = router;
+
