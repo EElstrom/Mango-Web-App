@@ -6,7 +6,7 @@ const isEmpty = require('is-empty');
 
 const keys = require('../config/keys');
 
-const Device = require('../models/plant');
+const Device = require('../models/device');
 
 function validateInput(data)
 {
