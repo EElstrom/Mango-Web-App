@@ -3,11 +3,12 @@ const mongoose = require('mongoose');
 
 const sensor = new mongoose.Schema(
     {
-        // deviceId: 
-        // {
-        //     type: String,
-        //     required: true
-        // },
+        // FK: must be extracted from user
+        userID:
+        {
+            type: String,
+            required: true
+        },
         name: {
             type: String,
             required: true
@@ -25,3 +26,5 @@ const sensor = new mongoose.Schema(
 
     }
 );
+
+module.exports = Device = mongoos.model('device',deviceSchema);
