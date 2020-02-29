@@ -2,11 +2,10 @@ const mongoose = require('mongoose');
 
 const plant = new mongoose.Schema(
     {
-        // plantId:
-        // {
-        //     type: String,
-        //     required: true
-        // },
+        userId:{
+            type: String,
+            required: true
+        },
         name: {
             type: String, 
             required: true
