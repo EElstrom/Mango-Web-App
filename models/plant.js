@@ -1,5 +1,15 @@
 const mongoose = require('mongoose');
+var maxTemp = [1, 'The value of path `{PATH}` ({VALUE}) is beyond the limit ({MAX}).'];
+var minTemp = [0, 'The value of path `{PATH}` ({VALUE}) is below the limit ({MIN}).'];
 
+var maxLight = [1, 'The value of path `{PATH}` ({VALUE}) is beyond the limit ({MAX}).'];
+var minLight = [0, 'The value of path `{PATH}` ({VALUE}) is below the limit ({MIN}).'];
+
+var maxPh = [1, 'The value of path `{PATH}` ({VALUE}) is beyond the limit ({MAX}).'];
+var minPh = [0, 'The value of path `{PATH}` ({VALUE}) is below the limit ({MIN}).'];
+
+var maxHumidity = [1, 'The value of path `{PATH}` ({VALUE}) is beyond the limit ({MAX}).'];
+var minHumidity = [0, 'The value of path `{PATH}` ({VALUE}) is below the limit ({MIN}).'];
 const plantSchema = new mongoose.Schema(
     {
 
@@ -36,28 +46,32 @@ const plantSchema = new mongoose.Schema(
 
         // TODO: find better type to fit an int range - array?
         temperatureTolerance: {
-            type: String,
+            max:maxTemp,
+            min:minTemp,
             required: false,
             default: ''
         },
 
         // TODO: same as tempTol
         lightTolerance: {
-            type: String, 
+            max: maxLight,
+            min: minLight,
             required: false,
             default: ''
         },
 
         // TODO: same as tempTol
         phTolerance: {
-            type: String,
+            max: maxPh,
+            min: minPh,
             required: false,
             default: ''
         },
 
         // TODO: same as tempTol
         humidityTolerance: {
-            type: String,
+            max: maxHumidity,
+            min: minHumidity,
             required: false,
             default: ''
         }
