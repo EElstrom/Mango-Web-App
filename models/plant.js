@@ -1,8 +1,14 @@
 const mongoose = require('mongoose');
 
-const plant = new mongoose.Schema(
+const plantSchema = new mongoose.Schema(
     {
+<<<<<<< HEAD
         userId:{
+=======
+        // FK: extracted from user
+        userID:
+        {
+>>>>>>> 8acbe7b289013b574d3f7754124490ee122d187a
             type: String,
             required: true
         },
@@ -10,39 +16,55 @@ const plant = new mongoose.Schema(
             type: String, 
             required: true
         },
+
         ///created an alias for nickname
         alias: {
             type: String,
-            required: false
+            required: false,
+            default: ''
         },
+
+        // for bookkeeping on multiple devices
+        // if done WIKI style, this should not be included
         deviceName: {
             type: String,
             required: true
         },
+
         type: {
             type: String, 
-            required: false
+            required: false,
+            default: ''
         },
 
+        // TODO: find better type to fit an int range - array?
         temperatureTolerance: {
             type: String,
-            required: false
+            required: false,
+            default: ''
         },
 
+        // TODO: same as tempTol
         lightTolerance: {
             type: String, 
-            required: false
+            required: false,
+            default: ''
         },
 
+        // TODO: same as tempTol
         phTolerance: {
             type: String,
-            required: false
+            required: false,
+            default: ''
         },
 
+        // TODO: same as tempTol
         humidityTolerance: {
             type: String,
-            required: false
+            required: false,
+            default: ''
         }
-
     }
 );
+
+module.exports = Plant = mongoose.model('plant', plantSchema);

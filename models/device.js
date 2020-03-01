@@ -1,7 +1,6 @@
-
 const mongoose = require('mongoose');
 
-const sensor = new mongoose.Schema(
+const deviceSchema = new mongoose.Schema(
     {
         // FK: must be extracted from user
         userID:
@@ -16,15 +15,22 @@ const sensor = new mongoose.Schema(
 
         location: {
             type: String,
-            required: true
+            required: false,
+            default: ''
         },
 
+        // TODO: better type for date: int array?
+        // maybe have this required, but is assigned with like.. now()?
         installDate: {
             type: String,
-            required: false
+            required: false,
+            default: ''
         }
-
     }
 );
 
+<<<<<<< HEAD
 module.exports = Device = mongoos.model('device',deviceSchema);
+=======
+module.exports = Device = mongoose.model('device', deviceSchema);
+>>>>>>> 8acbe7b289013b574d3f7754124490ee122d187a
