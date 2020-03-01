@@ -3,9 +3,6 @@ const router = express.Router();
 const validator = require('valildator');
 const isEmpty = require('is-empty');
 
-const jwt = require('jsonwebtoken');
-const keys = reqire('../config/keys');
-
 const Plant = require('../models/plant');
 
 // validation needs to have all required fields filled out, not just one
