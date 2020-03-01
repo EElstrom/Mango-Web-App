@@ -1,18 +1,18 @@
 const mongoose = require('mongoose');
 //100 degrees Fahrenheit
-var maxTemp = [100, 'The value of path `{PATH}` ({VALUE}) is beyond the limit ({MAX}).'];
+var maxTemp = [100, 'The value of path `{PATH}` ({VALUE}) is above the limit ({MAX}).'];
 var minTemp = [0, 'The value of path `{PATH}` ({VALUE}) is below the limit ({MIN}).'];
 
 //there are only 24 hours in a day
-var maxLight = [24, 'The value of path `{PATH}` ({VALUE}) is beyond the limit ({MAX}).'];
+var maxLight = [24, 'The value of path `{PATH}` ({VALUE}) is above the limit ({MAX}).'];
 var minLight = [0, 'The value of path `{PATH}` ({VALUE}) is below the limit ({MIN}).'];
 
 //the highest pH level is 14 for soil
-var maxPh = [14, 'The value of path `{PATH}` ({VALUE}) is beyond the limit ({MAX}).'];
+var maxPh = [14, 'The value of path `{PATH}` ({VALUE}) is above the limit ({MAX}).'];
 var minPh = [1, 'The value of path `{PATH}` ({VALUE}) is below the limit ({MIN}).'];
 
 //minHumidity to maxHumidity is 0% to 100%
-var maxHumidity = [100, 'The value of path `{PATH}` ({VALUE}) is beyond the limit ({MAX}).'];
+var maxHumidity = [100, 'The value of path `{PATH}` ({VALUE}) is above the limit ({MAX}).'];
 var minHumidity = [0, 'The value of path `{PATH}` ({VALUE}) is below the limit ({MIN}).'];
 const plantSchema = new mongoose.Schema(
     {
