@@ -3,12 +3,9 @@ const mongoose = require('mongoose');
 const plantSchema = new mongoose.Schema(
     {
 
-        userId:{
-
         // FK: extracted from user
         userID:
         {
-
             type: String,
             required: true
         },
