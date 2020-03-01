@@ -2,13 +2,13 @@ const mongoose = require('mongoose');
 
 const plantSchema = new mongoose.Schema(
     {
-<<<<<<< HEAD
+
         userId:{
-=======
+
         // FK: extracted from user
         userID:
         {
->>>>>>> 8acbe7b289013b574d3f7754124490ee122d187a
+
             type: String,
             required: true
         },
