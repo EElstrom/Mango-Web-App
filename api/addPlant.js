@@ -53,19 +53,6 @@ async function validateinput(data)
 router.post('/api/addPlant', async (req, res) => {
     console.log('POST in addPlant');
 
-<<<<<<< HEAD
-    const authToken = req.cookies.session;
-    jwt.verify(authToken, keys.secretOrKey, function(err,plant)
-    {
-        if(err || !plant)
-        {
-            res.status(401).jason({success: false, errors: 'access denied: please login'});
-        }
-        else
-        {
-            const validation = validateInput(req.body);
-            if(validation.isValid)
-=======
     const validation = await validateInput(req.body);
 
     if (validation.isValid)
@@ -87,7 +74,6 @@ router.post('/api/addPlant', async (req, res) => {
         // .create() to package and send to db
         Plant.create(newPlant, (err, result) => {
             if (err)
->>>>>>> 8acbe7b289013b574d3f7754124490ee122d187a
             {
                 console.log(err);
                 res.status(500).json({
@@ -102,11 +88,6 @@ router.post('/api/addPlant', async (req, res) => {
                     success: true
                 });
             }
-<<<<<<< HEAD
-        }//end first else statement
-    }); //end jwt.verify(authToken,keys.secretOrKey, function(err,user))
-});///end router.post function
-=======
         });
     }
 
@@ -118,7 +99,6 @@ router.post('/api/addPlant', async (req, res) => {
         });
     }
 });
->>>>>>> 8acbe7b289013b574d3f7754124490ee122d187a
 
 module.exports = router;
 
