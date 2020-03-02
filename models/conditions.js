@@ -8,8 +8,7 @@ const conditionsSchema = new mongoose.Schema(
             type: Number,
             required: true
         },
-
-        // guaranteed uniqueness, up to user to be smart about it
+        
         deviceName:
         {
             type: String,
