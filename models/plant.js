@@ -50,32 +50,32 @@ const plantSchema = new mongoose.Schema(
 
         // TODO: find better type to fit an int range - array?
         temperatureTolerance: {
-            max:maxTemp,
-            min:minTemp,
+            max:schema.temperatureTolerance.maxTemp,
+            min:schema.temperatureTolerance.minTemp,
             required: false,
             default: ''
         },
 
         // TODO: same as tempTol
         lightTolerance: {
-            max: maxLight,
-            min: minLight,
+            max: schema.lightTolerance.maxLight,
+            min: shcema.lightTolerance.minLight,
             required: false,
             default: ''
         },
 
         // TODO: same as tempTol
         phTolerance: {
-            max: maxPh,
-            min: minPh,
+            max: schema.phTolerance.maxPh,
+            min: schema.phTolerance.minPh,
             required: false,
             default: ''
         },
 
         // TODO: same as tempTol
         humidityTolerance: {
-            max: maxHumidity,
-            min: minHumidity,
+            max: schema.humidityTolerance.maxHumidity,
+            min: schema.humidityTolerance.minHumidity,
             required: false,
             default: ''
         }
