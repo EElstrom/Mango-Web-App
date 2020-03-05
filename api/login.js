@@ -12,9 +12,9 @@ async function validateInput(data)
 {
 	var errors = {};
 
-	if (isEmpty(data.username) || validator.isEmpty(data.username))
+	if (isEmpty(data.email) || validator.isEmpty(data.email))
 	{
-		errors.username = 'username required';
+		errors.email = 'email required';
 	}
 
 	if (isEmpty(data.password) || validator.isEmpty(data.password))
@@ -33,7 +33,7 @@ router.post('/api/login', async function(req, res, next)
 
 	if (validation.isValid)
 	{
-		User.findOne({username: req.body.username}, function(err, user)
+		User.findOne({email: req.body.email}, function(err, user)
 		{
 			if (err)
 			{
@@ -56,10 +56,8 @@ router.post('/api/login', async function(req, res, next)
 					{
 						const payload = {
 						  id: user.id,
-						  username: user.username,
-						  firstname: user.firstname,
-						  lastname: user.lastname,
-						  email: user.email
+						  email: user.email,
+						  name: user.name,
 						};
 
 						jwt.sign(payload, keys.secretOrKey, {expiresIn: 7200}, function(err, token)
