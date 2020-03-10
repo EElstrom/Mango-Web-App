@@ -8,54 +8,39 @@ const plantSchema = new mongoose.Schema(
             type: String,
             required: true
         },
-        name: {
+
+        name: 
+        {
             type: String, 
             required: true
-        },
-
-        ///created an alias for nickname
-        alias: {
-            type: String,
-            required: false,
-            default: ''
         },
 
         // for bookkeeping on multiple devices
         // if done WIKI style, this should not be included
-        deviceName: {
+        deviceName:
+        {
             type: String,
-            required: true
+            required: false,
+            default: ''
         },
 
-        type: {
+        type: 
+        {
             type: String, 
             required: false,
             default: ''
         },
 
-        // TODO: find better type to fit an int range - array?
-        temperatureTolerance: {
-            type: String,
+        tempTolerance: 
+        {
+            type: [Number],
             required: false,
             default: ''
         },
 
         // TODO: same as tempTol
-        lightTolerance: {
-            type: String, 
-            required: false,
-            default: ''
-        },
-
-        // TODO: same as tempTol
-        phTolerance: {
-            type: String,
-            required: false,
-            default: ''
-        },
-
-        // TODO: same as tempTol
-        humidityTolerance: {
+        humidityTolerance: 
+        {
             type: String,
             required: false,
             default: ''
