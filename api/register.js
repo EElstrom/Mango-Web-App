@@ -80,16 +80,12 @@ router.post('/api/register', async function(req,res,next)
                     console.log(err);
                 
                 const newUser = new User({
-                    username : req.body.username,
-                    password : hash,
-                    name : req.body.name,
                     email : req.body.email, 
+                    password : hash,
+                    name: '',
+                    location: '', 
                     noOfDevices: 0 // should be updated internally
-                });
-        
-                // can this be added after? dunno.
-                if (req.body.location)
-                    newUser.location = req.body.location;
+                });                
                 
                 User.create(newUser, (err, user) => {
                     if (err)

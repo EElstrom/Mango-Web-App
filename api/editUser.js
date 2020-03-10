@@ -1,4 +1,4 @@
-// editing user info: username, password, name, email, location
+// editing user info:password, email, name, location
 
 const express = require('express');
 const router = express.Router();
@@ -56,18 +56,15 @@ router.post('/api/editUser', (req, res) => {
                 if (req.body.password)
                     update.password = bcrypt.hashSync(req.body.password, 10);
                 
+                if (req.body.email)
+                    update.email = req.body.email;
+
                 if (req.body.name)
                     update.name = req.body.name;
-                
-                if (req.body.username)
-                    update.username = req.body.username;
                 
                 if (req.body.location)
                     update.location = req.body.location;
 
-                if (req.body.email)
-                    update.email = req.body.email;
-                
                 User.findOneAndUpdate({
                     _id: req.body.id, // PK
                     
