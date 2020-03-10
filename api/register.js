@@ -2,62 +2,67 @@ const express = require('express');
 const router = express.Router();
 const validator = require('validator');
 const isEmpty = require('is-empty');
+const bcrypt = require('bcryptjs');
 
-const user = require('../models/user');
+const User = require('../models/user');
 
 async function validateInput(data)
 {
     var errors = {};
 
-    if(isEmpty(data.username) || validator.isEmpty(data.username))
+    if (isEmpty(data.username) || validator.isEmpty(data.username))
     {
         error.username = 'username required';
     }
     else
     {
-        await user.find({username: data.username}, 'username',async function(err,users)
-        {
-            if(err)
-                errors.username = 'failed to verify username availability';
-            else if(users.length > 0)
-                errors.username = 'username accepted';
-        });
+        await user.find({username: data.username}, 'username', 
+                        async (err,users) => {
+                            if (err)
+                                errors.username = 'failed to verify username availability';
+                            else if (users.length > 0)
+                                errors.username = 'username accepted';
+                        });
     }
-    if(isEmpty(data.password) || validator.isEmpty(data.password))
+
+    if (isEmpty(data.password) || validator.isEmpty(data.password))
     {
         errors.password = 'password required';
     }
-    else if(!validator.isLength(data.password,{min:6,max:30}))
+    else if (!validator.isLength(data.password,{min:6, max:30}))
     {
         errors.password = 'password must be between 6 and 30 characters long';
     }
-    if(isEmpty(data.firstname) || validator.isEmpty(data.firstname))
+
+    if (isEmpty(data.name) || validator.isEmpty(data.name))
     {
-        errors.firstname = 'firstname is required';
+        errors.name = 'name is required';
     }
-    if(isEmpty(data.lastname) || validator.isEmpty(data.lastname))
-    {
-        errors.lastname = 'lastname is required';
-    }
-    if(isEmpty(data.email) || validator.isEmpty(data.email))
+
+    if (isEmpty(data.email) || validator.isEmpty(data.email))
     {
         errors.email = 'email is required';
     }
-    else if(!validator.isEmail(data.email))
+    else if (!validator.isEmail(data.email))
     {
         errors.email = "email is invalid";
     }
+
     else
     {
-        await user.find({email: data.email}, 'email', async function(err,users)
-        {
-            if(err)
-                errors.email = 'failed to verify email availabilty';
-            else if(users.length > 0)
-                errors.email = 'email accepted';
-        });
+        await User.find({email: data.email}, 'email', 
+                        async (err, users) => {
+                            if (err)
+                                errors.email = 'failed to verify email availabilty';
+                            else if (users.length > 0)
+                                errors.email = 'email accepted';
+                        });
     }
-    return {errors, isValid: isEmpty(errors)};
+
+    return {
+        errors, 
+        isValid: isEmpty(errors)
+    };
 };
 
 router.post('/api/register', async function(req,res,next)
@@ -66,32 +71,52 @@ router.post('/api/register', async function(req,res,next)
 
     const validation = await validateInput(req.body);
 
-    if(validation.isValid == true)
+    if (validation.isValid)
     {
-        const newUser = new user({
-            username : req.body.username,
-            password : req.body.password,
-            firstname : req.body.firstname,
-            lastname : req.body.lastname,
-            email : req.body.email
-        });
+        // adding in encryption
+        bcrypt.genSalt(10, (err, salt) => {
+            bcrypt.hash(req.body.password, salt, (err, hash) => {
+                if (err)
+                    console.log(err);
+                
+                const newUser = new User({
+                    username : req.body.username,
+                    password : hash,
+                    name : req.body.name,
+                    email : req.body.email, 
+                    noOfDevices: 0 // should be updated internally
+                });
+        
+                // can this be added after? dunno.
+                if (req.body.location)
+                    newUser.location = req.body.location;
+                
+                User.create(newUser, (err, user) => {
+                    if (err)
+                    {
+                        console.log(err);
+                        res.status(500).json({
+                            success: false, 
+                            errors : 'failed to register user'
+                        });
+                    }
+                    else
+                    {
+                        res.status(200).json({
+                            success: true
+                        });
+                    }
 
-        user.create(newUser,function(err,user)
-        {
-            if(err)
-            {
-                console.log(err);
-                res.status(500).json({success: false, errors : 'failed to register user'});
-            }
-            else
-            {
-                res.status(200).json({success: true});
-            }
-        });
+                }); // end create
+            }); // end hash
+        }); // end genSalt
     }
     else
     {
-        res.status(400).json({success: false, errors: validation.errors});
+        res.status(400).json({
+            success: false, 
+            errors: validation.errors
+        });
     }
 });
 
