@@ -34,11 +34,6 @@ async function validateInput(data)
         errors.password = 'password must be between 6 and 30 characters long';
     }
 
-    if (isEmpty(data.name) || validator.isEmpty(data.name))
-    {
-        errors.name = 'name is required';
-    }
-
     if (isEmpty(data.email) || validator.isEmpty(data.email))
     {
         errors.email = 'email is required';
