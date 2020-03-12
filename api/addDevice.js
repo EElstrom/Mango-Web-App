@@ -21,7 +21,7 @@ async function validateDevice(data)
     // ensure device name is unique
     else
     {
-        await Device.exists({
+       await Device.exists({
             // userID: user.id,
             name: data.name
         }, (err, result) => {

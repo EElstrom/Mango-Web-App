@@ -6,6 +6,7 @@ const bcrypt = require('bcryptjs');
 
 const User = require('../models/user');
 
+
 async function validateInput(data)
 {
     var errors = {};
@@ -60,13 +61,15 @@ async function validateInput(data)
     };
 };
 
-router.post('/api/register', async function(req,res,next)
-{
+
+router.post('/api/register', async (req, res) => {
     console.log('Express: POST /api/register');
 
     const validation = await validateInput(req.body);
+    const test = 0;
 
     if (validation.isValid)
+    // if (test)
     {
         // adding in encryption
         bcrypt.genSalt(10, (err, salt) => {

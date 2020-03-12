@@ -30,4 +30,4 @@ const deviceSchema = new mongoose.Schema(
     }
 );
 
-module.exports = Device = mongoose.model('device', deviceSchema);
+module.exports = Device = mongoose.model('devices', deviceSchema);
