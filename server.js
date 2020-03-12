@@ -13,17 +13,17 @@ app.use(cookieParser());
 // process.env.PORT || 
 const port = process.env.PORT || 5000;
 
-/*
+
 // connect MongoDB
 mongoose
 	.connect(keys.mongoURI, {
 		useNewUrlParser: true, 
 		useUnifiedTopology: true, 
-		// useFindAndModify: false
+		useFindAndModify: false
 	 })
 	.then(() => console.log('Express: Connected to MongoDB'))
 	.catch((err) => console.error(err));
-*/
+
 
 // route specifications
 const login = require('./api/login');
