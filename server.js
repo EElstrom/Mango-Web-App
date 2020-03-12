@@ -10,7 +10,6 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 // establish port; in development: localhost:5000
-// process.env.PORT || 
 const port = process.env.PORT || 5000;
 
 
@@ -65,19 +64,16 @@ app.get('*', function(req, res)
 
 // routes implemented: UNTESTED
 app.use(addPlant);
-app.use(register);
 
-// routes impelemented: TESTED
-
-// ROUTES NOT CURRENTLY SETUP - will crash server until they're ready
-// app.use() needs to be caught by router.___() in routes
-/*
 // user routes:
 app.use(register);
 app.use(login);
 app.use(logout);
-app.use(editUser);
+// app.use(editUser)
 
+// routes impelemented: TESTED
+
+/*
 // add routes:
 app.use(addDevice);
 app.use(addPlant);

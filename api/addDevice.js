@@ -22,7 +22,7 @@ async function validateDevice(data)
     else
     {
        await Device.exists({
-            // userID: user.id,
+            userID: user.id,
             name: data.name
         }, (err, result) => {
             if (err)
@@ -43,7 +43,6 @@ router.post('/api/addDevice', (req,res,) => {
 
     const validation = validateInput(req.body);
 
-    // I still don't understand how the ID's are assigned, since the DB does it.
     if (validation.isValid)
     {
         const newDevice = new Device({
