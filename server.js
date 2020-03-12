@@ -11,12 +11,19 @@ app.use(cookieParser());
 
 // establish port; in development: localhost:5000
 // process.env.PORT || 
-const port = 5000;
+const port = process.env.PORT || 5000;
 
+/*
 // connect MongoDB
-mongoose.connect(keys.mongoURI, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false})
-        .then(() => console.log('Express: Connected to MongoDB'))
-        .catch((err) => console.error(err));
+mongoose
+	.connect(keys.mongoURI, {
+		useNewUrlParser: true, 
+		useUnifiedTopology: true, 
+		// useFindAndModify: false
+	 })
+	.then(() => console.log('Express: Connected to MongoDB'))
+	.catch((err) => console.error(err));
+*/
 
 // route specifications
 const login = require('./api/login');
@@ -58,6 +65,7 @@ app.use(servertesting);
 
 // routes implemented: UNTESTED
 app.use(addPlant);
+app.use(register);
 
 // routes impelemented: TESTED
 
