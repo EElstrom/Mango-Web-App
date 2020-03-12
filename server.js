@@ -60,8 +60,8 @@ app.get('*', function(req, res)
 
 
 // testing module for basic get/post/del
-const servertesting = require('./api/servertesting');
-app.use(servertesting);
+//const servertesting = require('./api/servertesting');
+//app.use(servertesting);
 
 // routes implemented: UNTESTED
 app.use(addPlant);
