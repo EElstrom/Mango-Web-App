@@ -6,7 +6,7 @@ const isEmpty = require('is-empty');
 const Device = require('../models/device');
 
 // validation only requires name and userID, all other attributes currently unrequired
-function validateDevice(data)
+async function validateDevice(data)
 {
     // can this be "const errors" to maintain js version?
     var errors = {};
@@ -21,7 +21,7 @@ function validateDevice(data)
     // ensure device name is unique
     else
     {
-        await Device.exists({
+       await Device.exists({
             // userID: user.id,
             name: data.name
         }, (err, result) => {

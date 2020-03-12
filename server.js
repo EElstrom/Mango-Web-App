@@ -3,13 +3,20 @@ const mongoose = require('mongoose');
 const mongoClient = require('mongodb');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const keys = require('./config/keys');
 
 const app = express();
 app.use(bodyParser.json());
 app.use(cookieParser());
 
 // establish port; in development: localhost:5000
-const port = process.env.PORT || 5000;
+// process.env.PORT || 
+const port = 5000;
+
+// connect MongoDB
+mongoose.connect(keys.mongoURI, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false})
+        .then(() => console.log('Express: Connected to MongoDB'))
+        .catch((err) => console.error(err));
 
 // route specifications
 const login = require('./api/login');
@@ -24,6 +31,7 @@ const addPlant = require('./api/addPlant');
 const deletePlant = require('./api/deletePlant');
 const editPlant = require('./api/editPlant');
 const searchPlants = require('./api/searchPlants');
+
 
 // Set some HTTP Request Headers (I don't know why)
 app.use((req, res, next) => 
@@ -43,6 +51,7 @@ app.get('*', function(req, res)
 	res.sendFile('./build/index.html', {root: __dirname});
 });
 
+
 // testing module for basic get/post/del
 const servertesting = require('./api/servertesting');
 app.use(servertesting);
@@ -55,18 +64,29 @@ app.use(addPlant);
 // ROUTES NOT CURRENTLY SETUP - will crash server until they're ready
 // app.use() needs to be caught by router.___() in routes
 /*
-// using routes
-app.use(login);
+// user routes:
 app.use(register);
+app.use(login);
 app.use(logout);
 app.use(editUser);
+
+// add routes:
 app.use(addDevice);
-app.use(deleteDevice);
+app.use(addPlant);
+
+// edit (user FK) routes:
 app.use(editDevice);
-app.use(getConditions);
-app.use(deletePlant);
 app.use(editPlant);
+
+// delete (user FK) routes:
+app.use(deleteDevice);
+app.use(deletePlant);
+
+// misc routes:
 app.use(searchPlants);
+
+// storing data:
+app.use(
 */
 
 app.listen(port, () => {

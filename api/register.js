@@ -60,8 +60,7 @@ async function validateInput(data)
     };
 };
 
-router.post('/api/register', async function(req,res,next)
-{
+router.post('/api/register', async (req, res) => {
     console.log('Express: POST /api/register');
 
     const validation = await validateInput(req.body);
