@@ -14,9 +14,8 @@ const port = process.env.PORT || 5000;
 
 
 // connect MongoDB
-// CURRENTLY NOT WORKING, PROCESSING FIX
 mongoose
-	.connect(keys.mongoURI, {
+  .connect(keys.mongoURI, {
 		useNewUrlParser: true, 
 		useUnifiedTopology: true, 
 		useFindAndModify: false
