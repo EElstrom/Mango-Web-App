@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 const validator = require('validator');
 const isEmpty = require('is-empty');
 
-const User = require('../models/User');
+const User = require('../models/user');
 const keys = require('../config/keys');
 
 // logging in requires the email and password
