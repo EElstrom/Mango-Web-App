@@ -13,20 +13,18 @@ app.use(cookieParser());
 const port = process.env.PORT || 5000;
 
 // route specifications
-const addDevice = require('./api/addDevice');
-const addPlant = require('./api/addPlant');
-const deleteDevice = require('./api/deleteDevice');
-const deletePlant = require('./api/deletePlant');
-const editDevice = require('./api/editDevice');
-const editPlant = require('./api/editPlant');
-const editUser = require('./api/editUser');
+// const addDevice = require('./api/addDevice');
+// const addPlant = require('./api/addPlant');
+// const deleteDevice = require('./api/deleteDevice');
+// const deletePlant = require('./api/deletePlant');
+// const editDevice = require('./api/editDevice');
+// const editPlant = require('./api/editPlant');
+// const editUser = require('./api/editUser');
 const login = require('./api/login');
-const logout = require('./api/logout');
-const register = require('./api/register');
-
-const getConditions = require('./api/getConditions');
-
-const searchPlants = require('./api/searchPlants');
+// const logout = require('./api/logout');
+// const register = require('./api/register');
+// const getConditions = require('./api/getConditions');
+// const searchPlants = require('./api/searchPlants');
 
 // Set some HTTP Request Headers (I don't know why)
 app.use((req, res, next) => 
@@ -48,27 +46,26 @@ app.get('*', function(req, res)
 
 // testing module for basic get/post/del
 const servertesting = require('./api/servertesting');
-app.use(servertesting);
+app.use(testServer);
 
-// 0 routes impelemented: TESTED
+// Tested Routes Complete: 0
 
-// ROUTES NOT CURRENTLY SETUP - will crash server until they're ready
-// app.use() needs to be caught by router.___() in routes
 
-// 12 routes implemented: UNTESTED
+
+// Routes in Testing: 12
 // using routes
-app.use(addDevice);
-app.use(addPlant);
-app.use(deleteDevice);
-app.use(deletePlant);
-app.use(editDevice);
-app.use(editPlant);
-app.use(editUser);
-app.use(getConditions);
+// app.use(addDevice);
+// app.use(addPlant);
+// app.use(deleteDevice);
+// app.use(deletePlant);
+// app.use(editDevice);
+// app.use(editPlant);
+// app.use(editUser);
+// app.use(getConditions);
 app.use(login);
-app.use(logout);
-app.use(register);
-app.use(searchPlants);
+// app.use(logout);
+// app.use(register);
+// app.use(searchPlants);
 
 
 app.listen(port, () => {
