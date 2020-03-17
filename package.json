@@ -3,12 +3,12 @@
   "version": "0.0.1",
   "private": true,
   "description": "A MERN Web Application that helps you maintain your greenhouse",
-  "main": "server.js",
+  "main": "testServer.js",
   "scripts": {
-    "start": "react-scripts start & nodemon server.js",
+    "start": "react-scripts start & nodemon testServer.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "deploy": "npm run build && node server.js"
+    "deploy": "npm run build && node testServer.js"
   },
   "repository": {
     "type": "git",
@@ -38,7 +38,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5000",
+  "proxy": "http://localhost:3000",
   "devDependencies": {
     "nodemon": "^2.0.2"
   }
