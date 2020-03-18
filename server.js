@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const keys = require('./config/keys');
 
 const app = express();
+const keys = require('./config/keys');
 app.use(bodyParser.json());
 app.use(cookieParser());
 
@@ -25,17 +26,19 @@ mongoose
 
 
 // route specifications
-const login = require('./api/login');
-const register = require('./api/register');
-const logout = require('./api/logout');
-const editUser = require('./api/editUser');
-const addSensor = require('./api/addDevice');
-const deleteSensor = require('./api/deleteDevice');
-const editSensor = require('./api/editDevice');
-const getConditions = require('./api/getConditions');
+const addDevice = require('./api/addDevice');
 const addPlant = require('./api/addPlant');
+const deleteDevice = require('./api/deleteDevice');
 const deletePlant = require('./api/deletePlant');
+const editDevice = require('./api/editDevice');
 const editPlant = require('./api/editPlant');
+const editUser = require('./api/editUser');
+const login = require('./api/login');
+const logout = require('./api/logout');
+const register = require('./api/register');
+
+const getConditions = require('./api/getConditions');
+
 const searchPlants = require('./api/searchPlants');
 
 
@@ -59,8 +62,8 @@ app.get('*', function(req, res)
 
 
 // testing module for basic get/post/del
-//const servertesting = require('./api/servertesting');
-//app.use(servertesting);
+// const servertesting = require('./api/servertesting');
+// app.use(servertesting);
 
 // routes implemented: UNTESTED
 app.use(addPlant);
@@ -92,6 +95,7 @@ app.use(searchPlants);
 // storing data:
 app.use(
 */
+
 
 app.listen(port, () => {
     console.log("Living it up in " + port + " city!");
