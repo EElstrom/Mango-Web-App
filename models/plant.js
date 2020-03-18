@@ -16,7 +16,6 @@ var maxHumidity = [100, 'The value of path `{PATH}` ({VALUE}) is above the limit
 var minHumidity = [0, 'The value of path `{PATH}` ({VALUE}) is below the limit ({MIN}).'];
 const plantSchema = new mongoose.Schema(
     {
-
         // FK: extracted from user
         userID:
         {
