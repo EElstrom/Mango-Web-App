@@ -26,16 +26,19 @@ mongoose
 
 
 // route specifications
-const addDevice = require('./api/addDevice');
-const addPlant = require('./api/addPlant');
-const deleteDevice = require('./api/deleteDevice');
-const deletePlant = require('./api/deletePlant');
-const editDevice = require('./api/editDevice');
-const editPlant = require('./api/editPlant');
-const editUser = require('./api/editUser');
+
+// device-related endpoints likely to change
 const login = require('./api/login');
-const logout = require('./api/logout');
 const register = require('./api/register');
+const logout = require('./api/logout');
+const editUser = require('./api/editUser');
+const addDevice = require('./api/addDevice');
+const deleteDevice = require('./api/deleteDevice');
+const editDevice = require('./api/editDevice');
+const getConditions = require('./api/getConditions');
+const addPlant = require('./api/addPlant');
+const deletePlant = require('./api/deletePlant');
+const editPlant = require('./api/editPlant');
 
 const getConditions = require('./api/getConditions');
 
@@ -93,7 +96,6 @@ app.use(deletePlant);
 app.use(searchPlants);
 
 // storing data:
-app.use(
 */
 
 
