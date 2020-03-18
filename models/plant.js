@@ -23,49 +23,53 @@ const plantSchema = new mongoose.Schema(
             type: String,
             required: true
         },
-        name: {
+
+        name: 
+        {
             type: String, 
             required: true
         },
 
-        ///created an alias for nickname
-        alias: {
+        // for bookkeeping on multiple devices
+        // if done WIKI style, this should not be included
+        deviceName:
+        {
             type: String,
             required: false,
             default: ''
         },
 
-        // for bookkeeping on multiple devices
-        // if done WIKI style, this should not be included
-        deviceName: {
-            type: String,
-            required: true
-        },
-
-        type: {
+        type: 
+        {
             type: String, 
             required: false,
             default: ''
         },
 
         // TODO: find better type to fit an int range - array?
-        temperatureTolerance: {
+        temperatureTolerance: 
+        {
+            type: String,
             max:schema.temperatureTolerance.maxTemp,
             min:schema.temperatureTolerance.minTemp,
             required: false,
             default: ''
         },
-
+       
         // TODO: same as tempTol
-        lightTolerance: {
+        lightTolerance: 
+        {
+            type: String,
             max: schema.lightTolerance.maxLight,
             min: shcema.lightTolerance.minLight,
             required: false,
             default: ''
         },
-
+      
         // TODO: same as tempTol
-        phTolerance: {
+        phTolerance: 
+        {
+            type: String,
             max: schema.phTolerance.maxPh,
             min: schema.phTolerance.minPh,
             required: false,
@@ -73,7 +77,9 @@ const plantSchema = new mongoose.Schema(
         },
 
         // TODO: same as tempTol
-        humidityTolerance: {
+        humidityTolerance: 
+        {
+            type: String, 
             max: schema.humidityTolerance.maxHumidity,
             min: schema.humidityTolerance.minHumidity,
             required: false,
@@ -82,4 +88,4 @@ const plantSchema = new mongoose.Schema(
     }
 );
 
-module.exports = Plant = mongoose.model('plant', plantSchema);
+module.exports = Plant = mongoose.model('plants', plantSchema);

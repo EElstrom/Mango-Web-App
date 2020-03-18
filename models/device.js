@@ -8,21 +8,21 @@ const deviceSchema = new mongoose.Schema(
             type: String,
             required: true
         },
-
-        name: {
+      
+        alias: 
+        {
             type: String,
             required: true
         },
 
-        location: {
-            type: String,
-            required: false,
-            default: ''
+        postFrequency:
+        {
+            type: Number,
+            required: true
         },
 
-        // TODO: better type for date: int array?
-        // maybe have this required, but is assigned with like.. now()?
-        installDate: {
+        location: 
+        {
             type: String,
             required: false,
             default: ''
@@ -30,6 +30,4 @@ const deviceSchema = new mongoose.Schema(
     }
 );
 
-
-module.exports = Device = mongoose.model('device', deviceSchema);
-
+module.exports = Device = mongoose.model('devices', deviceSchema);

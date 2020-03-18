@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const validator = require('valildator');
+const validator = require('validator');
 const isEmpty = require('is-empty');
 
 const Plant = require('../models/plant');

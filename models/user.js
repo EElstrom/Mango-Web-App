@@ -2,38 +2,34 @@ const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema(
     {
-        username: {
-            type: String, 
-            required: true
-        },
-
-        password: {
+        email: 
+        {
             type: String,
             required: true
         },
 
-        firstname: {
-            type: String, 
-            required: true
-        },
-
-        lastname: {
+        password: 
+        {
             type: String,
             required: true
         },
 
-        email: {
+        name: 
+        {
             type: String,
-            required: true
+            required: false,
+            default: ''
         },
         
-        location: {
+        location: 
+        {
             type: String,
             required: false,
             default: ''
         },
 
-        noOfDevices: {
+        noOfDevices: 
+        {
             type: Number,
             required: false,
             default: 0
@@ -41,4 +37,4 @@ const userSchema = new mongoose.Schema(
     }   
 );
 
-module.exports = User = mongoose.models('user', userSchema);
+module.exports = User = mongoose.model('users', userSchema);

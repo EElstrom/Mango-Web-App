@@ -3,12 +3,12 @@
   "version": "0.0.1",
   "private": true,
   "description": "A MERN Web Application that helps you maintain your greenhouse",
-  "main": "testServer.js",
+  "main": "server.js",
   "scripts": {
-    "start": "react-scripts start & nodemon testServer.js",
+    "start": "react-scripts start > /dev/null & nodemon server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "deploy": "npm run build && node testServer.js"
+    "deploy": "npm run build && node server.js"
   },
   "repository": {
     "type": "git",
@@ -18,13 +18,20 @@
     "@testing-library/jest-dom": "^5.1.1",
     "@testing-library/react": "^9.4.0",
     "@testing-library/user-event": "^10.0.0",
+    "bcrypt": "^4.0.1",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.4",
     "express": "^4.17.1",
+    "is-empty": "^1.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.4",
+    "nodemon": "^2.0.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-scripts": "^3.4.0",
-    "typescript": "^3.8.2"
+    "typescript": "^3.8.2",
+    "validator": "^12.2.0"
   },
   "browserslist": {
     "production": [
@@ -38,8 +45,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:3000",
-  "devDependencies": {
-    "nodemon": "^2.0.2"
-  }
+  "proxy": "http://localhost:5000"
 }

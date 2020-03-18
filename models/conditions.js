@@ -8,10 +8,23 @@ const conditionsSchema = new mongoose.Schema(
             type: Number,
             required: true
         },
-        
+      
         deviceName:
         {
             type: String,
+            required: false,
+            default: ''
+        },
+
+        date:
+        {
+            type: [Number],
+            required: true
+        },
+
+        time:
+        {
+            type: [Number],
             required: true
         },
 
@@ -24,23 +37,6 @@ const conditionsSchema = new mongoose.Schema(
         curHumidity:
         {
             type: Number,
-            required: true
-        },
-
-        // I don't actually know what all parameters we're testing
-        // TODO: finish all conditions recorded
-
-        // are we keeping only daily ranges, multiple ranges?
-        // temporary guesses
-        rangeTemp: 
-        {
-            type: [Number],
-            required: true
-        }, 
-
-        rangeHumidity:
-        {
-            type: [Number],
             required: true
         }
     }

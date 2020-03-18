@@ -1,4 +1,4 @@
 module.exports = {
-    mongoURI: 'mongodb+srv://devong:Shuckle@contactmanager-c6p1t.mongodb.net/contact_manager',
-    secretOrKey: 'thesecretisnolongershucklebecauseisaidso'
-  };
+  mongoURI: 'mongodb+srv://eelstrom:treapbestdatastructure@contactmanager-c6p1t.mongodb.net/mango_greenhouse?retryWrites=true&w=majority',
+  secretOrKey: 'thesecretisnolongershucklebecauseisaidsoItsActuallyCharizard'
+};
