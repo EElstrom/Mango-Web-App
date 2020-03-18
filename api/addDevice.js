@@ -77,3 +77,4 @@ router.post('/api/addDevice', (req,res,) => {
 });
 
 module.exports = router;
+
