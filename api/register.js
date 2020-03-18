@@ -1,15 +1,16 @@
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcryptjs');
 const validator = require('validator');
 const isEmpty = require('is-empty');
 const bcrypt = require('bcryptjs');
 
 const User = require('../models/user');
 
-
+// Determine if registration input is valid
 async function validateInput(data)
 {
-    var errors = {};
+	var errors = {};
 
     if (isEmpty(data.username) || validator.isEmpty(data.username))
     {
