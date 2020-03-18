@@ -22,7 +22,7 @@ async function validateInput(data)
 	{
 		errors.password = 'password required';
 	}
-
+  
 	return {
         errors, 
         isValid: isEmpty(errors)

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+
 const climateSchema = new mongoose.Schema(
     {
         // FK from sensor
@@ -78,4 +79,3 @@ const climateSchema = new mongoose.Schema(
 );
 
 module.exports = Climate = mongoose.model('climate', climateSchema);
-        

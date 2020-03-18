@@ -8,7 +8,7 @@ const conditionsSchema = new mongoose.Schema(
             type: Number,
             required: true
         },
-
+      
         deviceName:
         {
             type: String,

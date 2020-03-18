@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const keys = require('./config/keys');
 
 const app = express();
+const keys = require('./config/keys');
 app.use(bodyParser.json());
 app.use(cookieParser());
 
@@ -25,6 +26,7 @@ mongoose
 
 
 // route specifications
+
 // device-related endpoints likely to change
 const login = require('./api/login');
 const register = require('./api/register');
@@ -37,6 +39,9 @@ const getConditions = require('./api/getConditions');
 const addPlant = require('./api/addPlant');
 const deletePlant = require('./api/deletePlant');
 const editPlant = require('./api/editPlant');
+
+const getConditions = require('./api/getConditions');
+
 const searchPlants = require('./api/searchPlants');
 
 
@@ -60,8 +65,8 @@ app.get('*', function(req, res)
 
 
 // testing module for basic get/post/del
-//const servertesting = require('./api/servertesting');
-//app.use(servertesting);
+// const servertesting = require('./api/servertesting');
+// app.use(servertesting);
 
 // routes implemented: UNTESTED
 app.use(addPlant);
@@ -92,6 +97,7 @@ app.use(searchPlants);
 
 // storing data:
 */
+
 
 app.listen(port, () => {
     console.log("Living it up in " + port + " city!");

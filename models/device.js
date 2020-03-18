@@ -8,7 +8,7 @@ const deviceSchema = new mongoose.Schema(
             type: String,
             required: true
         },
-
+      
         alias: 
         {
             type: String,
