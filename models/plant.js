@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 
 const plantSchema = new mongoose.Schema(
     {
+        // unncessary change for science
+        
         // FK: extracted from user
         userID:
         {
