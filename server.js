@@ -65,36 +65,26 @@ app.get('*', function(req, res)
 // const servertesting = require('./api/servertesting');
 // app.use(servertesting);
 
-// routes implemented: UNTESTED
-app.use(addPlant);
+// 0 routes impelemented: TESTED
 
-// user routes:
-app.use(register);
-app.use(login);
-app.use(logout);
-// app.use(editUser)
+// ROUTES NOT CURRENTLY SETUP - will crash server until they're ready
+// app.use() needs to be caught by router.___() in routes
 
-// routes impelemented: TESTED
-
-/*
-// add routes:
+// 12 routes implemented: UNTESTED
+// using routes
 app.use(addDevice);
 app.use(addPlant);
-
-// edit (user FK) routes:
-app.use(editDevice);
-app.use(editPlant);
-
-// delete (user FK) routes:
 app.use(deleteDevice);
 app.use(deletePlant);
-
-// misc routes:
+app.use(editDevice);
+app.use(editPlant);
+app.use(editUser);
+app.use(getConditions);
+app.use(login);
+app.use(logout);
+app.use(register);
 app.use(searchPlants);
 
-// storing data:
-app.use(
-*/
 
 
 app.listen(port, () => {
