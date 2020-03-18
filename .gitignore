@@ -3,8 +3,6 @@ logs
 *.log
 npm-debug.log*
 
-# Dependency directories
-node_modules/
 
 # React Build Directory
 build/
