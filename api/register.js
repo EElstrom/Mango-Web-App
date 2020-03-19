@@ -9,11 +9,11 @@ const User = require('../models/user');
 // Determine if registration input is valid
 async function validateInput(data)
 {
-	var errors = {};
+	const errors = {};
 
     if (isEmpty(data.username) || validator.isEmpty(data.username))
     {
-        error.username = 'username required';
+        errors.username = 'username required';
     }
     else
     {
