@@ -11,7 +11,7 @@ const User = require('../models/user');
 async function validateInput(data)
 {
 	var errors = {};
-
+ 
     if (isEmpty(data.username) || validator.isEmpty(data.username))
     {
         error.username = 'username required';

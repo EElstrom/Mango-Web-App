@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const validator = require('validator');
 const isEmpty = require('is-empty');
-
+ 
 const Plant = require('../models/plant');
 
 // validation needs to have all required fields filled out, not just one

@@ -1,4 +1,7 @@
 const mongoose = require('mongoose');
+const schema = mongoose.Schema;
+ 
+/*
 //100 degrees Fahrenheit
 var maxTemp = [100, 'The value of path `{PATH}` ({VALUE}) is above the limit ({MAX}).'];
 var minTemp = [0, 'The value of path `{PATH}` ({VALUE}) is below the limit ({MIN}).'];
@@ -89,3 +92,4 @@ const plantSchema = new mongoose.Schema(
 );
 
 module.exports = Plant = mongoose.model('plants', plantSchema);
+*/

@@ -13,7 +13,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/devon-gadarowski/Mango-Web-App.git"
-  },
+  }, 
   "dependencies": {
     "@testing-library/jest-dom": "^5.1.1",
     "@testing-library/react": "^9.4.0",

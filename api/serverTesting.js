@@ -14,7 +14,7 @@ router.get('/api/serverTesting', function(req, res, next)
 // not currently using next() middleware
 router.post('/api/serverTesting', (req, res) => {
     console.log('POST in testing');
-
+ 
     res.status(400).json({
         'message':'post functioning'
     });

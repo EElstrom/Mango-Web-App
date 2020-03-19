@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const validator = require('validator');
 const isEmpty = require('is-empty');
-
+ 
 const User = require('../models/user');
 const keys = require('../config/keys');
 

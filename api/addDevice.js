@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const validator = require('validator');
 const isEmpty = require('is-empty');
-
+ 
 const Device = require('../models/device');
 
 // validation only requires name and userID, all other attributes currently unrequired

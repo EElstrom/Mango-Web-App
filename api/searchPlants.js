@@ -11,7 +11,7 @@ const Plant = require('../models/plant');
 function validateInput(data)
 {
 	var errors = {};
-
+ 
 	return {errors, isValid: isEmpty(errors)};
 };
 

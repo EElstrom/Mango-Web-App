@@ -6,7 +6,7 @@ const validator = require('validator');
 const isEmpty = require('is-empty');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-
+ 
 const keys = require('../config/keys');
 const User = require('../models/user');
 

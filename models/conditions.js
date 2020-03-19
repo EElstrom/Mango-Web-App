@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+ 
 const conditionsSchema = new mongoose.Schema(
     {
         // FK: extracted from userID, to then DeviceID

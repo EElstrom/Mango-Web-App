@@ -7,7 +7,7 @@ const router = express.Router();
 const validator = require('validator');
 const isEmpty = require('is-empty');
 const jwt = require('jsonwebtoken');
-
+ 
 const keys = require('../config/keys');
 const Device = require('../models/device');
 
