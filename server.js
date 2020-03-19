@@ -6,7 +6,6 @@ const cookieParser = require('cookie-parser');
 const keys = require('./config/keys');
 
 const app = express();
-const keys = require('./config/keys');
 app.use(bodyParser.json());
 app.use(cookieParser());
 
@@ -26,19 +25,18 @@ mongoose
 
 
 // route specifications
-const addDevice = require('./api/addDevice');
-const addPlant = require('./api/addPlant');
-const deleteDevice = require('./api/deleteDevice');
-const deletePlant = require('./api/deletePlant');
-const editDevice = require('./api/editDevice');
-const editPlant = require('./api/editPlant');
-const editUser = require('./api/editUser');
+// device-related endpoints likely to change
 const login = require('./api/login');
-const logout = require('./api/logout');
 const register = require('./api/register');
-
+const logout = require('./api/logout');
+const editUser = require('./api/editUser');
+const addDevice = require('./api/addDevice');
+const deleteDevice = require('./api/deleteDevice');
+const editDevice = require('./api/editDevice');
 const getConditions = require('./api/getConditions');
-
+const addPlant = require('./api/addPlant');
+const deletePlant = require('./api/deletePlant');
+const editPlant = require('./api/editPlant');
 const searchPlants = require('./api/searchPlants');
 
 
@@ -62,30 +60,34 @@ app.get('*', function(req, res)
 
 
 // testing module for basic get/post/del
-// const servertesting = require('./api/servertesting');
-// app.use(servertesting);
+//const servertesting = require('./api/servertesting');
+//app.use(servertesting);
 
-// 0 routes impelemented: TESTED
-
-// ROUTES NOT CURRENTLY SETUP - will crash server until they're ready
-// app.use() needs to be caught by router.___() in routes
-
-// 12 routes implemented: UNTESTED
-// using routes
-app.use(addDevice);
+// routes implemented: UNTESTED
 app.use(addPlant);
-app.use(deleteDevice);
-app.use(deletePlant);
-app.use(editDevice);
-app.use(editPlant);
-app.use(editUser);
-app.use(getConditions);
+
+// user routes:
+app.use(register);
 app.use(login);
 app.use(logout);
-app.use(register);
+// app.use(editUser)
+
+// routes impelemented: TESTED
+
+/*
+// add routes:
+app.use(addDevice);
+app.use(addPlant);
+// edit (user FK) routes:
+app.use(editDevice);
+app.use(editPlant);
+// delete (user FK) routes:
+app.use(deleteDevice);
+app.use(deletePlant);
+// misc routes:
 app.use(searchPlants);
-
-
+// storing data:
+*/
 
 app.listen(port, () => {
     console.log("Living it up in " + port + " city!");
