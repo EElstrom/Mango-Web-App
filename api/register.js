@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const validator = require('validator');
 const isEmpty = require('is-empty');
-const bcrypt = require('bcryptjs');
+//const bcrypt = require('bcryptjs');
 
 const User = require('../models/user');
 
