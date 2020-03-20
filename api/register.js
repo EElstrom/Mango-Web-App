@@ -11,18 +11,18 @@ async function validateInput(data)
 {
 	const errors = {};
 
-    if (isEmpty(data.username) || validator.isEmpty(data.username))
+    if (isEmpty(data.email) || validator.isEmpty(data.email))
     {
-        errors.username = 'username required';
+        errors.email = 'username required';
     }
     else
     {
-        await user.find({username: data.username}, 'username', 
+        await User.find({email: data.email}, 'email', 
                         async (err,users) => {
                             if (err)
                                 errors.username = 'failed to verify username availability';
                             else if (users.length > 0)
-                                errors.username = 'username accepted';
+                                errors.username = 'username already in use';
                         });
     }
 
@@ -34,27 +34,6 @@ async function validateInput(data)
     {
         errors.password = 'password must be between 6 and 30 characters long';
     }
-
-    if (isEmpty(data.email) || validator.isEmpty(data.email))
-    {
-        errors.email = 'email is required';
-    }
-    else if (!validator.isEmail(data.email))
-    {
-        errors.email = "email is invalid";
-    }
-
-    else
-    {
-        await User.find({email: data.email}, 'email', 
-                        async (err, users) => {
-                            if (err)
-                                errors.email = 'failed to verify email availabilty';
-                            else if (users.length > 0)
-                                errors.email = 'email accepted';
-                        });
-    }
-
     return {
         errors, 
         isValid: isEmpty(errors)
