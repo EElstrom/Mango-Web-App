@@ -1,13 +1,5 @@
 const mongoose = require('mongoose');
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
- 
-=======
-  
->>>>>>> Stashed changes
-=======
-  
->>>>>>> Stashed changes
+
 const conditionsSchema = new mongoose.Schema(
     {
         // FK: extracted from userID, to then DeviceID

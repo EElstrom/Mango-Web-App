@@ -1,14 +1,6 @@
 const mongoose = require('mongoose');
 const schema = mongoose.Schema;
-<<<<<<< Updated upstream
-<<<<<<< HEAD
- 
-=======
 
->>>>>>> 085a6f3073471ddc88a4023430b179197e8a8eea
-=======
- 
->>>>>>> Stashed changes
 /*
 //100 degrees Fahrenheit
 var maxTemp = [100, 'The value of path `{PATH}` ({VALUE}) is above the limit ({MAX}).'];
