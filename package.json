@@ -1,7 +1,7 @@
 {
   "name": "mango-app",
   "version": "0.0.1",
-  "private": true,
+  "private": true, 
   "description": "A MERN Web Application that helps you maintain your greenhouse",
   "main": "server.js",
   "scripts": {

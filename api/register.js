@@ -3,12 +3,16 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const validator = require('validator');
 const isEmpty = require('is-empty');
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 <<<<<<< Updated upstream
 //const bcrypt = require('bcryptjs');
 =======
 >>>>>>> 085a6f3073471ddc88a4023430b179197e8a8eea
 
+=======
+ 
+>>>>>>> Stashed changes
 =======
  
 >>>>>>> Stashed changes

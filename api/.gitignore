@@ -1,8 +1,11 @@
 # Logs
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 logs
 *.log 
 =======
+=======
+>>>>>>> Stashed changes
 logs 
 *.log
 >>>>>>> Stashed changes
