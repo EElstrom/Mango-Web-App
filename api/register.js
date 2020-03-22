@@ -3,8 +3,12 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const validator = require('validator');
 const isEmpty = require('is-empty');
+<<<<<<< Updated upstream
 //const bcrypt = require('bcryptjs');
 
+=======
+ 
+>>>>>>> Stashed changes
 const User = require('../models/user');
 
 // Determine if registration input is valid

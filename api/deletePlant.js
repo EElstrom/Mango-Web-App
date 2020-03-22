@@ -2,7 +2,11 @@ const express = require('express');
 const router = express.Router();
 const validator = require('validator');
 const isEmpty = require('is-empty');
+<<<<<<< Updated upstream
  
+=======
+  
+>>>>>>> Stashed changes
 const Plant = require('../models/plant');
 
 // should only be able to do this if in session, should be webtoken this?

@@ -3,7 +3,7 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const validator = require('validator');
 const isEmpty = require('is-empty');
-
+  
 const keys = require('../config/keys');
 
 const Plant = require('../models/plant');

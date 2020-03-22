@@ -1,6 +1,11 @@
 # Logs
+<<<<<<< Updated upstream
 logs
 *.log 
+=======
+logs 
+*.log
+>>>>>>> Stashed changes
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

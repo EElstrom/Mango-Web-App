@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
+<<<<<<< Updated upstream
 
  
+=======
+ 
+
+>>>>>>> Stashed changes
 const climateSchema = new mongoose.Schema(
     {
         // FK from sensor

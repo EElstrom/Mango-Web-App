@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+  
 // clear out session cookie to finish logout
 router.post('/api/logout', (req, res) => {
 	console.log('Express: POST /api/logout');

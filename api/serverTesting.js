@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-
+ 
 router.get('/api/serverTesting', function(req, res, next)
 {
     console.log('GET in testing');

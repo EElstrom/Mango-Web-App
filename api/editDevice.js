@@ -1,7 +1,7 @@
 // editing a device should only change its alias, location, and/or postFrequency. 
 // if de-registering a device, a new endpoint which is accessible from clicking "deregister" or something similar
 // TODO: create '/api/deregisterDevice'
-
+  
 const express = require('express');
 const router = express.Router();
 const validator = require('validator');

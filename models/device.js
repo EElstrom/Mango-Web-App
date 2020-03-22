@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
+<<<<<<< Updated upstream
  
+=======
+  
+>>>>>>> Stashed changes
 const deviceSchema = new mongoose.Schema(
     {
         // FK: must be extracted from user
