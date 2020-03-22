@@ -58,12 +58,6 @@ app.get('*', function(req, res)
 	res.sendFile('./build/index.html', {root: __dirname});
 });
 
-
-// testing module for basic get/post/del
-//const servertesting = require('./api/servertesting');
-//app.use(servertesting);
-
-// routes implemented: UNTESTED
 app.use(addPlant);
 
 // user routes:
@@ -72,11 +66,10 @@ app.use(login);
 app.use(logout);
 // app.use(editUser)
 
-// routes impelemented: TESTED
+// Device routes:
+app.use(addDevice);
 
 /*
-// add routes:
-app.use(addDevice);
 app.use(addPlant);
 
 // edit (user FK) routes:
@@ -91,6 +84,10 @@ app.use(deletePlant);
 app.use(searchPlants);
 
 // storing data:
+app.use(getConditions)
+app.use(getClimate)
+app.use(storeConditions)
+app.use(storeClimate)
 */
 
 app.listen(port, () => {
