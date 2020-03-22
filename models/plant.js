@@ -92,4 +92,3 @@ const plantSchema = new mongoose.Schema(
 );
 
 module.exports = Plant = mongoose.model('plants', plantSchema);
-*/
