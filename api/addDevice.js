@@ -5,6 +5,7 @@ const isEmpty = require('is-empty');
  
 const Device = require('../models/device');
 
+// random change for science
 // validation only requires name and userID, all other attributes currently unrequired
 async function validateDevice(data)
 {

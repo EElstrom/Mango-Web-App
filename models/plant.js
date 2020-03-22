@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 const schema = mongoose.Schema;
+<<<<<<< HEAD
  
+=======
+
+>>>>>>> 085a6f3073471ddc88a4023430b179197e8a8eea
 /*
 //100 degrees Fahrenheit
 var maxTemp = [100, 'The value of path `{PATH}` ({VALUE}) is above the limit ({MAX}).'];
@@ -17,9 +21,9 @@ var minPh = [1, 'The value of path `{PATH}` ({VALUE}) is below the limit ({MIN})
 //minHumidity to maxHumidity is 0% to 100%
 var maxHumidity = [100, 'The value of path `{PATH}` ({VALUE}) is above the limit ({MAX}).'];
 var minHumidity = [0, 'The value of path `{PATH}` ({VALUE}) is below the limit ({MIN}).'];
+*/ 
 const plantSchema = new mongoose.Schema(
     {
-
         // FK: extracted from user
         userID:
         {
@@ -53,8 +57,8 @@ const plantSchema = new mongoose.Schema(
         temperatureTolerance: 
         {
             type: String,
-            max:schema.temperatureTolerance.maxTemp,
-            min:schema.temperatureTolerance.minTemp,
+            // max: schema.temperatureTolerance.maxTemp,
+            // min: schema.temperatureTolerance.minTemp,
             required: false,
             default: ''
         },
@@ -63,8 +67,8 @@ const plantSchema = new mongoose.Schema(
         lightTolerance: 
         {
             type: String,
-            max: schema.lightTolerance.maxLight,
-            min: shcema.lightTolerance.minLight,
+            // max: schema.lightTolerance.maxLight,
+            // min: shcema.lightTolerance.minLight,
             required: false,
             default: ''
         },
@@ -73,8 +77,8 @@ const plantSchema = new mongoose.Schema(
         phTolerance: 
         {
             type: String,
-            max: schema.phTolerance.maxPh,
-            min: schema.phTolerance.minPh,
+            // max: schema.phTolerance.maxPh,
+            // min: schema.phTolerance.minPh,
             required: false,
             default: ''
         },
@@ -83,8 +87,8 @@ const plantSchema = new mongoose.Schema(
         humidityTolerance: 
         {
             type: String, 
-            max: schema.humidityTolerance.maxHumidity,
-            min: schema.humidityTolerance.minHumidity,
+            // max: schema.humidityTolerance.maxHumidity,
+            // min: schema.humidityTolerance.minHumidity,
             required: false,
             default: ''
         }
