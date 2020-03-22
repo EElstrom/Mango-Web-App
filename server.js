@@ -4,7 +4,7 @@ const mongoClient = require('mongodb');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const keys = require('./config/keys');
- 
+
 const app = express();
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -78,18 +78,14 @@ app.use(logout);
 // add routes:
 app.use(addDevice);
 app.use(addPlant);
-
 // edit (user FK) routes:
 app.use(editDevice);
 app.use(editPlant);
-
 // delete (user FK) routes:
 app.use(deleteDevice);
 app.use(deletePlant);
-
 // misc routes:
 app.use(searchPlants);
-
 // storing data:
 */
 
