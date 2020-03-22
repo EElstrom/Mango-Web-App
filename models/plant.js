@@ -33,6 +33,13 @@ const plantSchema = new mongoose.Schema(
             required: true
         },
 
+        notes:
+        {
+            type: String,
+            required: false,
+            default: ''
+        },
+        
         // for bookkeeping on multiple devices
         // if done WIKI style, this should not be included
         deviceName:
