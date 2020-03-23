@@ -2,14 +2,17 @@ const express = require('express');
 const router = express.Router();
 const validator = require('validator');
 const isEmpty = require('is-empty');
+const jwt = require('jsonwebtoken');
 
+const keys = require('../config/keys');
 const Device = require('../models/device');
 
 // can only delete device by being logged in and clicking on it
-// needs its ID
+// needs its ID, which is expected to be passed in the request body
+// note: bringing up the sensors belonging to a user should be sorted by user._id
 function validateInput(data)
 {
-    var errors = {};
+    const errors = {};
 
     if (isEmpty(data.id) || validator.isEmpty(data.id))
     {
@@ -22,41 +25,67 @@ function validateInput(data)
     };
 };
 
-router.post('./api/deleteDevice', (req, res) => {
+// post request must only send {id : this.id}
+// getDevice endpoint should return an array of Device objects, which will have ID's in their payload 
+router.post('/api/deleteDevice', (req, res) => {
     console.log('POST in deleteDevice');
 
-    const validation = validateInput(req.body);
+    const authToken = req.cookies.session;
 
-    if (validation.isValid)
-    {
-        Device.deleteOne({
-            deviceID: req.body.id
-        }, (err) => {
-            if (err)
-            {
-                console.log(err);
-                res.status(400).json({
+    // verify user
+    jwt.verify(authToken, keys.secretOrKey, (err, user) => {
+        if (err || !user)
+        {
+            res
+                .status(401)
+                .json({
                     success: false,
-                    errors: 'error: could not delete Device'
+                    errors: 'access denied, please login'
+                });
+        }
+        else
+        {
+            const validation = validateInput(req.body);
+
+            if (validation.isValid)
+            {
+                Device.deleteOne({
+                    _id : req.body.id,
+                    userID : user.id
+                }, (err) => {
+                    if (err)
+                    {
+                        console.log(err);
+                        res
+                            .status(400)
+                            .json({
+                                success: false,
+                                errors: 'error: could not delete Device'
+                            });
+                    }
+
+                    else
+                    {
+                        res
+                            .status(200)
+                            .json({
+                                success: true
+                            });
+                    }
                 });
             }
 
             else
             {
-                res.status(200).json({
-                    success: true
-                });
+                res
+                    .status(400)
+                    .json({
+                        success: false,
+                        errors: validation.errors
+                    });
             }
-        });
-    }
-
-    else
-    {
-        res.status(400).json({
-            success: false,
-            errors: validation.errors
-        });
-    }
+        }
+    });
 });
 
 module.exports = router;

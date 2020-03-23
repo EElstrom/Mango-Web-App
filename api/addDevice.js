@@ -38,28 +38,27 @@ async function validateDevice(data)
 };
 */
 
-// this version is relying on jwt from the user, if this is instead coming from the device itself, we'll need to change validation
-// the post payload to this endpoint is expecting the user._id to be passed in userID field
-// potentially a random number associated with the user table, which is passed to device, then verified here
+// this currently is adding dummy devices and is not using any info from a request body other than ALIAS
+// alias is not required, but can be asked from user so the generic name doesn't get confusing
+// it responds with the devices _id, which can be sent to the sensor, so it knows who it is.
 router.post('/api/addDevice', (req, res) => {
     
     console.log('Express: POST /api/addDevice');
-    console.log("Req has id: %s", req.body.userID);
 
     const authToken = req.cookies.session;
     
     jwt.verify(authToken, keys.secretOrKey, (err, user) => {
-        if (err | !user)
+        if (err || !user)
             res
                 .status(401)
                 .json({
                     success: false,
                     errors: "access denied, please log in"
-                })
+                });
         
         else
         {
-            Device.countDocuments({}, (err, count) => {
+            Device.countDocuments({userID : user.id}, (err, count) => {
                 if (err)
                 {
                     console.log("Could not countDocuments()")
@@ -67,14 +66,24 @@ router.post('/api/addDevice', (req, res) => {
                 }
                 else
                 {
-                    console.log("Found %d devices", count);
-                    nextNumber = count + 1;
                     const newDevice = new Device({
-                        userID : req.body.userID, 
-                        alias: "Sensor" + nextNumber,
+                        userID : user.id, 
                         postFrequency: 4
                     });
 
+                    // if no alias information is given in req body
+                    if (isEmpty(req.body.alias))
+                    {
+                        console.log("Found %d devices", count);
+                        nextNumber = count + 1;
+                        newDevice.alias = "Sensor" + nextNumber;
+                    }
+                    else
+                    {
+                        newDevice.alias = req.body.alias;
+                    }
+
+                    // will create a new entry in the devices collection, returns success : true and the devices unique ID
                     Device.create(newDevice, (err, device) => {
                         if (err)
                         {
@@ -89,7 +98,10 @@ router.post('/api/addDevice', (req, res) => {
                         {
                             res
                                 .status(200)
-                                .json({success: true});
+                                .json({
+                                    success: true,
+                                    deviceID : device._id    
+                                });
                         }
                     });
                 }
