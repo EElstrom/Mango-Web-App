@@ -6,7 +6,7 @@ const climateSchema = new mongoose.Schema(
         // FK from sensor
         deviceID: 
         {
-            type: Number,
+            type: String,
             required: true
         },
 

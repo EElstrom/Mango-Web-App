@@ -8,6 +8,7 @@ const keys = require('../config/keys');
 const Device = require('../models/device');
 const Condition = require('../models/conditions');
 const Climate = require('../models/climate');
+const User = require('../models/user');
 
 // can only delete device by being logged in and clicking on it
 // needs its ID, which is expected to be passed in the request body
@@ -32,6 +33,8 @@ function validateInput(data)
 router.post('/api/deleteDevice', (req, res) => {
     console.log('POST in deleteDevice');
 
+    const validation = validateInput(req.body);
+
     const authToken = req.cookies.session;
 
     // verify user
@@ -47,8 +50,6 @@ router.post('/api/deleteDevice', (req, res) => {
         }
         else
         {
-            const validation = validateInput(req.body);
-
             if (validation.isValid)
             {
                 // delete entries in other tables belonging to this device
@@ -66,15 +67,6 @@ router.post('/api/deleteDevice', (req, res) => {
                                 errors: 'error: could not delete Conditions'
                             });
                     }
-
-                    else
-                    {
-                        res
-                            .status(200)
-                            .json({
-                                success: true
-                            });
-                    }
                 });
 
                 // remove all entries in climate table
@@ -89,15 +81,6 @@ router.post('/api/deleteDevice', (req, res) => {
                             .json({
                                 success: false,
                                 errors: 'error: could not delete Climate'
-                            });
-                    }
-
-                    else
-                    {
-                        res
-                            .status(200)
-                            .json({
-                                success: true
                             });
                     }
                 });
@@ -126,8 +109,27 @@ router.post('/api/deleteDevice', (req, res) => {
                             });
                     }
                 });
-            }
 
+                // update user information: noOfDevices
+                Device.countDocuments({userID : user.id}, (err, count) => {
+                    if (err)
+                    {
+                        console.log("Could not countDocuments()")
+                        console.log(err);
+                    }
+                    else
+                    {
+                        User.findOneAndUpdate({
+                            _id : user.id
+                        }, {
+                            noOfDevices : count
+                        }, (err, user) => {
+                            if (err)
+                                console.log(err);
+                        });
+                    }
+                });
+            }
             else
             {
                 res

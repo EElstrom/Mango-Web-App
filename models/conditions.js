@@ -5,7 +5,7 @@ const conditionsSchema = new mongoose.Schema(
         // FK: extracted from userID, to then DeviceID
         deviceID: 
         {
-            type: Number,
+            type: String,
             required: true
         },
       

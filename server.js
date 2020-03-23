@@ -29,6 +29,7 @@ mongoose
 const login = require('./api/login');
 const register = require('./api/register');
 const logout = require('./api/logout');
+const getUser = require('./api/getUser');
 const editUser = require('./api/editUser');
 const addDevice = require('./api/addDevice');
 const deleteDevice = require('./api/deleteDevice');
@@ -38,7 +39,7 @@ const getConditions = require('./api/getConditions');
 const addPlant = require('./api/addPlant');
 const deletePlant = require('./api/deletePlant');
 const editPlant = require('./api/editPlant');
-const searchPlants = require('./api/searchPlants');
+const getPlants = require('./api/getPlants');
 
 
 // Set some HTTP Request Headers (I don't know why)
@@ -59,12 +60,11 @@ app.get('*', function(req, res)
 	res.sendFile('./build/index.html', {root: __dirname});
 });
 
-app.use(addPlant);
-
 // user routes:
 app.use(register);
 app.use(login);
 app.use(logout);
+app.use(getUser);
 // app.use(editUser)
 
 // Device routes:
@@ -72,8 +72,12 @@ app.use(addDevice);
 app.use(deleteDevice);
 app.use(getDevices);
 
-/*
+// plant routes:
 app.use(addPlant);
+app.use(deletePlant);
+app.use(getPlants);
+
+/*
 
 // edit (user FK) routes:
 app.use(editDevice);
