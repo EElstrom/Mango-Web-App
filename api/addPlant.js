@@ -10,7 +10,7 @@ const Plant = require('../models/plant');
 // validate only requires the name, the userID should be supplied by jwt
 // currently checks if a plant has been added under a certain device, or no device
 // a search feature could include a devices name/alias to bring up those plants
-async function validateinput(data)
+async function validateInput(data)
 {
     const errors = {};
 
@@ -22,14 +22,19 @@ async function validateinput(data)
     
     else
     {
-        await Plant.exists({
+        const devName = (!isEmpty(data.deviceName) ? data.deviceName : '');
+        console.log('devName: %s', devName);
+        await Plant.find({
             name: data.name,
-            deviceName: data.deviceName
+            deviceName: devName
         }, (err, result) => {
             if (err)
                 errors.name = 'unable to verify plant availability';
             if (result)
+            {
+                console.log('Plant found under device: %s', devName);
                 errors.name = 'plant already exists under that device.';
+            }
         });
     }
 
@@ -42,10 +47,12 @@ async function validateinput(data)
 router.post('/api/addPlant', async (req, res) => {
     console.log('POST in addPlant');
 
-    const authToken = jwt.cookies.session;
+    const authToken = req.cookies.session;
+    
+    const validation =  await validateInput(req.body);
 
     jwt.verify(authToken, keys.secretOrKey, (err, user) => {
-        if (err | !user)
+        if (err || !user)
         {
             res
                 .status(401)
@@ -56,8 +63,6 @@ router.post('/api/addPlant', async (req, res) => {
         }        
         else
         {
-            const validation = validateInput(req.body);
-
             console.log("user is: %s", user.id);
 
             if (validation.isValid)
@@ -105,10 +110,12 @@ router.post('/api/addPlant', async (req, res) => {
             }
             else
             {
+                console.log(validation.errors);
                 res
                     .status(400)
                     .json({
                         success: false, 
+                        message: 'did not validate',
                         errors: validation.errors
                     });
             }

@@ -2,7 +2,9 @@ const express = require('express');
 const router = express.Router();
 const validator = require('validator');
 const isEmpty = require('is-empty');
+const jwt = require('jsonwebtoken');
 
+const keys = require('../config/keys');
 const Plant = require('../models/plant');
 
 // should only be able to do this if in session, should be webtoken this?
@@ -23,43 +25,62 @@ function validateInput(data)
     };
 };
 
-router.post('./api/deletePlant', (req, res) => {
+// POST {id : this.id} or however the id is stored in front
+router.post('/api/deletePlant', (req, res) => {
     console.log('POST in deletePlant');
-
-    // ignoring jwt stuff for now
     
     const validation = validateInput(req.body);
 
-    if (validation.isValid)
-    {
-        Plant.deleteOne({
-            plantID: req.body.id
-        }, (err) => {
-            if (err)
-            {
-                console.log(err);
-                res.status(500).json({
+    const authToken = req.cookies.session;
+
+    jwt.verify(authToken, keys.secretOrKey, (err, user) => {
+        if (err || !user)
+        {
+            res
+                .status(401)
+                .json({
                     success: false,
-                    errors: 'error: could not delete plant'
+                    errors: 'access denied, please login'
+                });
+        }
+        else
+        {
+            if (validation.isValid)
+            {
+                Plant.deleteOne({
+                    _id: req.body.id
+                }, (err) => {
+                    if (err)
+                    {
+                        console.log(err);
+                        res
+                            .status(500)
+                            .json({
+                                success: false,
+                                errors: 'error: could not delete plant'
+                            });
+                    }
+                    else
+                    {
+                        res
+                            .status(200)
+                            .json({
+                                success: true
+                            });
+                    }
                 });
             }
-
             else
             {
-                res.status(200).json({
-                    success: true
-                });
+                res
+                    .status(400)
+                    .json({
+                        success: false,
+                        errors: validation.errors
+                    });
             }
-        });
-    }
-
-    else
-    {
-        res.status(400).json({
-            success: false,
-            errors: validation.errors
-        });
-    }
+        }
+    });
 });
-
+    
 module.exports = router;
