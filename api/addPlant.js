@@ -62,13 +62,13 @@ router.post('/api/addPlant', async (req, res) => {
 
             if (validation.isValid)
             {
-                const pnotes = ((req.body.notes) ? req.body.notes : '');
-                const dName = ((req.body.deviceName) ? req.body.deviceName : '');
-                const pType = ((req.body.type) ? req.body.type : '');
-                const tempTol = ((req.body.temperatureTolerance) ? req.body.temperatureTolerance : '');
-                const lightTol = ((req.body.lightTolerance) ? req.body.lightTolerance : '');
-                const phTol = ((req.body.phTolerance) ? req.body.phTolerance : '');
-                const humTol = ((req.body.humidityTolerance)  ? req.body.humidityTolerance : '');
+                const pnotes = (!isEmpty(req.body.notes) ? req.body.notes : '');
+                const dName = (!isEmpty(req.body.deviceName) ? req.body.deviceName : '');
+                const pType = (!isEmpty(req.body.type) ? req.body.type : '');
+                const tempTol = (!isEmpty(req.body.temperatureTolerance) ? req.body.temperatureTolerance : '');
+                const lightTol = (!isEmpty(req.body.lightTolerance) ? req.body.lightTolerance : '');
+                const phTol = (!isEmpty(req.body.phTolerance) ? req.body.phTolerance : '');
+                const humTol = (!isEmpty(req.body.humidityTolerance)  ? req.body.humidityTolerance : '');
 
                 const newPlant = new Plant({
                     userID: user.id,

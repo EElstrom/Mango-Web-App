@@ -32,6 +32,7 @@ const logout = require('./api/logout');
 const editUser = require('./api/editUser');
 const addDevice = require('./api/addDevice');
 const deleteDevice = require('./api/deleteDevice');
+const getDevices = require('./api/getDevices');
 const editDevice = require('./api/editDevice');
 const getConditions = require('./api/getConditions');
 const addPlant = require('./api/addPlant');
@@ -68,6 +69,8 @@ app.use(logout);
 
 // Device routes:
 app.use(addDevice);
+app.use(deleteDevice);
+app.use(getDevices);
 
 /*
 app.use(addPlant);
@@ -77,8 +80,8 @@ app.use(editDevice);
 app.use(editPlant);
 
 // delete (user FK) routes:
-app.use(deleteDevice);
 app.use(deletePlant);
+app.use(getDevices);
 
 // misc routes:
 app.use(searchPlants);
