@@ -66,16 +66,20 @@ router.post('/api/register', async (req, res) => {
                     if (err)
                     {
                         console.log(err);
-                        res.status(500).json({
-                            success: false, 
-                            errors : 'failed to register user'
-                        });
+                        res
+                            .status(500)
+                            .json({
+                                success: false, 
+                                errors : 'failed to register user'
+                            });
                     }
                     else
                     {
-                        res.status(200).json({
-                            success: true
-                        });
+                        res
+                            .status(200)
+                            .json({
+                                success: true
+                            });
                     }
 
                 }); // end create
@@ -84,10 +88,12 @@ router.post('/api/register', async (req, res) => {
     }
     else
     {
-        res.status(400).json({
-            success: false, 
-            errors: validation.errors
-        });
+        res
+            .status(400)
+            .json({
+                success: false, 
+                errors: validation.errors
+            });
     }
 });
 

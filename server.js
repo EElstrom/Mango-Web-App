@@ -15,11 +15,11 @@ const port = process.env.PORT || 5000;
 
 // connect MongoDB
 mongoose
-  .connect(keys.mongoURI, {
+	.connect(keys.mongoURI, {
 		useNewUrlParser: true, 
 		useUnifiedTopology: true, 
 		useFindAndModify: false
-	 })
+		})
 	.then(() => console.log('Express: Connected to MongoDB'))
 	.catch((err) => console.error(err));
 
@@ -81,7 +81,6 @@ app.use(editPlant);
 
 // delete (user FK) routes:
 app.use(deletePlant);
-app.use(getDevices);
 
 // misc routes:
 app.use(searchPlants);
