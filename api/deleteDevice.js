@@ -6,6 +6,8 @@ const jwt = require('jsonwebtoken');
 
 const keys = require('../config/keys');
 const Device = require('../models/device');
+const Condition = require('../models/conditions');
+const Climate = require('../models/climate');
 
 // can only delete device by being logged in and clicking on it
 // needs its ID, which is expected to be passed in the request body
@@ -49,6 +51,57 @@ router.post('/api/deleteDevice', (req, res) => {
 
             if (validation.isValid)
             {
+                // delete entries in other tables belonging to this device
+                // remove all entries in conditions table
+                Condition.deleteMany({
+                    deviceID : req.body.id
+                }, (err) => {
+                    if (err)
+                    {
+                        console.log(err);
+                        res
+                            .status(400)
+                            .json({
+                                success: false,
+                                errors: 'error: could not delete Conditions'
+                            });
+                    }
+
+                    else
+                    {
+                        res
+                            .status(200)
+                            .json({
+                                success: true
+                            });
+                    }
+                });
+
+                // remove all entries in climate table
+                Climate.deleteMany({
+                    deviceID : req.body.id
+                }, (err) => {
+                    if (err)
+                    {
+                        console.log(err);
+                        res
+                            .status(400)
+                            .json({
+                                success: false,
+                                errors: 'error: could not delete Climate'
+                            });
+                    }
+
+                    else
+                    {
+                        res
+                            .status(200)
+                            .json({
+                                success: true
+                            });
+                    }
+                });
+
                 Device.deleteOne({
                     _id : req.body.id,
                     userID : user.id
