@@ -26,7 +26,7 @@ router.post('/api/getPlants', (req, res) => {
         // POST {'query' : 'query'} or empty
         else
         {
-			const query = (!isEmpty(req.body.query) ? req.body.query : '');
+		const query = (!isEmpty(req.body.query) ? req.body.query : '');
 			            
             var request = {};
 
