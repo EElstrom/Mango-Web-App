@@ -65,7 +65,7 @@ app.use(register);
 app.use(login);
 app.use(logout);
 app.use(getUser);
-// app.use(editUser)
+app.use(editUser)
 
 // Device routes:
 app.use(addDevice);
@@ -78,16 +78,9 @@ app.use(deletePlant);
 app.use(getPlants);
 
 /*
-
 // edit (user FK) routes:
 app.use(editDevice);
 app.use(editPlant);
-
-// delete (user FK) routes:
-app.use(deletePlant);
-
-// misc routes:
-app.use(searchPlants);
 
 // storing data:
 app.use(getConditions)
