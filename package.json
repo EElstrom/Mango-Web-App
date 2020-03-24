@@ -5,7 +5,7 @@
   "description": "A MERN Web Application that helps you maintain your greenhouse",
   "main": "server.js",
   "scripts": {
-    "start": "react-scripts start > /dev/null & nodemon server.js",
+    "start": "BROWSER=none react-scripts start > /dev/null & nodemon server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "deploy": "npm run build && node server.js"
@@ -29,6 +29,7 @@
     "nodemon": "^2.0.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-router-dom": "^5.1.2",
     "react-scripts": "^3.4.0",
     "typescript": "^3.8.2",
     "validator": "^12.2.0"
