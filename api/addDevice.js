@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 
 const keys = require('../config/keys');
 const Device = require('../models/device');
+const User = require('../models/user');
 
 // a device requires:
     // userID it belongs to
@@ -96,6 +97,15 @@ router.post('/api/addDevice', (req, res) => {
                         }        
                         else
                         {
+                            User.findOneAndUpdate({
+                                _id : user.id
+                            }, {
+                                noOfDevices : nextNumber
+                            }, (err, user) => {
+                                if (err)
+                                    console.log(err);
+                            });
+
                             res
                                 .status(200)
                                 .json({

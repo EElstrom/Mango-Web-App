@@ -8,9 +8,13 @@ router.post('/api/logout', (req, res) => {
 	const authToken = req.cookies.session;
 
 	if (authToken)
-		res.clearCookie('session').json({success: true});
+		res
+			.clearCookie('session')
+			.json({success: true});
 	else
-		res.status(200).json({success: true});
+		res
+			.status(200)
+			.json({success: true});
 });
 
 module.exports = router;

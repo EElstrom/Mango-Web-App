@@ -41,17 +41,21 @@ router.post('/api/login', async (req, res, ) => {
             }, (err, user) =>{
                 if (err)
                 {
-                    res.status(500).json({
-                        success: false,
-                        errors: 'failed to login'
-                    });
+                    res
+                        .status(500)
+                        .json({
+                            success: false,
+                            errors: 'failed to login'
+                        });
                 }
                 else if (!user)
                 {
-                    res.status(400).json({
-                        success: false, 
-                        errors: 'bad login'
-                    });
+                    res
+                        .status(400)
+                        .json({
+                            success: false, 
+                            errors: 'bad login'
+                        });
                 }
                 else
                 {
@@ -83,10 +87,12 @@ router.post('/api/login', async (req, res, ) => {
                         }
                         else
                         {
-                            res.status(400).json({
-                                success: false, 
-                                errors: 'bad login'
-                            })
+                            res
+                                .status(400)
+                                .json({
+                                    success: false, 
+                                    errors: 'bad login'
+                                })
                         }
                     });
                 }
@@ -94,10 +100,12 @@ router.post('/api/login', async (req, res, ) => {
 	}
 	else
 	{
-		res.status(400).json({
-            success: false, 
-            errors: validation.errors
-        });
+        res
+            .status(400)
+            .json({
+                success: false, 
+                errors: validation.errors
+            });
 	}
 });
 
