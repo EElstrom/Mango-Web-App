@@ -15,7 +15,7 @@ const User = require('../models/user');
 // currently checks if field was sent at all, can be blank
 // grab that from getUser endpoint
 router.post('/api/editUser', (req, res) => {
-    console.log('POST in editUser');
+    console.log('POST in /api/editUser');
 
     const authToken = req.cookies.session;
 
@@ -46,9 +46,11 @@ router.post('/api/editUser', (req, res) => {
             
             if (req.body.location)
                 update.location = req.body.location;
+            
+            console.log(update);
 
             User.findOneAndUpdate({
-                _id: user._id                
+                _id: user.id                
             }, update, (err, device) => {
                 if (err)
                 {
