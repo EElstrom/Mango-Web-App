@@ -1,36 +1,22 @@
 import React from 'react';
+import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 
-// Import our Login Component
-import Login from './components/ExampleStatefulComponent';
-
-// ============================================================================================================
-//                                                 Styling
-// ============================================================================================================
-
-const pageStyle = {
-	position: 'fixed',
-	display: 'flex',
-	alignItems: 'center',
-	justifyContent: 'center',
-	height: '100vh',
-	width: '100vw',
-
-	backgroundColor: 'white'
-};
-
-// ============================================================================================================
-//                                                 Components
-// ============================================================================================================
-
-// This stateless component 'App' is the int main() of our UI. We need to include our components here if we want
-// them to get rendered
-
+// This component is the 'int main()' of our web app: the main entry point
 function App(props)
 {
+	// BrowserRouter lets us select a page to display based on the url path. Works like a C switch
 	return (
-		<div style={pageStyle}>
-			<Login /> {/* Include our Login component as the only child on the page */}
-		</div>
+		<BrowserRouter>
+			<Switch>
+
+				<Route path='/test' exact>
+					<div>Hello World</div>
+				</Route>
+
+				<Redirect to='/test' />
+				
+			</Switch>
+		</BrowserRouter>
 	);
 }
 
