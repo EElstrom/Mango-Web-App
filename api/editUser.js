@@ -34,7 +34,7 @@ router.post('/api/editUser', (req, res) => {
             update = {};
             
             // salting/hashing password
-            // frontend must verify that both fields have same string
+            // frontend must perform verification across two entry boxes, and send the final one to api
             if (req.body.password)
                 update.password = bcrypt.hashSync(req.body.password, 10);
             
@@ -64,7 +64,11 @@ router.post('/api/editUser', (req, res) => {
                 }
                 else
                 {
-                    res.status(400).json({success: true});
+                    res
+                        .status(400)
+                        .json({
+                            success: true
+                        });
                 }
             }); // end findOneAndUpdate
         }

@@ -71,6 +71,7 @@ app.use(editUser)
 app.use(addDevice);
 app.use(deleteDevice);
 app.use(getDevices);
+app.use(editDevice);
 
 // plant routes:
 app.use(addPlant);
