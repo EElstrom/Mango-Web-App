@@ -26,7 +26,7 @@ router.post('/api/getPlants', (req, res) => {
         // POST {'query' : 'query'} or empty
         else
         {
-			const query = (!isEmpty(req.body.query) ? req.body.query : '');
+		const query = (!isEmpty(req.body.query) ? req.body.query : '');
 			            
             var request = {};
 
@@ -38,13 +38,13 @@ router.post('/api/getPlants', (req, res) => {
                 request = {
                     $or : [
                         {name : {$regex: '.*' + query + '.*', $options: 'i'}},
-						{notes: {$regex: '.*' + query + '.*', $options: 'i'}},
-						{deviceName: {$regex: '.*' + query + '.*', $options: 'i'}},
-						{type: {$regex: '.*' + query + '.*', $options: 'i'}},
-						{temperatureTolerance: {$regex: '.*' + query + '.*', $options: 'i'}},
-						{lightTolerance: {$regex: '.*' + query + '.*', $options: 'i'}},
-						{phTolerance: {$regex: '.*' + query + '.*', $options: 'i'}},
-						{humidityTolerance: {$regex: '.*' + query + '.*', $options: 'i'}}
+			{notes: {$regex: '.*' + query + '.*', $options: 'i'}},
+			{deviceName: {$regex: '.*' + query + '.*', $options: 'i'}},
+			{type: {$regex: '.*' + query + '.*', $options: 'i'}},
+			{temperatureTolerance: {$regex: '.*' + query + '.*', $options: 'i'}},
+			{lightTolerance: {$regex: '.*' + query + '.*', $options: 'i'}},
+			{phTolerance: {$regex: '.*' + query + '.*', $options: 'i'}},
+			{humidityTolerance: {$regex: '.*' + query + '.*', $options: 'i'}}
                     ]
                 };
             }
