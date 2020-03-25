@@ -97,12 +97,9 @@ router.post('/api/editDevice', (req, res) => {
                     y = 0;
                     if (postFrequency <= 1)
                         y = round(1 / postFrequency);
-                    else
-                    {
-                        x = round((60 / postFrequency) - (60 * y));
-                        if (y = 48)
-                            x = 0;
-                    }
+                    x = round((60 / postFrequency) - (60 * y));
+                    if (y = 48)
+                        x = 0;
 
                     if (y && x)
                         message = "Every y hours and x minutes"
@@ -110,7 +107,6 @@ router.post('/api/editDevice', (req, res) => {
                         message = "Every y hours"
                     else
                         message = "Every x minutes"
-
                     
                 */
                 if (req.body.x && req.body.y)
