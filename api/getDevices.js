@@ -64,9 +64,12 @@ router.post('/api/getDevices', (req, res) => {
                     else
                     {
                         const devices = [];
+                        const test = [];
                         for (i = 0; i < arr.length; i++)
                         {
                             const device = JSON.parse(JSON.stringify(arr[i]));
+                            const alias = device.alias;
+                            test.push(alias);
                             delete device.userID; // hide user._id
                             delete device.__v;
                             devices.push(device);
@@ -76,7 +79,8 @@ router.post('/api/getDevices', (req, res) => {
                             .status(200)
                             .json({
                                 success: true,
-                                devices: devices
+                                devices: devices,
+                                test : test
                             });
                     }
                 })

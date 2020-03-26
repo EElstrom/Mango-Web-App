@@ -14,6 +14,7 @@ const port = process.env.PORT || 5000;
 
 
 // connect MongoDB
+
 mongoose
 	.connect(keys.mongoURI, {
 		useNewUrlParser: true, 
@@ -82,11 +83,43 @@ app.use(editPlant);
 /*
 // storing data:
 app.use(getConditions)
-app.use(getClimate)
+app.use(getClimates)
 app.use(storeConditions)
 app.use(storeClimate)
 */
 
+function makeDateTime() 
+{
+	today = new Date();
+	month = today.getMonth() + 1;
+	if (month < 10)
+		month = '0' + month;
+	day = (month + '/' + today.getDate() + '/' + today.getFullYear());
+
+	hours = today.getHours();
+	minutes = today.getMinutes();
+	meridian = 'AM';
+	if (hours > 12)
+	{
+		hours -= 12;
+		meridian = 'PM';
+	}
+
+	if (minutes < 10)
+		minutes = '0' + minutes;
+
+	time = hours + ':' + today.getMinutes() + ' ' + meridian;
+
+	return {
+		day,
+		time
+	};
+}
+
+const datetime = makeDateTime();
+
 app.listen(port, () => {
-    console.log("Living it up in " + port + " city!");
+	console.log("Living it up in " + port + " city!");
+	console.log(datetime.day);
+	console.log(datetime.time);
 });
