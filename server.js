@@ -71,17 +71,15 @@ app.use(editUser)
 app.use(addDevice);
 app.use(deleteDevice);
 app.use(getDevices);
+app.use(editDevice);
 
 // plant routes:
 app.use(addPlant);
 app.use(deletePlant);
 app.use(getPlants);
-
-/*
-// edit (user FK) routes:
-app.use(editDevice);
 app.use(editPlant);
 
+/*
 // storing data:
 app.use(getConditions)
 app.use(getClimate)
