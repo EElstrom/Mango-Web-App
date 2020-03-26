@@ -41,7 +41,8 @@ const addPlant = require('./api/addPlant');
 const deletePlant = require('./api/deletePlant');
 const editPlant = require('./api/editPlant');
 const getPlants = require('./api/getPlants');
-
+const deviceLogin = require('./api/deviceLogin');
+const logCondition = require('./api/logCondition');
 
 // Set some HTTP Request Headers (I don't know why)
 app.use((req, res, next) => 
@@ -80,12 +81,16 @@ app.use(deletePlant);
 app.use(getPlants);
 app.use(editPlant);
 
+// storing data:
+app.use(deviceLogin);
+app.use(logCondition);
+
 /*
 // storing data:
-app.use(getConditions)
-app.use(getClimates)
-app.use(storeConditions)
-app.use(storeClimate)
+app.use(prune);
+app.use(getClimates);
+app.use(getConditions);
+app.use(logCondition);
 */
 
 function makeDateTime() 
@@ -108,7 +113,7 @@ function makeDateTime()
 	if (minutes < 10)
 		minutes = '0' + minutes;
 
-	time = hours + ':' + today.getMinutes() + ' ' + meridian;
+	time = hours + ':' + minutes + ' ' + meridian;
 
 	return {
 		day,
