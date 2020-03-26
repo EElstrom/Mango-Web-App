@@ -98,7 +98,7 @@ router.post('/api/editDevice', (req, res) => {
                     if (postFrequency <= 1)
                         y = round(1 / postFrequency);
                     x = round((60 / postFrequency) - (60 * y));
-                    if (y = 48)
+                    if (y >= 48 || x > 5)
                         x = 0;
 
                     if (y && x)
@@ -109,6 +109,7 @@ router.post('/api/editDevice', (req, res) => {
                         message = "Every x minutes"
                     
                 */
+
                 if (req.body.x && req.body.y)
                 {
                     x = parseFloat(req.body.x);
