@@ -16,15 +16,19 @@ const conditionsSchema = new mongoose.Schema(
             default: ''
         },
 
-        date:
+        // searchable and readable 
+        // MM/DD/YYYY HH:MM [A][P]M
+        datetime:
         {
-            type: [Number],
+            type: String,
             required: true
         },
 
+        // 24hr format for computation
+        // HHMM
         time:
         {
-            type: [Number],
+            type: Number,
             required: true
         },
 
