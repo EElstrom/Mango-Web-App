@@ -90,7 +90,6 @@ app.use(logCondition);
 app.use(prune);
 app.use(getClimates);
 app.use(getConditions);
-app.use(logCondition);
 */
 
 function makeDateTime() 

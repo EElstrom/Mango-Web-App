@@ -13,17 +13,18 @@ async function validateInput(data)
 
     if (isEmpty(data.email) || validator.isEmpty(data.email))
     {
-        errors.email = 'username required';
+        errors.email = 'email required';
     }
     else
     {
-        await User.find({email: data.email}, 'email', 
-                        async (err, users) => {
-                            if (err)
-                                errors.username = 'failed to verify username availability';
-                            else if (users.length > 0)
-                                errors.username = 'username already in use';
-                        });
+        await User.find({
+            email: data.email
+        }, 'email', async (err, users) => {
+                        if (err)
+                            errors.email = 'failed to verify email availability';
+                        else if (users.length > 0)
+                            errors.email = 'email already in use';
+                    });
     }
 
     if (isEmpty(data.password) || validator.isEmpty(data.password))
@@ -53,11 +54,13 @@ router.post('/api/register', async (req, res) => {
             bcrypt.hash(req.body.password, salt, (err, hash) => {
                 if (err)
                     console.log(err);
+
+                const name = (isEmpty(req.body.name) ? '' : req.body.name);
                 
                 const newUser = new User({
                     email : req.body.email, 
                     password : hash,
-                    name: '',
+                    name: name,
                     location: '', 
                     noOfDevices: 0 // should be updated internally
                 });                
