@@ -31,7 +31,7 @@ async function validateInput(data)
     {
         errors.password = 'password required';
     }
-    else if (!validator.isLength(data.password,{min:6, max:30}))
+    else if (!validator.isLength(data.password, {min:6, max:30}))
     {
         errors.password = 'password must be between 6 and 30 characters long';
     }
