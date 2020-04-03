@@ -1,14 +1,37 @@
 import React from 'react';
-import './App.css';
+import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 
-import MangoIcon from './components/MangoIcon';
+// App.css is included in all components, because this file is the root of the project
+import './App.css'
 
-function App()
+// Import our components so they can be used in the application
+import Title from './components/Title';
+import Login from './components/Login';
+
+// This component is the 'int main()' of our web app: the main entry point
+function App(props)
 {
+	// BrowserRouter lets us select a page to display based on the url path. Works like a C switch
 	return (
-		<div style={{position: 'fixed', width: '100vw', height: '100vh'}}>
-			<MangoIcon />
-		</div>
+		<BrowserRouter>
+			<Switch>
+
+				<Route path='/test' exact>
+					<div>Hello World</div>
+				</Route>
+
+				<Route path='/title' exact>
+					<Title text='mango' icon='/mango.png'/>
+				</Route>
+
+				<Route path='/login' exact>
+					<Login />
+				</Route>
+
+				<Redirect to='/test' />
+				
+			</Switch>
+		</BrowserRouter>
 	);
 }
 
