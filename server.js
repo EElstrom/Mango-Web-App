@@ -43,6 +43,7 @@ const editPlant = require('./api/editPlant');
 const getPlants = require('./api/getPlants');
 const deviceLogin = require('./api/deviceLogin');
 const logCondition = require('./api/logCondition');
+const logConditionStupid = require('./api/logConditionStupid');
 
 // Set some HTTP Request Headers (I don't know why)
 app.use((req, res, next) => 
@@ -84,6 +85,7 @@ app.use(editPlant);
 // storing data:
 app.use(deviceLogin);
 app.use(logCondition);
+app.use(logConditionStupid);
 
 /*
 // storing data:
