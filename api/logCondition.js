@@ -28,13 +28,13 @@ async function validateInput(data)
     }
     
     // curTemp
-    if (isEmpty(data.curTemp) || validator.isEmpty(data.curTemp))
+    if (!data.curTemp)
     {
         errors.curTemp = 'curTemp required'
     }
 
     // curHumidity
-    if (isEmpty(data.curHumidity) || validator.isEmpty(data.curHumidity))
+    if (!data.curHumidity)
     {
         errors.curHumidity = 'curHumidity required'
     }
