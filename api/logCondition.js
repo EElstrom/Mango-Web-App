@@ -3,9 +3,9 @@
 // ultimately a straight-forward endpoint
 // all info should be provided by sensor
 // can probably get date/time on this side
-    // mind schema change: datetime is human eye friendly, time is 24hr based number
-    // time is meant to be helpful for graphing
-    // unless timelapse traverses 2400, in which case parsing will need to be careful
+// mind schema change: datetime is human eye friendly, time is 24hr based number
+// time is meant to be helpful for graphing
+// unless timelapse traverses 2400, in which case parsing will need to be careful
 const express = require('express');
 const router = express.Router();
 const validator = require('validator');
@@ -20,12 +20,6 @@ const Condition = require('../models/conditions');
 async function validateInput(data)
 {
     const errors = {};
-
-    // id
-    if (isEmpty(data.id) || validator.isEmpty(data.id))
-    {
-        errors.id = 'id required'
-    }
     
     // curTemp
     if (!data.curTemp)
@@ -94,7 +88,7 @@ router.post('/api/logCondition', async (req, res) => {
     console.log(datetime);
     time24 = now.time24;
     console.log(time24);    
-/*
+
     jwt.verify(authToken, keys.secretOrKey, (err, device) => {
         if (err || !device)
         {
@@ -154,53 +148,6 @@ router.post('/api/logCondition', async (req, res) => {
             }
         }
     });
-    */
-
-   console.log("device is: %s", req.body.id);
-
-   if (validation.isValid)
-   {
-       const newCondition = new Condition({
-           deviceID : req.body.id,
-           deviceName : "wHO kNowS",
-           datetime : datetime,
-           time : time24,
-           curTemp : req.body.curTemp,
-           curHumidity : req.body.curHumidity
-       });
-
-       // .create() to package and send to db
-       Condition.create(newCondition, (err, result) => {
-           if (err)
-           {
-               console.log(err);
-               res
-                   .status(500)
-                   .json({
-                       success: false,
-                       errors: 'failed to add condition'
-                   });
-           }
-
-           else
-           {
-               res
-                   .status(200)
-                   .json({success: true});
-           }
-       });
-   }
-   else
-   {
-       console.log(validation.errors);
-       res
-           .status(400)
-           .json({
-               success: false, 
-               message: 'did not validate',
-               errors: validation.errors
-           });
-   }
 });
 
 module.exports = router;
