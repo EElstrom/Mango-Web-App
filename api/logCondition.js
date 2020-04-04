@@ -20,6 +20,12 @@ const Condition = require('../models/conditions');
 async function validateInput(data)
 {
     const errors = {};
+
+    // id
+    if (isEmpty(data.id) || validator.isEmpty(data.id))
+    {
+        errors.id = 'id required'
+    }
     
     // curTemp
     if (isEmpty(data.curTemp) || validator.isEmpty(data.curTemp))
@@ -78,7 +84,7 @@ function makeDateTime()
 router.post('/api/logCondition', async (req, res) => {
     console.log('POST in logCondition');
 
-    const authToken = req.cookies.session;
+    //const authToken = req.cookies.session;
     
     const validation =  await validateInput(req.body);
 
@@ -88,7 +94,7 @@ router.post('/api/logCondition', async (req, res) => {
     console.log(datetime);
     time24 = now.time24;
     console.log(time24);    
-
+/*
     jwt.verify(authToken, keys.secretOrKey, (err, device) => {
         if (err || !device)
         {
@@ -148,6 +154,53 @@ router.post('/api/logCondition', async (req, res) => {
             }
         }
     });
+    */
+
+   console.log("device is: %s", req.body.id);
+
+   if (validation.isValid)
+   {
+       const newCondition = new Condition({
+           deviceID : req.body.id,
+           deviceName : "wHO kNowS",
+           datetime : datetime,
+           time : time24,
+           curTemp : req.body.curTemp,
+           curHumidity : req.body.curHumidity
+       });
+
+       // .create() to package and send to db
+       Condition.create(newCondition, (err, result) => {
+           if (err)
+           {
+               console.log(err);
+               res
+                   .status(500)
+                   .json({
+                       success: false,
+                       errors: 'failed to add condition'
+                   });
+           }
+
+           else
+           {
+               res
+                   .status(200)
+                   .json({success: true});
+           }
+       });
+   }
+   else
+   {
+       console.log(validation.errors);
+       res
+           .status(400)
+           .json({
+               success: false, 
+               message: 'did not validate',
+               errors: validation.errors
+           });
+   }
 });
 
 module.exports = router;
