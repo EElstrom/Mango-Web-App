@@ -1,4 +1,4 @@
 .mango {
-    font: 'Nunito';
-    font-size: large;
+    font-family: 'Nunito', verdana, arial, helvetica, sans-serif;
+    font-size: 48px;
 }
