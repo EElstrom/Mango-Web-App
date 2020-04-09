@@ -1,3 +1,4 @@
+// HAS SPECIAL REQUEST BODY REQUIREMENTS, AND IS CALLED BY USER
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');

@@ -36,6 +36,7 @@ const addDevice = require('./api/addDevice');
 const deleteDevice = require('./api/deleteDevice');
 const getDevices = require('./api/getDevices');
 const editDevice = require('./api/editDevice');
+const getClimates = require('./api/getClimates');
 const getConditions = require('./api/getConditions');
 const addPlant = require('./api/addPlant');
 const deletePlant = require('./api/deletePlant');
@@ -87,11 +88,13 @@ app.use(deviceLogin);
 app.use(logCondition);
 app.use(logConditionStupid);
 
+// retrieving data
+app.use(getClimates);
+app.use(getConditions);
+
 /*
 // storing data:
 app.use(prune);
-app.use(getClimates);
-app.use(getConditions);
 */
 
 function makeDateTime() 
