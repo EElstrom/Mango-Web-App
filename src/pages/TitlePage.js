@@ -16,7 +16,7 @@ const iconStyle = {
 // Stateless components only deal with props. We can pass the title and icon into the function as props.
 
 // Stateless 'functional' component
-function Title(props)
+function TitlePage(props)
 {
     // Set our title to a default value if one is not defined
     if (!props.text)
@@ -35,5 +35,5 @@ function Title(props)
     );
 }
 
-// This makes our Title component "importable", so we can import and use it in other files
-export default Title;
+// This makes our TitlePage component "importable", so we can import and use it in other files
+export default TitlePage;

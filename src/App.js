@@ -4,9 +4,9 @@ import './App.css';
 
 import MangoIcon from './components/MangoIcon';
 // import Home from './pages/Home';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import Settings from './pages/Settings';
+import LoginPage from './pages/LoginPage';
+// import RegisterPage from './pages/RegisterPage';
+// import SettingsPage from './pages/SettingsPage';
 
 function App()
 {
@@ -18,7 +18,7 @@ function App()
 				</Route>
 
 				<Route path="/login" exact>
-					<Login />
+					<LoginPage />
 				</Route>
 
 				<Redirect to="/" />

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Logo from '../components/Logo'
+import Login from '../components/Login'
 import '../App.css';
 
 const white_box = {
@@ -18,7 +19,7 @@ const white_box = {
 	'border-radius': '15px'
 };
 
-class Login extends React.Component
+class LoginPage extends React.Component
 {
 	render()
 	{
@@ -33,4 +34,4 @@ class Login extends React.Component
 	}
 }
 
-export default Login;
+export default LoginPage;
