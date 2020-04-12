@@ -82,7 +82,10 @@ router.post('/api/login', async (req, res, ) => {
                                         httpOnly: true, 
                                         expires: 0
                                     })
-                                    .json({success: true,});
+                                    .json({
+                                        success: true,
+                                        token: token
+                                    });
                             });
                         }
                         else
