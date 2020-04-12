@@ -3,9 +3,9 @@
 // ultimately a straight-forward endpoint
 // all info should be provided by sensor
 // can probably get date/time on this side
-    // mind schema change: datetime is human eye friendly, time is 24hr based number
-    // time is meant to be helpful for graphing
-    // unless timelapse traverses 2400, in which case parsing will need to be careful
+// mind schema change: datetime is human eye friendly, time is 24hr based number
+// time is meant to be helpful for graphing
+// unless timelapse traverses 2400, in which case parsing will need to be careful
 const express = require('express');
 const router = express.Router();
 const validator = require('validator');
@@ -22,13 +22,13 @@ async function validateInput(data)
     const errors = {};
     
     // curTemp
-    if (isEmpty(data.curTemp) || validator.isEmpty(data.curTemp))
+    if (!data.curTemp)
     {
         errors.curTemp = 'curTemp required'
     }
 
     // curHumidity
-    if (isEmpty(data.curHumidity) || validator.isEmpty(data.curHumidity))
+    if (!data.curHumidity)
     {
         errors.curHumidity = 'curHumidity required'
     }
@@ -78,7 +78,7 @@ function makeDateTime()
 router.post('/api/logCondition', async (req, res) => {
     console.log('POST in logCondition');
 
-    const authToken = req.cookies.session;
+    //const authToken = req.cookies.session;
     
     const validation =  await validateInput(req.body);
 

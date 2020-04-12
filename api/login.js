@@ -91,7 +91,7 @@ router.post('/api/login', async (req, res, ) => {
                         else
                         {
                             res
-                                .status(400)
+                                .status(401)
                                 .json({
                                     success: false, 
                                     errors: 'bad login'
