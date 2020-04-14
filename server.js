@@ -4,8 +4,11 @@ const mongoClient = require('mongodb');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const keys = require('./config/keys');
+const swaggerUi = require('swagger-ui-express');
 
+const swaggerDocument = require('./swagger.json');
 const app = express();
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
