@@ -38,6 +38,7 @@ router.post('/api/getConditions', (req, res) => {
     const validation = validateInput(req.body);
 
     const query = (!isEmpty(req.body.query) ? req.body.query : '');
+    console.log("query is: " + query);
 
     if (validation.isValid)
     {
@@ -90,7 +91,7 @@ router.post('/api/getConditions', (req, res) => {
                                     .status(200)
                                     .json({
                                         success: true,
-                                        conditions: condition
+                                        conditions: conditions
                                     });
                             }
                         })
@@ -109,6 +110,8 @@ router.post('/api/getConditions', (req, res) => {
                                 {time : {$regex: '.*' + query + '.*', $options: 'i'}}
                             ]
                         };
+
+                        console.log("request is: " + request);
                     }
                 
                     Condition
@@ -139,12 +142,12 @@ router.post('/api/getConditions', (req, res) => {
                                     .status(200)
                                     .json({
                                         success: true,
-                                        conditions: condition
+                                        conditions: conditions
                                     });
                             }
                         })
                         .sort({
-                            time: 1
+                            _id: -1
                         });
                 }
             }
