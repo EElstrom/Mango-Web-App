@@ -82,13 +82,16 @@ router.post('/api/login', async (req, res, ) => {
                                         httpOnly: true, 
                                         expires: 0
                                     })
-                                    .json({success: true});
+                                    .json({
+                                        success: true,
+                                        token: token
+                                    });
                             });
                         }
                         else
                         {
                             res
-                                .status(400)
+                                .status(401)
                                 .json({
                                     success: false, 
                                     errors: 'bad login'

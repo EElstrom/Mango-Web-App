@@ -65,7 +65,7 @@ router.post('/api/editUser', (req, res) => {
                 else
                 {
                     res
-                        .status(400)
+                        .status(200)
                         .json({
                             success: true
                         });

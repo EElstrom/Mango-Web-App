@@ -10,9 +10,10 @@ const climateSchema = new mongoose.Schema(
             required: true
         },
 
+        // "MMDDYYYY" format
         date:
         {
-            type: [Number],
+            type: String,
             required: true
         },
 
@@ -24,7 +25,7 @@ const climateSchema = new mongoose.Schema(
         
         loTempTime:
         {
-            type: [Number],
+            type: String,
             required: true
         },
 
@@ -36,7 +37,7 @@ const climateSchema = new mongoose.Schema(
         
         hiTempTime:
         {
-            type: [Number],
+            type: String,
             required: true
         },
 
@@ -54,7 +55,7 @@ const climateSchema = new mongoose.Schema(
         
         loHumTime:
         {
-            type: [Number],
+            type: String,
             required: true
         },
 
@@ -66,7 +67,7 @@ const climateSchema = new mongoose.Schema(
         
         hiHumTime:
         {
-            type: [Number],
+            type: String,
             required: true
         },
 

@@ -78,7 +78,7 @@ function makeDateTime()
 router.post('/api/logCondition', async (req, res) => {
     console.log('POST in logCondition');
 
-    //const authToken = req.cookies.session;
+    const authToken = req.cookies.session;
     
     const validation =  await validateInput(req.body);
 

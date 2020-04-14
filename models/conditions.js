@@ -25,10 +25,10 @@ const conditionsSchema = new mongoose.Schema(
         },
 
         // 24hr format for computation
-        // HHMM
+        // HHMM, must be in string to account for leading zeros. Ex: 0002 = 12:02AM
         time:
         {
-            type: Number,
+            type: String,
             required: true
         },
 
