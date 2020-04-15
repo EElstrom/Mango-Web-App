@@ -7,6 +7,7 @@ import MangoIcon from './components/MangoIcon';
 import LoginPage from './pages/LoginPage';
 // import RegisterPage from './pages/RegisterPage';
 // import SettingsPage from './pages/SettingsPage';
+// import ResetPasswordPage from './pages/ResetPasswordPage';
 
 function App()
 {
