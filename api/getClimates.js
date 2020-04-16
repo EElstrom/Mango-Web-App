@@ -93,7 +93,7 @@ router.post('/api/getClimates', (req, res) => {
                                 .status(200)
                                 .json({
                                     success: true,
-                                    cliamtes: climate
+                                    climates: climates
                                 });
                         }
                     })
