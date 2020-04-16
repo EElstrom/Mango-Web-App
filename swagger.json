@@ -881,7 +881,7 @@
   },
   "servers": [
     {
-      "url": "http://mango-env.msrndbb6dp.us-east-2.elasticbeanstalk.com/"
+      "url": "https://mangogreenhouse.com/"
     }
   ],
   "components": {
