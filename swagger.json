@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "description": "Mango API. Mango application creates a reliable connection between a user and their greenhouse hydorponic sensors. This application keeps logs of data for various sensors and arranges the information in helpful ways. Users may store information about several sensors, plants, and long-term parsed data.",
+    "description": "Mango API. Mango application creates a reliable connection between a user and their greenhouse hydroponic sensors. This application keeps logs of data for various sensors and arranges the information in helpful ways. Users may store information about several sensors, plants, and long-term parsed data.",
     "version": "1.0.0-oas3",
     "title": "Mango App API",
     "contact": {
@@ -875,6 +875,98 @@
               }
             }
           }
+        }
+      }
+    },
+    "/api/dviceLogin": {
+      "post": {
+        "tags": [
+          "Store"
+        ],
+        "summary": "Device-only login",
+        "operationId": "deviceLogin",
+        "description": "Login point for devices. This will create a secure session with a long-lasting jwt the sensor can use to log readings for a 12hr period. There is no password, the sensor will send its own ID to recieve a token.",
+        "responses": {
+          "200": {
+            "description": "login successful",
+            "headers": {
+              "Set-Cookie": {
+                "schema": {
+                  "type": "string",
+                  "example": "SESSIONID=ghjk2345; Path=/; HttpOnly"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "validation errors (no id)"
+          },
+          "401": {
+            "description": "bad credentials"
+          },
+          "500": {
+            "description": "failed to login"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/device"
+              },
+              "examples": {
+                "login": {
+                  "summary": "log into account",
+                  "value": {
+                    "id": "43u8ojfFJKD39fjs9JKj"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "/api/logCondition": {
+      "post": {
+        "tags": [
+          "Store"
+        ],
+        "summary": "log a new condition reading",
+        "operationId": "logCondition",
+        "description": "Device-only endpoint which will then store the readings data from that time. Readings are posted based on post frequency attribute of that particular sensor, which will self-regulate with its own encoding. Most of the fields required in the condition schema are automatically filled in with backend including time, deviceID, and deviceName.",
+        "responses": {
+          "200": {
+            "description": "Condition added successfully"
+          },
+          "400": {
+            "description": "Validation errors"
+          },
+          "401": {
+            "description": "bad credentials"
+          },
+          "500": {
+            "description": "failed to register"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/conditions"
+              },
+              "examples": {
+                "newCondition": {
+                  "value": {
+                    "curTemp": 75,
+                    "curHuimdity": 0.8
+                  }
+                }
+              }
+            }
+          },
+          "required": true
         }
       }
     }

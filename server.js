@@ -95,10 +95,6 @@ app.use(logConditionStupid);
 app.use(getClimates);
 app.use(getConditions);
 
-/*
-// storing data:
-app.use(prune);
-*/
 
 function makeDateTime() 
 {
