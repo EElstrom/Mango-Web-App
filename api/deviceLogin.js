@@ -45,7 +45,7 @@ router.post('/api/deviceLogin', async (req, res) =>
                 else if (!device)
                 {
                     res
-                        .status(400)
+                        .status(401)
                         .json({
                             success: false, 
                             errors: 'bad login'
