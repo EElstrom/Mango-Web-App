@@ -23,7 +23,9 @@ class Settings extends React.Component
 		return(
 			<div style={yellow}>
 				<div>
-					<div>settings page!</div>
+					<div class='card'>
+
+					</div>
 				</div>
 			</div>
 		);

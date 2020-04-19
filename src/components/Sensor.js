@@ -23,7 +23,9 @@ class Sensor extends React.Component
 		return(
 			<div style={red}>
 				<div>
-					<div>sensor page!</div>
+					<div class='card'>
+
+					</div>
 				</div>
 			</div>
 		);

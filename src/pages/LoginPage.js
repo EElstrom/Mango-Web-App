@@ -8,15 +8,15 @@ import '../App.css';
 const background = {
 	background: 'linear-gradient(129.34deg, rgba(246, 205, 90, 0.76) 2.04%, #FF8C42 49.36%, #EB4F4C 94.41%)',
 	 
-	 minHeight: '100%',
-	 minWidth: '1024px',
-	   
-	 width: '100%',
-	 height: 'auto',
-	   
-	 position: 'fixed',
-	 top: '0',
-	 left: '0'
+	minHeight: '100%',
+	minWidth: '1024px',
+	
+	width: '100%',
+	height: 'auto',
+	
+	position: 'fixed',
+	top: '0',
+	left: '0'
 }
 
 const white_box = {

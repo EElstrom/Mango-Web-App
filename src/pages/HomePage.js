@@ -5,33 +5,12 @@ import Logo from '../components/Logo';
 import Settings from '../components/Settings';
 import DataDisplay from '../components/DataDisplay';
 import Sensor from '../components/Sensor';
+import {ProfilePic} from '../components/SVGs';
 import '../App.css';
 
-const top = {
+const header = {
     backgroundColor: '#FFFFFF',
     margin: '30px'
-};
-
-const gh_card = {
-	// display: 'flex',
-	// flexDirection: 'column',
-	// alignContent: 'center',
-	// textAlign: 'center',
-
-	// margin: '5% auto',
-	backgroundColor: '#FFFFFF',
-    minHeight: '50%',
-    minWidth: '70%',
-      
-    width: 'auto',
-    height: 'auto',
-      
-    position: 'fixed',
-    // top: '20%',
-    // left: '12.5%',
-
-	borderRadius: '15px',
-	padding: '39px'
 };
 
 const orange_tab = {
@@ -44,7 +23,8 @@ const orange_tab = {
       
     position: 'fixed',
     top: '15%',
-    left: '80%'
+    left: '80%',
+    boxShadow: '7px -2px 5px #EEEEEE'
 }
 
 const yellow_tab = {
@@ -57,7 +37,8 @@ const yellow_tab = {
       
     position: 'fixed',
     top: '15%',
-    left: '88%'
+    left: '88%',
+    boxShadow: '7px -2px 5px #EEEEEE'
 }
 
 const red_tab = {
@@ -70,7 +51,17 @@ const red_tab = {
       
     position: 'fixed',
     top: '15%',
-    left: '72%'
+    left: '72%',
+    boxShadow: '7px -2px 5px #EEEEEE'
+}
+
+const profilePic_style = {
+    width: '50px',
+    height: '50px',
+      
+    position: 'fixed',
+    top: '5%',
+    left: '90%'
 }
 
 class HomePage extends React.Component
@@ -89,7 +80,7 @@ class HomePage extends React.Component
         event.preventDefault();
         this.setState({mode: 'sensor'});
     }
-    
+
     setModeData = async event =>
     {
         event.preventDefault();
@@ -106,11 +97,14 @@ class HomePage extends React.Component
 	{
 		return(
 			<div>
-                <div style={top}>
+                <div style={header}>
                     <Logo />
                     <div onClick={this.setModeSensor} style={red_tab}></div>
                     <div onClick={this.setModeData} style={orange_tab}></div>
                     <div onClick={this.setModeSettings} style={yellow_tab}></div>
+                    <div style={profilePic_style}>
+                     <ProfilePic />
+                    </div>
                 </div>
                 <div>
                     {(this.state.mode === 'sensor') ? <Sensor/> : <div />}
