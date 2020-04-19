@@ -42,13 +42,9 @@ const login_button = {
 
 const text_style = {
 	color: '#6699CC',
-	fontSize: '19px',
-	fontFamily: 'Zilla Slab'
-}
-
-const mango_small = {
-    fontFamily: 'Nunito',
-    fontSize: '30px'
+	fontSize: '27px',
+	fontFamily: 'Zilla Slab',
+	margin: '0px 0px 10px 0px'
 }
 
 class EmailAuth extends React.Component
@@ -77,12 +73,14 @@ class EmailAuth extends React.Component
 		return(
             <div>
                 <link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Nunito:900"/>
-                <span style={text_style}>Hey {this.props.name}! Please enter the code sent to {this.props.email} below:</span>
+                <div style={text_style}>Hey {this.props.name}! Please enter the code sent to {this.props.email} below:</div>
+				<div>
                 <form onSubmit={this.auth}>
 					<link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Zilla+Slab:700"/>
                     <input style={login_field} type='text' placeholder='xxxx' ref={(value) => this.state.code = value}/>
 					<input style={login_button} type='submit' value='Confirm Email'/>
                 </form>
+				</div>
 			</div>
 			);
 	}

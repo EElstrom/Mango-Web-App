@@ -2,8 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import './App.css';
 
-import MangoIcon from './components/MangoIcon';
-// import Home from './pages/Home';
+import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 // import SettingsPage from './pages/SettingsPage';
@@ -11,11 +10,23 @@ import RegisterPage from './pages/RegisterPage';
 
 function App()
 {
+	// this.state = {loggedIn = 'false'};
+
+	// update = () =>
+	// {
+    //     this.setState({loggedIn: 'true'});
+	// }
+	
 	return (
 		<Router>
 			<Switch>
 				<Route style={{position: 'fixed', width: '100vw', height: '100vh'}} path="/" exact>
-					<MangoIcon />
+					{/* {(this.state.loggedIn) ? <HomePage /> : <LoginPage />} */}
+					<LoginPage />
+				</Route>
+
+				<Route path="/home" exact>
+					<HomePage />
 				</Route>
 
 				<Route path="/login" exact>

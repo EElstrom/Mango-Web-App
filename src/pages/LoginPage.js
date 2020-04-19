@@ -29,7 +29,6 @@ const white_box = {
 	backgroundColor: '#FFFFFF',
 	height: '50%',
 	width: '50%',
-  	// box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 	borderRadius: '15px',
 	padding: '39px'
 };
