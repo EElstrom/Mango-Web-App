@@ -25,7 +25,7 @@ const white_box = {
 	alignContent: 'center',
 	textAlign: 'center',
 
-	margin: '10% auto',
+	margin: '11% auto',
 	backgroundColor: '#FFFFFF',
 	height: '50%',
 	width: '50%',

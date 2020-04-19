@@ -29,7 +29,6 @@ class Login extends React.Component
         };
     }
 
-
     // We can add 'extra' class methods to support our use case.
     // This method is 'async', meaning that it runs on it's own thread (UI does not wait for it)
     login = async event =>

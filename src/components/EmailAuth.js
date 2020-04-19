@@ -1,3 +1,91 @@
 // email auth component for Register
 
-// export default EmailAuth;
+import React from 'react';
+// import { Link } from 'react-router-dom';
+import '../App.css';
+
+const login_field = {
+	color: '#FFFFFF',
+	backgroundColor: '#CDDFBC',
+	outline: 'none',
+	width: '10em',
+	height: '2em',
+  	margin: '15px',
+	borderRadius: '10px',
+
+	borderColor: 'transparent',
+	paddingLeft: '20px',
+	maxWidth: '70%',
+	margin: '10px',
+
+	fontSize: '35px',
+	fontFamily: 'Zilla Slab'
+}
+
+const login_button = {
+	color: '#FFFFFF',
+	backgroundColor: '#75A544',
+	outline: 'none',
+	width: '10em',
+	height: '2em',
+  	margin: '15px',
+	borderRadius: '10px',
+
+	borderColor: 'transparent',
+	maxWidth: '70%',
+	margin: '10px 10px 20px 10px',
+
+
+	fontSize: '35px',
+	fontFamily: 'Zilla Slab'
+}
+
+const text_style = {
+	color: '#6699CC',
+	fontSize: '19px',
+	fontFamily: 'Zilla Slab'
+}
+
+const mango_small = {
+    fontFamily: 'Nunito',
+    fontSize: '30px'
+}
+
+class EmailAuth extends React.Component
+{   
+    constructor(props)
+    {
+        super(props);
+
+        this.state = {
+            code: ''
+        };
+	}
+
+    // allow for multiple tries?
+	// auth = async event =>
+    // {
+    //     event.preventDefault();
+
+    //     // TODO Make API Call Here (See API Specs on GitHub Wiki)
+
+    //     this.setState({message: this.state.email.value + ' ' + this.state.password.value});
+    // }
+
+	render()
+	{
+		return(
+            <div>
+                <link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Nunito:900"/>
+                <span style={text_style}>Hey {this.props.name}! Please enter the code sent to {this.props.email} below:</span>
+                <form onSubmit={this.auth}>
+					<link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Zilla+Slab:700"/>
+                    <input style={login_field} type='text' placeholder='xxxx' ref={(value) => this.state.code = value}/>
+					<input style={login_button} type='submit' value='Confirm Email'/>
+                </form>
+			</div>
+			);
+	}
+}
+
+export default EmailAuth;

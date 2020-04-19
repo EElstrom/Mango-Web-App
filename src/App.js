@@ -5,7 +5,7 @@ import './App.css';
 import MangoIcon from './components/MangoIcon';
 // import Home from './pages/Home';
 import LoginPage from './pages/LoginPage';
-// import RegisterPage from './pages/RegisterPage';
+import RegisterPage from './pages/RegisterPage';
 // import SettingsPage from './pages/SettingsPage';
 // import ResetPasswordPage from './pages/ResetPasswordPage';
 
@@ -20,6 +20,10 @@ function App()
 
 				<Route path="/login" exact>
 					<LoginPage />
+				</Route>
+
+				<Route path="/register" exact>
+					<RegisterPage />
 				</Route>
 
 				<Redirect to="/" />
