@@ -8,7 +8,12 @@ import RegisterPage from './pages/RegisterPage';
 // import SettingsPage from './pages/SettingsPage';
 // import ResetPasswordPage from './pages/ResetPasswordPage';
 
-function App()
+// Import our components so they can be used in the application
+import Title from './components/Title';
+import Login from './components/Login';
+
+// This component is the 'int main()' of our web app: the main entry point
+function App(props)
 {
 	// this.state = {loggedIn = 'false'};
 

@@ -1,0 +1,1202 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "Mango API. Mango application creates a reliable connection between a user and their greenhouse hydroponic sensors. This application keeps logs of data for various sensors and arranges the information in helpful ways. Users may store information about several sensors, plants, and long-term parsed data. Please refer to [Post Frequency Algorithm](https://github.com/devon-gadarowski/Mango-Web-App/wiki/API-Specifications#Post-Frequency-Algorithm) to see details on editing a sensor.",
+    "version": "1.0.0-oas3",
+    "title": "Mango App API",
+    "contact": {
+      "name": "Eryn Elstrom",
+      "email": "eryn.elstrom@knights.ucf.edu"
+    }
+  },
+  "tags": [
+    {
+      "name": "User",
+      "description": "Associated with User CRUD"
+    },
+    {
+      "name": "Device",
+      "description": "Associated with Device data"
+    },
+    {
+      "name": "Data",
+      "description": "Associated with retrieving data"
+    },
+    {
+      "name": "Store",
+      "description": "Associated with storing data"
+    },
+    {
+      "name": "Plant",
+      "description": "Associated with plant collection"
+    }
+  ],
+  "paths": {
+    "/api/register": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "register user",
+        "operationId": "register",
+        "description": "register a new user with an email and password. Name is optional. Password is hashed before sent to collection.",
+        "responses": {
+          "200": {
+            "description": "user successfully added"
+          },
+          "400": {
+            "description": "error log"
+          },
+          "500": {
+            "description": "failed to register"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/user"
+              },
+              "examples": {
+                "newUser": {
+                  "summary": "Without name",
+                  "value": {
+                    "email": "user@user.com",
+                    "password": "password"
+                  }
+                },
+                "newUser2": {
+                  "summary": "With name",
+                  "value": {
+                    "email": "user@user.com",
+                    "name": "John Smith",
+                    "password": "password"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Creates a new user",
+          "required": true
+        }
+      }
+    },
+    "/api/login": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Login to account",
+        "operationId": "login",
+        "description": "Log into account using email and password.",
+        "responses": {
+          "200": {
+            "description": "login successful",
+            "headers": {
+              "Set-Cookie": {
+                "schema": {
+                  "type": "string",
+                  "example": "SESSIONID=ghjk2345; Path=/; HttpOnly"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad credentials"
+          },
+          "500": {
+            "description": "failed to login"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/user"
+              },
+              "examples": {
+                "login": {
+                  "summary": "log into account",
+                  "value": {
+                    "email": "user@user.com",
+                    "password": "password"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "/api/logout": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Logout of account",
+        "operationId": "logout",
+        "description": "Logout of account. No request body needed, response is also empty.",
+        "responses": {
+          "200": {
+            "description": "logout successful"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/user"
+              },
+              "examples": {
+                "logout": {
+                  "summary": "Request is EMPTY",
+                  "value": {
+                    "": ""
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/getUser": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get user details",
+        "operationId": "getUser",
+        "description": "Get user details. This will return all useful information associated with a user entry, excepting the password.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/user"
+                },
+                "examples": {
+                  "returnDetails": {
+                    "summary": "User details are returned",
+                    "value": {
+                      "name": "John Smith",
+                      "email": "user@user.com",
+                      "location": "Florida",
+                      "noOfDevices": 3
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "login required"
+          },
+          "500": {
+            "description": "failed to retrieve user"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/user"
+              },
+              "examples": {
+                "getdetails": {
+                  "summary": "Request is EMPTY",
+                  "value": {
+                    "": ""
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "/api/editUser": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Edit User details",
+        "operationId": "editUser",
+        "description": "Edit User details. Users may edit their name, email, password, and location.",
+        "responses": {
+          "200": {
+            "description": "edit successful"
+          },
+          "401": {
+            "description": "bad credentials"
+          },
+          "500": {
+            "description": "failed to edit"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/user"
+              },
+              "examples": {
+                "edit": {
+                  "summary": "Edit Details",
+                  "value": {
+                    "email": "NEW EMAIL",
+                    "password": "NEW PASSWORD",
+                    "name": "NEW NAME",
+                    "location": "NEW LOCATION"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "/api/addDevice": {
+      "post": {
+        "tags": [
+          "Device"
+        ],
+        "summary": "add new sensor to user account",
+        "operationId": "addDevice",
+        "description": "Add a new sensor to an account. Alias is optional to be added at the time of posting to this endpoint. The response will return to the user the newly associated devices _id for storage purposes.",
+        "responses": {
+          "200": {
+            "description": "Sensor added successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/device"
+                },
+                "examples": {
+                  "newDevice": {
+                    "summary": "New Sensor",
+                    "value": {
+                      "deviceID": "158691DFESFd1f2d5e"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "bad credentials"
+          },
+          "500": {
+            "description": "failed to register"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/device"
+              },
+              "examples": {
+                "newDevice": {
+                  "summary": "Sensor without name",
+                  "value": {
+                    "": ""
+                  }
+                },
+                "newDevice2": {
+                  "summary": "Sensor with name",
+                  "value": {
+                    "alias": "Sensor Greenhouse 6"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "/api/deleteDevice": {
+      "post": {
+        "tags": [
+          "Device"
+        ],
+        "summary": "delete sensor from user account",
+        "operationId": "deleteDevice",
+        "description": "Delete a sensor. Will remove all collection entries in 'Climate' and 'Conditions' associated with that deviceID.",
+        "responses": {
+          "200": {
+            "description": "delete successful"
+          },
+          "400": {
+            "description": "failed to delete"
+          },
+          "401": {
+            "description": "bad credentials"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/device"
+              },
+              "examples": {
+                "login": {
+                  "summary": "Delete a device",
+                  "value": {
+                    "id": "fj89p2h4342fdDJkf8d"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "/api/getDevices": {
+      "post": {
+        "tags": [
+          "Device"
+        ],
+        "summary": "retrieve sensors and their details",
+        "operationId": "getDevices",
+        "description": "Retrieve sensor details. This is akin to a search, and can be used with a query that will sort through the names associated with all devices belonging to that user. If no query is passed, it will return an array of all device objects found.",
+        "responses": {
+          "200": {
+            "description": "retrieval successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/device"
+                },
+                "examples": {
+                  "oneDevice": {
+                    "summary": "Retrieve One Sensor",
+                    "value": {
+                      "deviceID": "3245JFK:DJK83fd",
+                      "alias": "Sensor 6",
+                      "postFrequency": 4,
+                      "location": "Florida Greenhouse 2"
+                    }
+                  },
+                  "multDevices": {
+                    "summary": "Retrieve all Sensors",
+                    "value": [
+                      {
+                        "deviceID": "3245JFK:DJK83fd",
+                        "alias": "Sensor 6",
+                        "postFrequency": 4,
+                        "location": "Florida Greenhouse 2"
+                      },
+                      {
+                        "deviceID": "jfkJKF3432uJ",
+                        "alias": "Sensor 8",
+                        "postFrequency": 2,
+                        "location": "Florida Greenhouse 6"
+                      },
+                      "..."
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "bad credentials"
+          },
+          "500": {
+            "description": "failed to search the devices"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/device"
+              },
+              "examples": {
+                "Named device": {
+                  "summary": "Retrieve a named device",
+                  "value": {
+                    "query": "sensor 6"
+                  }
+                },
+                "All devices": {
+                  "summary": "Retrieve all devices",
+                  "value": {
+                    "": ""
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/editDevice": {
+      "post": {
+        "tags": [
+          "Device"
+        ],
+        "summary": "Edit a sensor on user account",
+        "operationId": "editDevice",
+        "description": "Edit a sensor. There are specific requirements to modify the postFrequency of a given sensor. Values 'x' and 'y' are both necessary. If one is missing, postFrequency will not update. The algorithm governing this value can be read \"post X times per Y hours\", and extract those two x/y values.",
+        "responses": {
+          "200": {
+            "description": "edit successful"
+          },
+          "400": {
+            "description": "validation errors"
+          },
+          "401": {
+            "description": "bad credentials"
+          },
+          "500": {
+            "description": "failed to edit sensor"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/device"
+              },
+              "examples": {
+                "editOne": {
+                  "summary": "Edit a sensor",
+                  "value": {
+                    "id": "fjdisfndJKFD348JD",
+                    "x": 2,
+                    "y": 3,
+                    "alias": "NEW ALIAS",
+                    "location": "NEW LOCATION"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/addPlant": {
+      "post": {
+        "tags": [
+          "Plant"
+        ],
+        "summary": "add new plant to user account",
+        "operationId": "addPlant",
+        "description": "Add a new plant to user account. A plant can be associated with a specific sensor, or just in a table of plants that are associated with the user ._id. This data can be edited later as well. Exact duplicates are prevented - a plant can only be added to a sensor once, or if no sensor is provided, can only be added in general once.",
+        "responses": {
+          "200": {
+            "description": "Plant added successfully"
+          },
+          "400": {
+            "description": "validation errors (missing name)"
+          },
+          "401": {
+            "description": "bad credentials"
+          },
+          "500": {
+            "description": "failed to add plant"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/plant"
+              },
+              "examples": {
+                "newPlant": {
+                  "summary": "Only Name",
+                  "value": {
+                    "name": "Crown of Thorns"
+                  }
+                },
+                "newPlant2": {
+                  "summary": "Name and Sensor",
+                  "value": {
+                    "name": "Crown of Thorns",
+                    "deviceName": "Sensor Greenhouse 6"
+                  }
+                },
+                "newPlant3": {
+                  "summary": "All details",
+                  "value": {
+                    "name": "Crown of Thorns",
+                    "notes": "hardy succulent with low water requirements",
+                    "deviceName": "Sensor Greenhouse 6",
+                    "type": "Succulent",
+                    "temperatureTolerance": "60-110",
+                    "lightTolerance": "40-80",
+                    "phTolerance": "6-8",
+                    "humidityTolerance": "0.2-0.7"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "/api/deletePlant": {
+      "post": {
+        "tags": [
+          "Plant"
+        ],
+        "summary": "delete a Plant from user account.",
+        "operationId": "deletePlant",
+        "description": "delete a Plant from the users account. Will remove only one instance - if a user has a plant with the same name under different sensors, only this specifically requested entry will be removed.",
+        "responses": {
+          "200": {
+            "description": "delete successful"
+          },
+          "400": {
+            "description": "validation errors (missing id)"
+          },
+          "401": {
+            "description": "bad credentials"
+          },
+          "500": {
+            "description": "failed to delete"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/plant"
+              },
+              "examples": {
+                "login": {
+                  "summary": "Delete a device",
+                  "value": {
+                    "id": "fj89p2h4342fdDJkfDFfe8d"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "/api/getPlants": {
+      "post": {
+        "tags": [
+          "Plant"
+        ],
+        "summary": "retrieve one or more plant",
+        "operationId": "getPlants",
+        "description": "Retrieve plant details. This is a searchable function, if no query is provided, the search will return all plants associated with that user. This functionality should almost always be used with a sensor ID being sent. Will also filter by name, notes, sensor name, type and tolerances.",
+        "responses": {
+          "200": {
+            "description": "retrieval successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/plant"
+                },
+                "examples": {
+                  "oneDevice": {
+                    "summary": "Retrieve One plant",
+                    "value": {
+                      "name": "Crown of Thorns",
+                      "notes": "Cannot be watered more than once every 4-5 days in humid environments. Has extensive root system. Will grow tall but busy at base.",
+                      "deviceName": "Sensor Greenhouse 6",
+                      "type": "Succulent",
+                      "temperatureTolerance": "70-110",
+                      "lightTolerance": "10-60",
+                      "phTolerance": "4-8",
+                      "humidityTolerance": "0.2-0.8"
+                    }
+                  },
+                  "multDevices": {
+                    "summary": "Retrieve all plants",
+                    "value": [
+                      {
+                        "name": "Crown of Thorns",
+                        "notes": "Cannot be watered more than once every 4-5 days in humid environments. Has extensive root system. Will grow tall but busy at base.",
+                        "deviceName": "Sensor Greenhouse 6",
+                        "type": "Succulent",
+                        "temperatureTolerance": "70-110",
+                        "lightTolerance": "10-60",
+                        "phTolerance": "4-8",
+                        "humidityTolerance": "0.2-0.8"
+                      },
+                      {
+                        "name": "Lantana",
+                        "notes": "Ground cover, can come in a variety of colors that will mix if cross-pollinated",
+                        "deviceName": "Sensor Greenhouse 6",
+                        "type": "Waxy",
+                        "temperatureTolerance": "70-90",
+                        "lightTolerance": "10-50",
+                        "phTolerance": "4-8",
+                        "humidityTolerance": "0.2-0.8"
+                      },
+                      "..."
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "bad credentials"
+          },
+          "500": {
+            "description": "failed to search plants"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/plant"
+              },
+              "examples": {
+                "PlantWithSensor": {
+                  "summary": "Retrieve based on sensor",
+                  "value": {
+                    "query": "Sensor 6"
+                  }
+                },
+                "Named plant": {
+                  "summary": "Retrieve a named plant",
+                  "value": {
+                    "query": "Crown of Thorns"
+                  }
+                },
+                "All plants": {
+                  "summary": "Retrieve all plants",
+                  "value": {
+                    "": ""
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/editPlant": {
+      "post": {
+        "tags": [
+          "Plant"
+        ],
+        "summary": "Edit a plant on user account",
+        "operationId": "editPlant",
+        "description": "All fields excepting the userID and plant._id can be edited.",
+        "responses": {
+          "200": {
+            "description": "edit successful"
+          },
+          "400": {
+            "description": "validation errors"
+          },
+          "401": {
+            "description": "bad credentials"
+          },
+          "500": {
+            "description": "failed to edit plant"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/device"
+              },
+              "examples": {
+                "editOne": {
+                  "summary": "Edit a sensor",
+                  "value": {
+                    "name": "NEW NAME",
+                    "notes": "NEW NOTES",
+                    "deviceName": "NEW SENSOR",
+                    "type": "NEW TYPE"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/getClimates": {
+      "post": {
+        "tags": [
+          "Data"
+        ],
+        "summary": "retrieve one or more climate",
+        "operationId": "getClimates",
+        "description": "Retrieve history climate details. These entries are parsed-together logs of information stored in prior sessions from a given sensor. These details are contingent on a user providing authenticaton and a deviceID.",
+        "responses": {
+          "200": {
+            "description": "retrieval successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/climate"
+                },
+                "examples": {
+                  "oneDevice": {
+                    "summary": "Retrieve One Climate",
+                    "value": {
+                      "date": "03/26/2020",
+                      "loTemp": 70,
+                      "loTempTime": 256,
+                      "hiTemp": 90,
+                      "hiTempTime": 1145,
+                      "avgTemp": 85,
+                      "loHumidity": 0.7,
+                      "loHumTime": 229,
+                      "hiHumidity": 0.9,
+                      "hiHumTime": 1046,
+                      "avgHumidity": 0.86
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "validation errors"
+          },
+          "401": {
+            "description": "bad credentials"
+          },
+          "500": {
+            "description": "failed to search climates"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/climate"
+              },
+              "examples": {
+                "MostRecent": {
+                  "summary": "Retrieve all climates",
+                  "value": {
+                    "deviceID": "fjdiaonDF789078Dddf"
+                  }
+                },
+                "SpecificDate": {
+                  "summary": "Retrieve a specific date",
+                  "value": {
+                    "deviceID": "fjdiaonDF789078Dddf",
+                    "query": "03/26/2020"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/getConditions": {
+      "post": {
+        "tags": [
+          "Data"
+        ],
+        "summary": "retrieve one or more conditions",
+        "operationId": "getConditions",
+        "description": "Retrieve all the logged details of the current session being registered by a sensor. Done in 12hr sections, this endpoint will return all the data in a list, newest at position zero. Searchable for most recent or specific date.",
+        "responses": {
+          "200": {
+            "description": "retrieval successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/conditions"
+                },
+                "examples": {
+                  "oneDevice": {
+                    "summary": "Retrieve all Conditions",
+                    "value": {
+                      "deviceName": "Greenhouse Sensor 6",
+                      "datetime": "03/26/2020 12:56 PM",
+                      "time": 1256,
+                      "curTemp": 95,
+                      "curHumidity": 0.9
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "validation errors"
+          },
+          "401": {
+            "description": "bad credentials"
+          },
+          "500": {
+            "description": "failed to search conditions"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/conditions"
+              },
+              "examples": {
+                "MostRecent": {
+                  "summary": "Retrieve most Recent",
+                  "value": {
+                    "deviceID": "fjdiaonDF789078Dddf",
+                    "mostRecent": true
+                  }
+                },
+                "SpecificDate": {
+                  "summary": "Retrieve a specific date",
+                  "value": {
+                    "deviceID": "fjdiaonDF789078Dddf",
+                    "mostRecent": false,
+                    "query": "03/26/2020"
+                  }
+                },
+                "All": {
+                  "summary": "Retrieve all conditions",
+                  "value": {
+                    "deviceID": "fjdiaonDF789078Dddf"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/dviceLogin": {
+      "post": {
+        "tags": [
+          "Store"
+        ],
+        "summary": "Device-only login",
+        "operationId": "deviceLogin",
+        "description": "Login point for devices. This will create a secure session with a long-lasting jwt the sensor can use to log readings for a 12hr period. There is no password, the sensor will send its own ID to recieve a token.",
+        "responses": {
+          "200": {
+            "description": "login successful",
+            "headers": {
+              "Set-Cookie": {
+                "schema": {
+                  "type": "string",
+                  "example": "SESSIONID=ghjk2345; Path=/; HttpOnly"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "validation errors (no id)"
+          },
+          "401": {
+            "description": "bad credentials"
+          },
+          "500": {
+            "description": "failed to login"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/device"
+              },
+              "examples": {
+                "login": {
+                  "summary": "log into account",
+                  "value": {
+                    "id": "43u8ojfFJKD39fjs9JKj"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "/api/logCondition": {
+      "post": {
+        "tags": [
+          "Store"
+        ],
+        "summary": "log a new condition reading",
+        "operationId": "logCondition",
+        "description": "Device-only endpoint which will then store the readings data from that time. Readings are posted based on post frequency attribute of that particular sensor, which will self-regulate with its own encoding. Most of the fields required in the condition schema are automatically filled in with backend including time, deviceID, and deviceName.",
+        "responses": {
+          "200": {
+            "description": "Condition added successfully"
+          },
+          "400": {
+            "description": "Validation errors"
+          },
+          "401": {
+            "description": "bad credentials"
+          },
+          "500": {
+            "description": "failed to register"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/conditions"
+              },
+              "examples": {
+                "newCondition": {
+                  "value": {
+                    "curTemp": 75,
+                    "curHuimdity": 0.8
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://mangogreenhouse.com/"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "SESSIONID"
+      }
+    },
+    "schemas": {
+      "user": {
+        "type": "object",
+        "required": [
+          "email",
+          "password"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "user@user.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "password"
+          },
+          "name": {
+            "type": "string",
+            "format": "First Last",
+            "example": "John Smith"
+          },
+          "location": {
+            "type": "string",
+            "example": "Florida"
+          },
+          "noOfDevices": {
+            "type": "number",
+            "example": 3
+          }
+        }
+      },
+      "device": {
+        "required": [
+          "userID",
+          "alias",
+          "postFrequency"
+        ],
+        "properties": {
+          "userID": {
+            "type": "string",
+            "format": "user.id",
+            "example": "158915DREfdsdfs$156s"
+          },
+          "alias": {
+            "type": "string",
+            "example": "Sensor 6"
+          },
+          "postFrequency": {
+            "type": "number",
+            "example": 4
+          },
+          "location": {
+            "type": "string",
+            "example": "Greenhouse #6"
+          }
+        }
+      },
+      "climate": {
+        "required": [
+          "deviceID",
+          "date",
+          "loTemp",
+          "loTempTime",
+          "hiTemp",
+          "hiTempTime",
+          "avgTemp",
+          "loHumidity",
+          "loHumTime",
+          "hiHumidity",
+          "hiHumTime",
+          "avgHumidity"
+        ],
+        "properties": {
+          "deviceID": {
+            "type": "string",
+            "format": "device.id",
+            "example": "158915DREfdsdfs$156s"
+          },
+          "date": {
+            "type": "string",
+            "format": "MMDDYYY",
+            "example": "03212020"
+          },
+          "loTemp": {
+            "type": "number",
+            "example": "45 is 45 degrees F"
+          },
+          "loTempTime": {
+            "type": "string",
+            "format": "HHMM",
+            "example": "0045 is 12:45AM"
+          },
+          "hiTemp": {
+            "type": "number",
+            "example": "95 is 95 degrees F"
+          },
+          "hiTempTime": {
+            "type": "string",
+            "format": "HHMM",
+            "example": "0045 is 12:45AM"
+          },
+          "avgTemp": {
+            "type": "number",
+            "example": "65 is 65 degrees F"
+          },
+          "loHumidity": {
+            "type": "number",
+            "example": "0.4 is 40% humidity"
+          },
+          "loHumTime": {
+            "type": "string",
+            "format": "HHMM",
+            "example": "0045 is 12:45AM"
+          },
+          "hiHumidity": {
+            "type": "number",
+            "example": "0.9 is 90% humidity"
+          },
+          "hiHumTime": {
+            "type": "string",
+            "format": "HHMM",
+            "example": "0045 is 12:45AM"
+          },
+          "avgHumidity": {
+            "type": "number",
+            "example": "0.75 is 75% humidity"
+          }
+        }
+      },
+      "conditions": {
+        "required": [
+          "deviceID",
+          "datetime",
+          "time",
+          "curTemp",
+          "curHumidity"
+        ],
+        "properties": {
+          "deviceID": {
+            "type": "string",
+            "format": "device.id",
+            "example": "158915DREfdsdfs$156s"
+          },
+          "datetime": {
+            "type": "string",
+            "format": "MM/DD/YYYY HH:MM [A || P]M",
+            "example": "03/20/2020 12:45 AM"
+          },
+          "time": {
+            "type": "string",
+            "format": "HHMM",
+            "example": "0045 is 12:45, 24Hr format"
+          },
+          "curTemp": {
+            "type": "number",
+            "example": 45
+          },
+          "curHumidity": {
+            "type": "number",
+            "example": 0.8
+          }
+        }
+      },
+      "plant": {
+        "required": [
+          "userID",
+          "name"
+        ],
+        "properties": {
+          "userID": {
+            "type": "string",
+            "format": "user.id",
+            "example": "158915DREfdsdfs$156s"
+          },
+          "name": {
+            "type": "string",
+            "example": "Hibiscus"
+          },
+          "notes": {
+            "type": "string",
+            "example": "Blooms primarily in late afternoon"
+          },
+          "deviceName": {
+            "type": "string",
+            "example": "Sensor #3"
+          },
+          "type": {
+            "type": "string",
+            "example": "succulent"
+          },
+          "temperatureTolerance": {
+            "type": "string",
+            "example": "45 to 85"
+          },
+          "lightTolerance": {
+            "type": "string",
+            "example": "shade only"
+          },
+          "phTolerance": {
+            "type": "string",
+            "example": "7 to 8"
+          },
+          "humidityTolerance": {
+            "type": "string",
+            "example": "0.4 to 0.8"
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "cookieAuth": []
+    }
+  ]
+}
