@@ -57,15 +57,6 @@ router.post('/api/login', async (req, res, ) => {
                             errors: 'bad login'
                         });
                 }
-                else if (!user.verified)
-                {
-                    res
-                        .status(201)
-                        .json({
-                            success: false,
-                            errors: 'please verify your account'
-                        });
-                }
                 else
                 {
                     bcrypt.compare(req.body.password, user.password, (err, isMatch) => {
@@ -76,6 +67,16 @@ router.post('/api/login', async (req, res, ) => {
 
                         if (isMatch)
                         {
+                            if (!user.verified)
+                            {
+                                res
+                                    .status(201)
+                                    .json({
+                                        success: false,
+                                        errors: 'please verify your account'
+                                    });
+                            }
+
                             const payload = {
                                 id: user.id,
                                 email: user.email,
