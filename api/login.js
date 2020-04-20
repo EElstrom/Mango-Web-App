@@ -61,7 +61,7 @@ router.post('/api/login', async (req, res, ) => {
                 {
                     res
                         .status(201)
-                        .jason({
+                        .json({
                             success: false,
                             errors: 'please verify your account'
                         });
