@@ -2,6 +2,7 @@
 
 import React from 'react';
 import {Create_gh_prompt, Create_gh} from '../components/CreateGH';
+import DataDetails from '../components/DataDetails';
 import '../App.css';
 
 const orange = {
@@ -19,12 +20,30 @@ const orange = {
 
 class DataDisplay extends React.Component
 {
+	constructor(props)
+    {
+        super(props);
+
+        this.state = {
+			// mode can be prompt, create, or data
+			mode: 'prompt'
+        };
+	}
+
+	setCreate = async event =>
+    {
+        event.preventDefault();
+        this.setState({mode: 'create'});
+    }
+	
 	render()
 	{
 		return(
 			<div>
 				<div style={orange}>
-				<Create_gh_prompt/>
+				{(this.state.mode === 'prompt') ? <Create_gh_prompt update={this.setCreate}/> : <div />}
+				{(this.state.mode === 'create') ? <Create_gh/> : <dvi />}
+				{(this.state.mode === 'data') ? <DataDetails/> : <div />}
 				<div>
 					{/* Icons made by <a href="https://www.flaticon.com/authors/smalllikeart" title="smalllikeart">smalllikeart</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> */}
 				</div>
