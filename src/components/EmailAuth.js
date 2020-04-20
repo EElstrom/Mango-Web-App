@@ -88,7 +88,7 @@ class EmailAuth extends React.Component
 				<div>
                 <form onSubmit={this.auth}>
 					<link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Zilla+Slab:700"/>
-                    <input style={login_field} type='text' placeholder='xxxx' ref={(value) => this.state.code = value}/>
+                    <input style={login_field} type='text' placeholder='xxxxxx' ref={(value) => this.state.code = value}/>
 					<input style={login_button} type='submit' value='Confirm Email'/>
                 </form>
 				{ <span>{this.state.message}</span> }
