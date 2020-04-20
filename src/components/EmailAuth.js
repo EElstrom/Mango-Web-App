@@ -54,19 +54,30 @@ class EmailAuth extends React.Component
         super(props);
 
         this.state = {
-            code: ''
+            code: '',
+			message: ''
         };
 	}
 
     // allow for multiple tries?
-	// auth = async event =>
-    // {
-    //     event.preventDefault();
+	auth = async event =>
+    {
+        event.preventDefault();
 
-    //     // TODO Make API Call Here (See API Specs on GitHub Wiki)
-
-    //     this.setState({message: this.state.email.value + ' ' + this.state.password.value});
-    // }
+        // TODO Make API Call Here (See API Specs on GitHub Wiki)
+		
+		const code = this.state.code.value;
+		if (code === '5872')
+		{
+			this.setState({message: 'verified'});
+			window.location.replace('/home');
+		}
+		else
+		{
+			this.setState({message: 'incorrect code, please try again'});
+		}
+        // this.setState({message: this.state.email.value + ' ' + this.state.password.value});
+    }
 
 	render()
 	{
@@ -80,6 +91,7 @@ class EmailAuth extends React.Component
                     <input style={login_field} type='text' placeholder='xxxx' ref={(value) => this.state.code = value}/>
 					<input style={login_button} type='submit' value='Confirm Email'/>
                 </form>
+				{ <span>{this.state.message}</span> }
 				</div>
 			</div>
 			);

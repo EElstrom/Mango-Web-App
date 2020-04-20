@@ -76,7 +76,7 @@ class Register extends React.Component
             email: '',
             password: '',
             password2: '',
-			message: 'test message'
+			message: ''
         };
 	}
 
@@ -84,9 +84,49 @@ class Register extends React.Component
     {
         event.preventDefault();
 
-        // TODO Make API Call Here (See API Specs on GitHub Wiki)
-
-		this.props.update(this.state.name, this.state.email);
+		const email = this.state.email.value;
+		const password = this.state.password.value;
+		const password2 = this.state.password2.value;
+		const name = this.state.name.value;
+		var msg = '';
+		
+		if (password !== password2)
+		{
+			this.setState({message: 'passwords do not match'});
+			return;
+		}
+		
+		console.log('api/register');
+		
+		const response = await fetch('api/register', {
+			method: 'POST',
+			headers: {'Content-Type': 'application/json'},
+			body: JSON.stringify({
+				email: email,
+				password: password,
+				name: name
+			})
+		}).then(response => {return response.json()});
+		
+		console.log(JSON.stringify(response));
+		if (response.success)
+		{
+			msg = 'registered!';
+			this.props.update(this.state.name, this.state.email);
+		}
+		else if (response.errors.email)
+		{
+			msg = response.errors.email;
+		}
+		else if (response.errors.password)
+		{
+			msg = response.errors.password;
+		}
+		else
+		{
+			msg = response.errors || 'Unknown error';
+		}
+		this.setState({message: msg});
     }
 	
 	render()
@@ -95,10 +135,10 @@ class Register extends React.Component
             <div style={login_comps}>
                 <form onSubmit={this.register}>
 					<link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Zilla+Slab:700"/>
-                    <input style={login_field} type='text' placeholder='name' ref={(value) => this.state.name = value}/>
-                    <input style={login_field} type='text' placeholder='email' ref={(value) => this.state.email = value}/>
-                    <input style={login_field} type='password' placeholder='password' ref={(value) => this.state.password = value}/>
-                    <input style={login_field} type='password' placeholder='confirm password' ref={(value) => this.state.password2 = value}/>
+                    <input style={login_field} type='text' placeholder='name' ref={(value) => this.state.name = value}/><br />
+                    <input style={login_field} type='text' placeholder='email' ref={(value) => this.state.email = value}/><br />
+                    <input style={login_field} type='password' placeholder='password' ref={(value) => this.state.password = value}/><br />
+                    <input style={login_field} type='password' placeholder='confirm password' ref={(value) => this.state.password2 = value}/><br />
 					<input style={login_button} type='submit' value='Sign up'/>
                 </form>
 
@@ -107,7 +147,7 @@ class Register extends React.Component
 					<Link to="/login" style={underline_link}>log in</Link>
 				</div>
 
-                {/* <span>{this.state.message}</span> */}
+                { <span>{this.state.message}</span> }
 			</div>
 			);
 	}
