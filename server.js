@@ -49,6 +49,7 @@ const getPlants = require('./api/getPlants');
 const deviceLogin = require('./api/deviceLogin');
 const logCondition = require('./api/logCondition');
 const logConditionStupid = require('./api/logConditionStupid');
+const deleteUser = require('./api/deleteUser');
 
 // Set some HTTP Request Headers (I don't know why)
 app.use((req, res, next) => 
@@ -75,6 +76,7 @@ app.use(logout);
 app.use(getUser);
 app.use(editUser)
 app.use(verify);
+app.use(deleteUser);
 
 // Device routes:
 app.use(addDevice);
