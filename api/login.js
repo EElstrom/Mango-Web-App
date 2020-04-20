@@ -76,29 +76,31 @@ router.post('/api/login', async (req, res, ) => {
                                         errors: 'please verify your account'
                                     });
                             }
+                            else
+                            {
+                                const payload = {
+                                    id: user.id,
+                                    email: user.email,
+                                    verified: user.verified,
+                                    authCode: user.authCode,
+                                    name: user.name,
+                                    location: user.location,
+                                    noOfDevices: user.noOfDevices
+                                    };
 
-                            const payload = {
-                                id: user.id,
-                                email: user.email,
-                                verified: user.verified,
-                                authCode: user.authCode,
-                                name: user.name,
-                                location: user.location,
-                                noOfDevices: user.noOfDevices
-                                };
-
-                            jwt.sign(payload, keys.secretOrKey, {expiresIn: 7200}, (err, token) => {
-                                res
-                                    .status(200)
-                                    .cookie('session', token, {
-                                        httpOnly: true, 
-                                        expires: 0
-                                    })
-                                    .json({
-                                        success: true,
-                                        token: token
-                                    });
-                            });
+                                jwt.sign(payload, keys.secretOrKey, {expiresIn: 7200}, (err, token) => {
+                                    res
+                                        .status(200)
+                                        .cookie('session', token, {
+                                            httpOnly: true, 
+                                            expires: 0
+                                        })
+                                        .json({
+                                            success: true,
+                                            token: token
+                                        });
+                                });
+                            }
                         }
                         else
                         {
