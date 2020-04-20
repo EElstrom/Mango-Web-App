@@ -4,8 +4,8 @@ import React from 'react';
 import Logo from '../components/Logo';
 import Settings from '../components/Settings';
 import DataDisplay from '../components/DataDisplay';
-import Sensor from '../components/Sensor';
-import {ProfilePic} from '../components/SVGs';
+import Account from '../components/Account';
+import {User, Leaf, Gear} from '../components/SVGs';
 import '../App.css';
 
 const header = {
@@ -22,7 +22,7 @@ const orange_tab = {
     height: 'auto',
       
     position: 'fixed',
-    top: '15%',
+    top: '10%',
     left: '80%',
     boxShadow: '7px -2px 5px #EEEEEE'
 }
@@ -36,7 +36,7 @@ const yellow_tab = {
     height: 'auto',
       
     position: 'fixed',
-    top: '15%',
+    top: '10%',
     left: '88%',
     boxShadow: '7px -2px 5px #EEEEEE'
 }
@@ -50,7 +50,7 @@ const red_tab = {
     height: 'auto',
       
     position: 'fixed',
-    top: '15%',
+    top: '10%',
     left: '72%',
     boxShadow: '7px -2px 5px #EEEEEE'
 }
@@ -64,6 +64,12 @@ const profilePic_style = {
     left: '90%'
 }
 
+const icon_style = {
+    height: '45px',
+    width: '45px',
+    margin: '10px 20px 0px 20px'
+}
+
 class HomePage extends React.Component
 {
     constructor(props)
@@ -75,10 +81,10 @@ class HomePage extends React.Component
         };
     }
 
-    setModeSensor = async event =>
+    setModeAccount = async event =>
     {
         event.preventDefault();
-        this.setState({mode: 'sensor'});
+        this.setState({mode: 'account'});
     }
 
     setModeData = async event =>
@@ -98,16 +104,28 @@ class HomePage extends React.Component
 		return(
 			<div>
                 <div style={header}>
-                    <Logo />
-                    <div onClick={this.setModeSensor} style={red_tab}></div>
-                    <div onClick={this.setModeData} style={orange_tab}></div>
-                    <div onClick={this.setModeSettings} style={yellow_tab}></div>
-                    <div style={profilePic_style}>
-                     <ProfilePic />
+                    <Logo/>
+                    <div onClick={this.setModeAccount} style={red_tab}>
+                        <div style={icon_style}>
+                            <User/>
+                        </div>
                     </div>
+                    <div onClick={this.setModeData} style={orange_tab}>
+                        <div style={icon_style}>
+                            <Leaf/> 
+                        </div>
+                    </div>
+                    <div onClick={this.setModeSettings} style={yellow_tab}>
+                        <div style={icon_style}>
+                            <Gear/>
+                        </div>
+                    </div>
+                    {/* <div style={profilePic_style}>
+                     <ProfilePic/>
+                    </div> */}
                 </div>
                 <div>
-                    {(this.state.mode === 'sensor') ? <Sensor/> : <div />}
+                    {(this.state.mode === 'account') ? <Account/> : <div />}
 					{(this.state.mode === 'data') ? <DataDisplay/> : <div />}
 					{(this.state.mode === 'settings') ? <Settings/> : <div />}
                 </div>

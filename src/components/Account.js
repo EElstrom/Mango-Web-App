@@ -1,4 +1,4 @@
-// set up sensor(s) on this page
+// view and change account details on this page
 
 import React from 'react';
 import '../App.css';
@@ -16,7 +16,7 @@ const red = {
     left: '0'
 };
 
-class Sensor extends React.Component
+class Account extends React.Component
 {
 	render()
 	{
@@ -32,4 +32,4 @@ class Sensor extends React.Component
 	}
 }
 
-export default Sensor
+export default Account;

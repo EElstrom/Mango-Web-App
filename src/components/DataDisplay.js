@@ -1,7 +1,7 @@
 // displays information the user's greenhouse(s)
 
 import React from 'react';
-import {Greenhouse} from '../components/SVGs';
+import {Create_gh_prompt, Create_gh} from '../components/CreateGH';
 import '../App.css';
 
 const orange = {
@@ -17,12 +17,6 @@ const orange = {
     left: '0'
 };
 
-const greenhouse_style = {
-	height: '177px',
-	width: '177px',
-	margin: '0px 0px 50px 0px'
-}
-
 class DataDisplay extends React.Component
 {
 	render()
@@ -30,15 +24,10 @@ class DataDisplay extends React.Component
 		return(
 			<div>
 				<div style={orange}>
-					<div class='card'>
-						<div style={greenhouse_style}>
-							<Greenhouse />
-						</div>
-						<div class='mango'>create your first greenhouse!</div>
-					</div>
-					<div>
-						{/* Icons made by <a href="https://www.flaticon.com/authors/smalllikeart" title="smalllikeart">smalllikeart</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> */}
-					</div>
+				<Create_gh_prompt/>
+				<div>
+					{/* Icons made by <a href="https://www.flaticon.com/authors/smalllikeart" title="smalllikeart">smalllikeart</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> */}
+				</div>
 				</div>
 			</div>
 		);
