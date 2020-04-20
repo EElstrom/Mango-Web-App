@@ -74,7 +74,7 @@ class Login extends React.Component
         this.state = {
             email: '',
             password: '',
-            message: 'test message'
+            message: ''
         };
 	}
 
@@ -82,9 +82,40 @@ class Login extends React.Component
     {
         event.preventDefault();
 
-        // TODO Make API Call Here (See API Specs on GitHub Wiki)
-
-        this.setState({message: this.state.email.value + ' ' + this.state.password.value});
+		const email = this.state.email.value;
+		const password = this.state.password.value;
+		var msg = '';
+		console.log('api/login');
+		
+		const response = await fetch('api/login', {
+			method: 'POST',
+			headers: {'Content-Type': 'application/json'},
+			body: JSON.stringify({email: email, password: password})
+		}).then(response => {return response.json()});
+		
+		console.log(JSON.stringify(response));
+		if (response.success)
+		{
+			msg = 'logged in!';
+			window.location.replace('/home');
+		}
+		else if (response.errors.email)
+		{
+			msg = 'email required';
+		}
+		else if (response.errors.password)
+		{
+			msg = 'password required';
+		}
+		else if (response.errors === 'bad login')
+		{
+			msg = 'invalid email or password';
+		}
+		else
+		{
+			msg = response.errors || 'Unknown error';
+		}
+		this.setState({message: msg});
     }
 	
 	render()
@@ -93,9 +124,9 @@ class Login extends React.Component
             <div style={login_comps}>
                 <form onSubmit={this.login}>
 					<link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Zilla+Slab:700"/>
-                    <input style={login_field} type='text' placeholder='email' ref={(value) => this.state.email = value}/>
-                    <input style={login_field} type='password' placeholder='password' ref={(value) => this.state.password = value}/>
-                    <Link to="/reset-password" style={underline_link_space}>forgot password?</Link>
+                    <input style={login_field} type='text' placeholder='email' ref={(value) => this.state.email = value}/><br />
+                    <input style={login_field} type='password' placeholder='password' ref={(value) => this.state.password = value}/><br />
+                    <Link to="/reset-password" style={underline_link_space}>forgot password?</Link><br />
 					<input style={login_button} type='submit' value='Log In'/>
                 </form>
 
@@ -104,7 +135,7 @@ class Login extends React.Component
 					<Link to="/register" style={underline_link}>sign up</Link>
 				</div>
 
-                {/* <span>{this.state.message}</span> */}
+                { <span>{this.state.message}</span> }
 			</div>
 			);
 	}
