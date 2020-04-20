@@ -34,7 +34,8 @@ router.post('/api/verify', async (req, res, ) => {
 	if (validation.isValid)
 	{
 		User.findOne({
-            authCode: req.body.authCode
+            authCode: req.body.authCode,
+            verified: false
             }, (err, user) =>{
                 if (err)
                 {
