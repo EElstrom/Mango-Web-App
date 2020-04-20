@@ -101,7 +101,7 @@ class Create_gh extends React.Component
 					<link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Nunito:900"/>
 					<link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Zilla+Slab:700"/>
 					<div class='mango'>name your greenhouse:</div>
-					{/* <input style={login_field} type='text' id='ghName' placeholder='My greenhouse' ref={(value) => this.state.ghName = value}/><br /> */}
+					<input style={login_field} type='text' id='ghName' placeholder='My greenhouse' ref={(value) => this.state.ghName = value}/><br />
 					<input style={login_button} type='submit' id='createGH' value='Create'/>
 				</form>
 				</div>
@@ -121,6 +121,7 @@ class Create_gh extends React.Component
 	}
 }
 
+// addPlant endpt
 // name : req.body.name,
 // notes : pnotes,
 // deviceName : dName,
