@@ -29,12 +29,14 @@ async function validateInput(data)
 router.post('/api/verify', async (req, res, ) => {
 	console.log('Express: POST /api/verify');
 
-	const validation = await validateInput(req.body);
+    const validation = await validateInput(req.body);
+    
+    ACode = parseInt(req.body.authCode);
 
 	if (validation.isValid)
 	{
 		User.findOne({
-            authCode: req.body.authCode,
+            authCode: ACode,
             verified: false
             }, (err, user) =>{
                 if (err)
@@ -43,7 +45,7 @@ router.post('/api/verify', async (req, res, ) => {
                         .status(500)
                         .json({
                             success: false,
-                            errors: 'failed to login'
+                            errors: 'No user to verify'
                         });
                 }
                 else if (!user)
