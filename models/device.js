@@ -1,27 +1,33 @@
-
 const mongoose = require('mongoose');
 
-const sensor = new mongoose.Schema(
+const deviceSchema = new mongoose.Schema(
     {
-        deviceId: 
+        // FK: must be extracted from user
+        userID:
         {
             type: String,
             required: true
         },
-        name: {
+      
+        alias: 
+        {
             type: String,
             required: true
         },
 
-        location: {
-            type: String,
+        postFrequency:
+        {
+            type: Number,
             required: true
         },
 
-        installDate: {
+        location: 
+        {
             type: String,
-            required: false
+            required: false,
+            default: ''
         }
-
     }
 );
+
+module.exports = Device = mongoose.model('devices', deviceSchema);
