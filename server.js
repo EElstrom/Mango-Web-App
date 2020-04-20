@@ -35,6 +35,7 @@ const register = require('./api/register');
 const logout = require('./api/logout');
 const getUser = require('./api/getUser');
 const editUser = require('./api/editUser');
+const verify = require('./api/verify');
 const addDevice = require('./api/addDevice');
 const deleteDevice = require('./api/deleteDevice');
 const getDevices = require('./api/getDevices');
@@ -73,6 +74,7 @@ app.use(login);
 app.use(logout);
 app.use(getUser);
 app.use(editUser)
+app.use(verify);
 
 // Device routes:
 app.use(addDevice);
