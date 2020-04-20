@@ -40,11 +40,12 @@ class Create_gh extends React.Component
 			<div>
                 <div class='card'>
 					<form onSubmit={this.createGH}>
-						<link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Zilla+Slab:700"/>
+						gh create page
+						{/* <link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Zilla+Slab:700"/>
 						<input style={login_field} type='text' placeholder='email' ref={(value) => this.state.email = value}/>
 						<input style={login_field} type='password' placeholder='password' ref={(value) => this.state.password = value}/>
 						<Link to="/reset-password" style={underline_link_space}>forgot password?</Link>
-						<input style={login_button} type='submit' value='Log In'/>
+						<input style={login_button} type='submit' value='Log In'/> */}
 					</form>
                 </div>
 			</div>

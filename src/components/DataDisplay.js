@@ -1,4 +1,4 @@
-// displays information the user's greenhouse(s)
+// displays information about the user's greenhouse(s)
 
 import React from 'react';
 import {Create_gh_prompt, Create_gh} from '../components/CreateGH';
@@ -42,7 +42,7 @@ class DataDisplay extends React.Component
 			<div>
 				<div style={orange}>
 				{(this.state.mode === 'prompt') ? <Create_gh_prompt update={this.setCreate}/> : <div />}
-				{(this.state.mode === 'create') ? <Create_gh/> : <dvi />}
+				{(this.state.mode === 'create') ? <Create_gh/> : <div />}
 				{(this.state.mode === 'data') ? <DataDetails/> : <div />}
 				<div>
 					{/* Icons made by <a href="https://www.flaticon.com/authors/smalllikeart" title="smalllikeart">smalllikeart</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> */}

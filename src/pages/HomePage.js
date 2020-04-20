@@ -4,8 +4,8 @@ import React from 'react';
 import Logo from '../components/Logo';
 import Settings from '../components/Settings';
 import DataDisplay from '../components/DataDisplay';
-import Account from '../components/Account';
-import {User, Leaf, Gear} from '../components/SVGs';
+import Add from '../components/Add';
+import {Plus, Leaf, Gear} from '../components/SVGs';
 import '../App.css';
 
 const header = {
@@ -76,15 +76,16 @@ class HomePage extends React.Component
     {
         super(props);
 
+        // modes: create, data, settings
         this.state = {
 			mode: 'data'
         };
     }
 
-    setModeAccount = async event =>
+    setModeAdd = async event =>
     {
         event.preventDefault();
-        this.setState({mode: 'account'});
+        this.setState({mode: 'add'});
     }
 
     setModeData = async event =>
@@ -105,9 +106,9 @@ class HomePage extends React.Component
 			<div>
                 <div style={header}>
                     <Logo/>
-                    <div onClick={this.setModeAccount} style={red_tab}>
+                    <div onClick={this.setModeAdd} style={red_tab}>
                         <div style={icon_style}>
-                            <User/>
+                            <Plus/>
                         </div>
                     </div>
                     <div onClick={this.setModeData} style={orange_tab}>
@@ -125,7 +126,7 @@ class HomePage extends React.Component
                     </div> */}
                 </div>
                 <div>
-                    {(this.state.mode === 'account') ? <Account/> : <div />}
+                    {(this.state.mode === 'add') ? <Add/> : <div />}
 					{(this.state.mode === 'data') ? <DataDisplay/> : <div />}
 					{(this.state.mode === 'settings') ? <Settings/> : <div />}
                 </div>
