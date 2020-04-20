@@ -64,7 +64,7 @@ router.post('/api/register', async (req, res) => {
         const mailOptions = {
             from: 'testbedmailer@gmail.com',
             to: req.body.email,
-            subject: 'testing nodemailer',
+            subject: 'Mango: Verify your email',
             html: `<h1><center><u>Welcome to Mango!</u></center></h1>
                     <p><center>Here is your authorization code: <font style = courier><u><b>${authCode}</u></center><b></font>`
         };
