@@ -99,7 +99,7 @@ class DataDetails extends React.Component
 	{
 		return(
             <div class='card'>
-                <div style={name_style}>{this.props.deviceName}e</div>
+                <div style={name_style}>{this.props.deviceName}</div>
                 <div style={plants_style}>
                     plants:
                 </div>
