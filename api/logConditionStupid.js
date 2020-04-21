@@ -105,7 +105,8 @@ router.post('/api/logConditionStupid', async (req, res) => {
             datetime : datetime,
             time : time24,
             curTemp : req.body.curTemp,
-            curHumidity : req.body.curHumidity
+            curHumidity : req.body.curHumidity,
+            airQuality: req.body.airQuality
         });
 
         // .create() to package and send to db
