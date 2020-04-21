@@ -1,5 +1,6 @@
 import React from 'react';
 import {Greenhouse} from '../components/SVGs';
+import AddPlant from '../components/AddPlant';
 import '../App.css';
 
 const greenhouse_style = {
@@ -64,10 +65,10 @@ class Create_gh extends React.Component
     {
         super(props);
 
+		// mode can be create_gh, add_plant, or success
         this.state = {
+			mode: 'create_gh',
 			ghName: '',
-			plantName: '',
-			plantSpecies: ''
         };
 	}
 
@@ -78,57 +79,48 @@ class Create_gh extends React.Component
 
 		// TODO Make API Call Here (See API Specs on GitHub Wiki)
 		
-		this.setState({});
+		this.setState({mode: 'add_plant'});
 	}
 
-	// add plant to greenhouse
-	addPlant = async event =>
-	{
-		event.preventDefault();
+    setModeSuccess = () =>
+    {
+        // event.preventDefault();
+        this.setState({mode: 'success'});
+	}
+	
+	Gh_success = () => {
+		return (
+			<div>
+				<div class='mango'>Greenhouse successfully added!</div>
+				<div class='mango'>click the leaf to see all of your greenhouses</div>
+			</div>
+		);
+	}
 
-		// TODO Make API Call Here (See API Specs on GitHub Wiki)
-		
-		this.setState({});
+	CreateGH_comp = () => {
+		return (
+			<div>
+			<form onSubmit={this.createGH}>
+				<link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Nunito:900"/>
+				<link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Zilla+Slab:700"/>
+				<div class='mango'>name your greenhouse:</div>
+				<input style={login_field} type='text' id='ghName' placeholder='My greenhouse' ref={(value) => this.state.ghName = value}/><br />
+				<input style={login_button} type='submit' id='createGH' value='Create'/>
+			</form>
+			</div>
+		);
 	}
 	
 	render()
 	{
 		return(
 			<div class='card'>
-				{(this.state.ghName === '') ?
-				<div>
-				<form onSubmit={this.createGH}>
-					<link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Nunito:900"/>
-					<link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Zilla+Slab:700"/>
-					<div class='mango'>name your greenhouse:</div>
-					<input style={login_field} type='text' id='ghName' placeholder='My greenhouse' ref={(value) => this.state.ghName = value}/><br />
-					<input style={login_button} type='submit' id='createGH' value='Create'/>
-				</form>
-				</div>
-				:
-				<div>
-					<form onSubmit={this.addPlant}>
-					<link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Nunito:900"/>
-					<link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Zilla+Slab:700"/>
-					<div class='mango'>nice! now add your first plant:</div>
-					<input style={login_field} type='text' id='plantName' placeholder='Species (e.g. Geranium)' ref={(value) => this.state.plantName = value}/><br />
-					<input style={login_field} type='text' id='plantType' placeholder='Name (e.g. geranium #2)' ref={(value) => this.state.plantSpecies = value}/><br />
-					<input style={login_button} type='submit' id='addPlant' value='Add to greenhouse' />
-				</form>
-				</div>}
+				{(this.state.mode === 'create_gh') ? this.CreateGH_comp() : <div />}
+				{(this.state.mode === 'add_plant') ? <AddPlant update={this.setModeSuccess}/> : <div />}
+				{(this.state.mode === 'success') ? this.Gh_success() : <div />}
 			</div>
 		);
 	}
 }
-
-// addPlant endpt
-// name : req.body.name,
-// notes : pnotes,
-// deviceName : dName,
-// type : pType,
-// temperatureTolerance : tempTol,
-// lightTolerance : lightTol,
-// phTolerance : phTol,
-// humidityTolerance : humTol
 
 export {Create_gh_prompt, Create_gh};
