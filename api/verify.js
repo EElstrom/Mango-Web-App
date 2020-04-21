@@ -1,38 +1,42 @@
+// endpoint to verify the code sent by an email
+// they input the code, click the button, the button will look up that user and log them in.
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 const validator = require('validator');
 const isEmpty = require('is-empty');
 
-const Device = require('../models/device');
+const User = require('../models/user');
 const keys = require('../config/keys');
 
-// device establishes jwt with api using its personal _id
+// logging in requires the email and password
 async function validateInput(data)
 {
 	const errors = {};
 
-	if (isEmpty(data.id) || validator.isEmpty(data.id))
+	if (isEmpty(data.authCode) || validator.isEmpty(data.authCode))
 	{
-		errors.email = 'device id required';
-	}  
+		errors.email = 'authorization code required';
+	}
+  
 	return {
         errors, 
         isValid: isEmpty(errors)
     };
 };
 
-router.post('/api/deviceLogin', async (req, res) => 
-{
-	console.log('Express: POST /api/deviceLogin');
+router.post('/api/verify', async (req, res, ) => {
+	console.log('Express: POST /api/verify');
 
 	const validation = await validateInput(req.body);
 
 	if (validation.isValid)
 	{
-		Device.findOne({
-            _id: req.body.id
-            }, (err, device) => {
+		User.findOne({
+            authCode: req.body.authCode,
+            verified: false
+            }, (err, user) =>{
                 if (err)
                 {
                     res
@@ -42,25 +46,37 @@ router.post('/api/deviceLogin', async (req, res) =>
                             errors: 'failed to login'
                         });
                 }
-                else if (!device)
+                else if (!user)
                 {
                     res
-                        .status(401)
+                        .status(400)
                         .json({
                             success: false, 
-                            errors: 'bad login'
+                            errors: 'bad authorization code'
                         });
                 }
                 else
                 {
-                    const payload = {
-                        id: device.id,
-                        alias : device.alias,
-                        postFrequency : device.postFrequency,
-                        location : device.location
-                    };
+                    User.findOneAndUpdate({
+                        _id : user.id
+                    }, {
+                        verified : true
+                    }, (err, user) => {
+                        if (err)
+                            console.log(err);
+                    });
 
-                    jwt.sign(payload, keys.secretOrKey, {expiresIn: '12h'}, (err, token) => {
+                    const payload = {
+                        id: user.id,
+                        email: user.email,
+                        verified: user.verified,
+                        authCode: user.authCode,
+                        name: user.name,
+                        location: user.location,
+                        noOfDevices: user.noOfDevices
+                        };
+
+                    jwt.sign(payload, keys.secretOrKey, {expiresIn: 7200}, (err, token) => {
                         res
                             .status(200)
                             .cookie('session', token, {
@@ -69,12 +85,12 @@ router.post('/api/deviceLogin', async (req, res) =>
                             })
                             .json({
                                 success: true,
+                                token: token
                             });
                     });
                 }
-
-            });
-    }	
+        });
+    }
 	else
 	{
         res

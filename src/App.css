@@ -1,0 +1,33 @@
+.mango {
+    font-family: 'Nunito', verdana, arial, helvetica, sans-serif;
+    font-size: 48px;
+    padding: 0px 0px 27px 0px;
+}
+
+::placeholder {
+    color: #FFFFFF;
+    opacity: 0.5;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    /* margin: 5% auto; */
+    background-color: #FFFFFF;
+    min-height: 60%;
+    min-width: 85%;
+        
+    width: auto;
+    height: auto;
+        
+    position: fixed;
+    top: 25%;
+    left: 4.5%;
+
+    border-radius: 15px;
+    padding: 39px;
+}

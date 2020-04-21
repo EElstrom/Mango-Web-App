@@ -15,29 +15,6 @@ const User = require('../models/user');
 
 // Right now, duplicate reigstration of the same device is allowed
 // Will be able to enforce uniqueness based on what the device posts to the api
-/*
-async function validateDevice(data)
-{
-    const errors = {};
-    await User.exists({
-            userID: userID,
-            r: r,
-        }, (err, result) => {
-            if (err)
-            {
-                errors.userID = 'user doesn't exist'
-                errors.r = 'r doesn't match'
-            }
-            if (result)
-               console.log("user found");
-        });
-
-    return {
-        errors, 
-        isValid: isEmpty(errors) // empty errors denotes success
-    };
-};
-*/
 
 // this currently is adding dummy devices and is not using any info from a request body other than ALIAS
 // alias is not required, but can be asked from user so the generic name doesn't get confusing
@@ -73,10 +50,10 @@ router.post('/api/addDevice', (req, res) => {
                     });
 
                     // if no alias information is given in req body
+					console.log("Found %d devices", count);
+					nextNumber = count + 1;
                     if (isEmpty(req.body.alias))
                     {
-                        console.log("Found %d devices", count);
-                        nextNumber = count + 1;
                         newDevice.alias = "Sensor" + nextNumber;
                     }
                     else
@@ -110,7 +87,8 @@ router.post('/api/addDevice', (req, res) => {
                                 .status(200)
                                 .json({
                                     success: true,
-                                    deviceID : device._id    
+                                    deviceID : device._id,
+									deviceAlias: device.alias
                                 });
                         }
                     });

@@ -4,8 +4,11 @@ const mongoClient = require('mongodb');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const keys = require('./config/keys');
+const swaggerUi = require('swagger-ui-express');
 
+const swaggerDocument = require('./swagger.json');
 const app = express();
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
@@ -32,10 +35,12 @@ const register = require('./api/register');
 const logout = require('./api/logout');
 const getUser = require('./api/getUser');
 const editUser = require('./api/editUser');
+const verify = require('./api/verify');
 const addDevice = require('./api/addDevice');
 const deleteDevice = require('./api/deleteDevice');
 const getDevices = require('./api/getDevices');
 const editDevice = require('./api/editDevice');
+const getClimates = require('./api/getClimates');
 const getConditions = require('./api/getConditions');
 const addPlant = require('./api/addPlant');
 const deletePlant = require('./api/deletePlant');
@@ -69,6 +74,7 @@ app.use(login);
 app.use(logout);
 app.use(getUser);
 app.use(editUser)
+app.use(verify);
 
 // Device routes:
 app.use(addDevice);
@@ -87,12 +93,10 @@ app.use(deviceLogin);
 app.use(logCondition);
 app.use(logConditionStupid);
 
-/*
-// storing data:
-app.use(prune);
+// retrieving data
 app.use(getClimates);
 app.use(getConditions);
-*/
+
 
 function makeDateTime() 
 {
