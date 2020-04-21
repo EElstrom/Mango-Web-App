@@ -98,7 +98,7 @@ const login_button = {
 	margin: '10px 10px 20px 10px',
 
 
-	fontSize: '35px',
+	fontSize: '25px',
 	fontFamily: 'Zilla Slab'
 	
 }
@@ -161,6 +161,7 @@ class Settings extends React.Component
 	{
 		return(
 			<div style={yellow}>
+				<link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Zilla+Slab:700"/>
 				<div class='card'>
 				<form onSubmit={this.update}>
 					<div style={name_style}>
