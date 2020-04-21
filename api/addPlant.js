@@ -22,9 +22,9 @@ async function validateInput(data)
     
     else
     {
-        const devName = (!isEmpty(data.deviceName) ? data.deviceName : '');
-        console.log('devName: %s', devName);
-        await Plant.find({
+        const devName = (!isEmpty(data.devName) ? data.devName : '');
+        console.log('devName: '+  devName);
+        await Plant.findOne({
             name: data.name,
             deviceName: devName
         }, (err, result) => {
