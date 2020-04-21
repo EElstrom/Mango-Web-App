@@ -4,8 +4,8 @@ import React from 'react';
 import Logo from '../components/Logo';
 import Settings from '../components/Settings';
 import DataDisplay from '../components/DataDisplay';
-import Account from '../components/Account';
-import {User, Leaf, Gear} from '../components/SVGs';
+import Add from '../components/Add';
+import {Plus, Leaf, Gear, Logout} from '../components/SVGs';
 import '../App.css';
 
 const header = {
@@ -55,16 +55,17 @@ const red_tab = {
     boxShadow: '7px -2px 5px #EEEEEE'
 }
 
-const profilePic_style = {
-    width: '50px',
-    height: '50px',
-      
-    position: 'fixed',
-    top: '5%',
-    left: '90%'
+const icon_style = {
+    height: '45px',
+    width: '45px',
+    margin: '10px 20px 0px 20px'
 }
 
-const icon_style = {
+const logout_style = {  
+    position: 'fixed',
+    top: '4%',
+    left: '94%',
+
     height: '45px',
     width: '45px',
     margin: '10px 20px 0px 20px'
@@ -76,21 +77,27 @@ class HomePage extends React.Component
     {
         super(props);
 
+        // modes: create, data, settings
         this.state = {
-			mode: 'data'
+            mode: 'data',
+            devices: []
         };
+
+        this.getDevices();
     }
 
-    setModeAccount = async event =>
+    setModeAdd = async event =>
     {
         event.preventDefault();
-        this.setState({mode: 'account'});
+        this.setState({mode: 'add'});
     }
 
     setModeData = async event =>
     {
         event.preventDefault();
         this.setState({mode: 'data'});
+
+        this.getDevices();
     }
 
     setModeSettings = async event =>
@@ -99,15 +106,46 @@ class HomePage extends React.Component
         this.setState({mode: 'settings'});
     }
 
+    getDevices = async () =>
+    {
+        // Fetch Devices
+        const response = await fetch('api/getDevices', {
+			method: 'POST',
+			headers: {'Content-Type': 'application/json'},
+			body: JSON.stringify({})
+        }).then(response => {return response.json()});
+        
+        console.log(response);
+
+        this.setState({devices: response.devices});
+    }
+
+    logout = async event => {
+        event.preventDefault();
+
+        // TODO: call to API
+		
+		console.log('api/logout');
+		const response = await fetch('api/logout', {
+			method: 'POST',
+			headers: {'Content-Type': 'application/json'},
+			body: '{}'
+		}).then(response => {return response.json()});
+		console.log(JSON.stringify(response));
+		
+		window.location.replace('/');
+
+    }
+
 	render()
 	{
 		return(
 			<div>
                 <div style={header}>
                     <Logo/>
-                    <div onClick={this.setModeAccount} style={red_tab}>
+                    <div onClick={this.setModeAdd} style={red_tab}>
                         <div style={icon_style}>
-                            <User/>
+                            <Plus/>
                         </div>
                     </div>
                     <div onClick={this.setModeData} style={orange_tab}>
@@ -123,10 +161,13 @@ class HomePage extends React.Component
                     {/* <div style={profilePic_style}>
                      <ProfilePic/>
                     </div> */}
+                    <div onClick={this.logout} style={logout_style}>
+                        <Logout/>
+                    </div>
                 </div>
                 <div>
-                    {(this.state.mode === 'account') ? <Account/> : <div />}
-					{(this.state.mode === 'data') ? <DataDisplay/> : <div />}
+                    {(this.state.mode === 'add') ? <Add/> : <div />}
+					{(this.state.mode === 'data') ? ((this.state.devices && this.state.devices.length > 0) ? this.state.devices.map((item, i) => <DataDisplay key={i} deviceName={item.alias} deviceID={item._id} mode='data'/>) : <DataDisplay mode='prompt'/> ): <div />}
 					{(this.state.mode === 'settings') ? <Settings/> : <div />}
                 </div>
 			</div>

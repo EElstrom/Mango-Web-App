@@ -29,7 +29,7 @@ async function validateInput(data)
     };
 };
 
-router.post('/api/login', async (req, res, ) => {
+router.post('/api/login', async (req, res) => {
 	console.log('Express: POST /api/login');
 
 	const validation = await validateInput(req.body);
