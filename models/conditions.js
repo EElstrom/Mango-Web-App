@@ -46,7 +46,7 @@ const conditionsSchema = new mongoose.Schema(
 
         airQuality:
         {
-            type: Number,
+            type: String,
             required: true
         }
     }
