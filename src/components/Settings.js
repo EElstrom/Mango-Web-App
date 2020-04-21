@@ -23,7 +23,7 @@ const name_style = {
     color: '#000000',
       
     position: 'fixed',
-    top: '30%',
+    top: '25%',
     left: '15%',
 }
 
@@ -34,7 +34,7 @@ const email_style = {
     color: '#000000',
       
     position: 'fixed',
-    top: '45%',
+    top: '40%',
     left: '15%',
 }
 
@@ -45,7 +45,7 @@ const password_style = {
     color: '#000000',
       
     position: 'fixed',
-    top: '60%',
+    top: '55%',
     left: '15%',
 }
 
@@ -56,7 +56,7 @@ const pollFreq_style = {
     color: '#000000',
       
     position: 'fixed',
-    top: '75%',
+    top: '70%',
     left: '15%',
 }
 
@@ -64,7 +64,7 @@ const login_field = {
 	color: '#FFFFFF',
 	backgroundColor: '#CDDFBC',
 	outline: 'none',
-	width: '15em',
+	width: '10em',
 	height: '2em',
   	margin: '15px',
 	borderRadius: '10px',
@@ -78,132 +78,117 @@ const login_field = {
 	fontFamily: 'Zilla Slab'
 }
 
+const button_style = {
+	position: 'fixed',
+    top: '85%',
+    left: '15%'
+}
+
 const login_button = {
 	color: '#FFFFFF',
 	backgroundColor: '#75A544',
 	outline: 'none',
-	width: '8em',
+	width: '10em',
 	height: '2em',
+  	margin: '15px',
 	borderRadius: '10px',
 
 	borderColor: 'transparent',
 	maxWidth: '70%',
-	margin: '15px 10px 20px 10px',
+	margin: '10px 10px 20px 10px',
 
 
-	fontSize: '30px',
+	fontSize: '35px',
 	fontFamily: 'Zilla Slab'
-}
-
-const settings_card = {
-    backgroundColor: '#FFFFFF',
-    minHeight: '60%',
-    minWidth: '85%',
-        
-    width: 'auto',
-    height: 'auto',
-        
-    position: 'fixed',
-    top: '25%',
-    left: '4.5%',
-
-    borderRadius: '15px',
-    padding: '39px'
+	
 }
 
 class Settings extends React.Component
 {
+	
 	constructor(props)
-    {
-        super(props);
-
-        this.state = {
-			nameEdit: 'false',
-			emailEdit: 'false',
-			passEdit: 'false',
-			pollEdit: 'false'
+	{
+		super(props);
+		this.state = {
+            name: '',
+			email: '',
+            password: '',
+            password2: '',
+            message: '',
+			freq: ''
         };
 	}
-
-	submitEdit = async event => {
-		// API call here
+	update = async event =>
+    {
+        event.preventDefault();
+		
+		const name = this.state.name.value;
+		const email = this.state.email.value;
+		const password = this.state.password.value;
+		const password2 = this.state.password2.value;
+		
+		if (password !== password2)
+		{
+			this.setState({message: 'passwords do not match'});
+			return;
+		}
+		
+		console.log('api/editUser');
+		const response = await fetch('api/editUser', {
+			method: 'POST',
+			headers: {'Content-Type': 'application/json'},
+			body: JSON.stringify({
+				name: name,
+				email: email,
+				password: password
+			})
+		}).then(response => {return response.json()});
+		console.log(JSON.stringify(response));
+		
+		var msg = '';
+		if (response.success)
+		{
+			msg = 'updated successfully';
+		}
+		else
+		{
+			msg = response.errors || 'unknown error';
+		}
+		this.setState({message: msg});
 	}
-
-	Edit_form = (ph) => {
-		return (
-			<form onSubmit={this.submitEdit}>
-				<link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Zilla+Slab:700"/>
-				<input style={login_field} type='text' placeholder={ph} ref={(value) => this.state.email = value}/>
-				<input style={login_button} type='submit' value='Save'/>
-			</form>
-		);
-	}
-
-	startNameEdit = async event => {
-		event.preventDefault();
-		this.setState({nameEdit: 'true'})
-	}
-
-	startEmailEdit = async event => {
-		event.preventDefault();
-		this.setState({emailEdit: 'true'})
-	}
-
-	startPassEdit = async event => {
-		event.preventDefault();
-		this.setState({passEdit: 'true'})
-	}
-
-	startPollEdit = async event => {
-		event.preventDefault();
-		this.setState({pollEdit: 'true'})
-	}
-
+	
 	render()
 	{
 		return(
 			<div style={yellow}>
-				<div style={settings_card}>
-					<div>
-						{(this.state.nameEdit === 'false') ? 
-						<div style={name_style}>
-							name: name here
-							<form onSubmit={this.startNameEdit}>
-								<link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Zilla+Slab:700"/>
-								<input style={login_button} type='submit' value='Edit'/>
-							</form>
-						</div> : this.Edit_form('new name')}
+				<div class='card'>
+				<form onSubmit={this.update}>
+					<div style={name_style}>
+						name: 
+						<input style={login_field} type='text' placeholder='name' ref={(value) => this.state.name = value}/><br />
 					</div>
-					<div>
-						{(this.state.emailEdit === 'false') ? 
-						<div style={email_style}>
-							email: email here
-							<form onSubmit={this.startEmailEdit}>
-								<link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Zilla+Slab:700"/>
-								<input style={login_button} type='submit' value='Edit'/>
-							</form>
-						</div> : this.Edit_form('new email')}
+					<div style={email_style}>
+						email: 
+						<input style={login_field} type='text' placeholder='email' ref={(value) => this.state.email = value}/><br />
 					</div>
-					<div>
-						{(this.state.passEdit === 'false') ? 
-						<div style={password_style}>
-							password: password here
-							<form onSubmit={this.startPassEdit}>
-								<link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Zilla+Slab:700"/>
-								<input style={login_button} type='submit' value='Edit'/>
-							</form>
-						</div> : this.Edit_form('new password')}
+					<div style={password_style}>
+						password: 
+						<input style={login_field} type='password' placeholder='confirm password' ref={(value) => this.state.password2 = value}/><br />
 					</div>
-					<div>
-						{(this.state.pollEdit === 'false') ? 
-						<div style={pollFreq_style}>
-							polling frequency: polling frequency here
-							<form onSubmit={this.startPollEdit}>
-								<link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Zilla+Slab:700"/>
-								<input style={login_button} type='submit' value='Edit'/>
-							</form>
-						</div> : this.Edit_form('new polling frequency')}
+					<div style={password_style}>
+						password: 
+						<input style={login_field} type='password' placeholder='password' ref={(value) => this.state.password = value}/><br />
 					</div>
+					<div style={pollFreq_style}>
+						polling frequency: 
+						<input style={login_field} type='text' placeholder='x times per hour' ref={(value) => this.state.freq = value}/><br />
+					</div>
+					<div style={button_style}>
+						<input style={login_button} type='submit' value='Update'/>
+						<span>{ this.state.message }</span>
+					</div>
+					
+				</form>
 				</div>
 			</div>
 		);
