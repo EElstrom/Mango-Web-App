@@ -66,17 +66,30 @@ class EmailAuth extends React.Component
 
         // TODO Make API Call Here (See API Specs on GitHub Wiki)
 		
-		const code = this.state.code.value;
-		if (code === '5872')
+		const authCode = this.state.code.value;
+		var msg = '';
+		
+		console.log('api/verify');
+		const response = await fetch('api/verify', {
+			method: 'POST',
+			headers: {'Content-Type': 'application/json'},
+			body: JSON.stringify({
+				authCode: authCode
+			})
+		}).then(response => {return response.json()});
+		console.log(JSON.stringify(response));
+		
+		if (response.success)
 		{
-			this.setState({message: 'verified'});
+			msg = 'verified'
 			window.location.replace('/home');
 		}
 		else
 		{
-			this.setState({message: 'incorrect code, please try again'});
+			msg = response.errors.email || response.errors || 'unknown error';
 		}
-        // this.setState({message: this.state.email.value + ' ' + this.state.password.value});
+		
+		this.setState({message: msg});
     }
 
 	render()

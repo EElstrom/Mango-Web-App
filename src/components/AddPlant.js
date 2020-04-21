@@ -48,7 +48,8 @@ class AddPlant extends React.Component
 
         this.state = {
 			plantName: '',
-			plantSpecies: ''
+			plantSpecies: '',
+			message: ''
         };
 	}
 
@@ -59,8 +60,38 @@ class AddPlant extends React.Component
 
 		// TODO Make API Call Here (See API Specs on GitHub Wiki)
         
-        this.props.update();
-		this.setState({});
+		const name = this.state.plantName.value;
+		const type = this.state.plantSpecies.value;
+		const deviceName = this.props.ghName;
+		
+		console.log(JSON.stringify({
+				name: name,
+				type: type,
+				deviceName: deviceName
+		}));
+		
+		console.log('api/addPlant');
+		const response = await fetch('api/addPlant', {
+			method: 'POST',
+			headers: {'Content-Type': 'application/json'},
+			body: JSON.stringify({
+				name: name,
+				type: type,
+				deviceName: deviceName
+			})
+		}).then(response => {return response.json()});
+		console.log(JSON.stringify(response));
+		
+		var msg = '';
+		if (response.success)
+		{
+			this.props.update();
+		}
+		else
+		{
+			msg = response.errors.name || response.errors || 'unknown error';
+		}
+		this.setState({message: msg});
 	}
 	
 	render()
@@ -71,9 +102,10 @@ class AddPlant extends React.Component
 					<link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Nunito:900"/>
 					<link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Zilla+Slab:700"/>
 					<div class='mango'>nice! now add your first plant:</div>
-					<input style={login_field} type='text' id='plantName' placeholder='Species (e.g. Geranium)' ref={(value) => this.state.plantName = value}/><br />
-					<input style={login_field} type='text' id='plantType' placeholder='Name (e.g. geranium #2)' ref={(value) => this.state.plantSpecies = value}/><br />
+					<input style={login_field} type='text' id='plantName' placeholder='Name (e.g. geranium #2)' ref={(value) => this.state.plantName = value}/><br />
+					<input style={login_field} type='text' id='plantType' placeholder='Species (e.g. Geranium)' ref={(value) => this.state.plantSpecies = value}/><br />
 					<input style={login_button} type='submit' id='addPlant' value='Add to greenhouse' />
+					<span> {this.state.message} </span>
 				</form>
 			</div>
 		);

@@ -105,6 +105,16 @@ class HomePage extends React.Component
         event.preventDefault();
 
         // TODO: call to API
+		
+		console.log('api/logout');
+		const response = await fetch('api/logout', {
+			method: 'POST',
+			headers: {'Content-Type': 'application/json'},
+			body: '{}'
+		}).then(response => {return response.json()});
+		console.log(JSON.stringify(response));
+		
+		window.location.replace('/');
     }
 
 	render()

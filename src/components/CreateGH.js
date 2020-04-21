@@ -69,6 +69,7 @@ class Create_gh extends React.Component
         this.state = {
 			mode: 'create_gh',
 			ghName: '',
+			message: ''
         };
 	}
 
@@ -79,7 +80,32 @@ class Create_gh extends React.Component
 
 		// TODO Make API Call Here (See API Specs on GitHub Wiki)
 		
-		this.setState({mode: 'add_plant'});
+		const alias = this.state.ghName.value;
+		
+		console.log('api/addDevice');
+		const response = await fetch('api/addDevice', {
+			method: 'POST',
+			headers: {'Content-Type': 'application/json'},
+			body: JSON.stringify({
+				alias: alias
+			})
+		}).then(response => {return response.json()});
+		console.log(JSON.stringify(response));
+
+		if (response.success)
+		{
+			this.setState({
+				mode: 'add_plant',
+				ghName: response.deviceAlias,
+				message: ''
+			});
+		}
+		else
+		{
+			var msg = response.errors.name || response.errors || 'unknown error';
+			this.setState({message: msg});
+		}
+		
 	}
 
     setModeSuccess = () =>
@@ -116,8 +142,9 @@ class Create_gh extends React.Component
 		return(
 			<div class='card'>
 				{(this.state.mode === 'create_gh') ? this.CreateGH_comp() : <div />}
-				{(this.state.mode === 'add_plant') ? <AddPlant update={this.setModeSuccess}/> : <div />}
+				{(this.state.mode === 'add_plant') ? <AddPlant update={this.setModeSuccess} ghName={this.state.ghName}/> : <div />}
 				{(this.state.mode === 'success') ? this.Gh_success() : <div />}
+				<br /><span> {this.state.message} </span>
 			</div>
 		);
 	}
