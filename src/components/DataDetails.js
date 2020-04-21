@@ -12,7 +12,7 @@ const name_style = {
       
     position: 'fixed',
     top: '30%',
-    left: '75%',
+    left: '75%'
 }
 
 const temp_style = {
@@ -23,7 +23,7 @@ const temp_style = {
       
     position: 'fixed',
     top: '55%',
-    left: '25%',
+    left: '65%'
 }
 
 const hum_style = {
@@ -34,7 +34,7 @@ const hum_style = {
       
     position: 'fixed',
     top: '55%',
-    left: '65%',
+    left: '80%'
 }
 
 const time_style = {
@@ -45,7 +45,18 @@ const time_style = {
       
     position: 'fixed',
     top: '85%',
-    left: '67.5%',
+    left: '67.5%'
+}
+
+const plants_style = {
+    fontFamily: 'Nunito',
+    fontSize: '35px',
+    padding: '0px 0px 27px 0px',
+    color: '#000000',
+      
+    position: 'fixed',
+    top: '30%',
+    left: '20%'
 }
 
 class DataDetails extends React.Component
@@ -75,6 +86,9 @@ class DataDetails extends React.Component
 		return(
             <div class='card'>
                 <div style={name_style}>My greenhouse</div>
+                <div style={plants_style}>
+                    plants:
+                </div>
                 <div style={temp_style}>22ºC</div>
                 <div style={hum_style}>45%</div>
                 <div style={time_style}>last polled 15 mins ago</div>
