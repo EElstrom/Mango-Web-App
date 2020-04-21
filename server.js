@@ -108,23 +108,31 @@ function makeDateTime()
 		month = '0' + month;
 	day = (month + '/' + today.getDate() + '/' + today.getFullYear());
 
-	hours = today.getHours();
-	minutes = today.getMinutes();
-	meridian = 'AM';
+    hours = today.getHours();
+    time24 = hours;
+    if (time24 < 10)
+    {
+        time24 = '0' + time24;
+    }
+    meridian = 'AM';
 	if (hours > 12)
 	{
 		hours -= 12;
 		meridian = 'PM';
 	}
-
+     
+    minutes = today.getMinutes();
+    
 	if (minutes < 10)
 		minutes = '0' + minutes;
 
-	time = hours + ':' + minutes + ' ' + meridian;
+    time = hours + ':' + minutes + ' ' + meridian;
+    time24 += '' + minutes;
 
 	return {
 		day,
-		time
+        time,
+        time24
 	};
 }
 
@@ -134,4 +142,5 @@ app.listen(port, () => {
 	console.log("Living it up in " + port + " city!");
 	console.log(datetime.day);
 	console.log(datetime.time);
+	console.log(datetime.time24);
 });
