@@ -23,6 +23,7 @@ async function validateInput(data)
     else
     {
         var devName = (!isEmpty(data.devName) ? data.devName : '');
+        var devName = (!isEmpty(data.deviceName) ? data.deviceName : devName);
         console.log('devName: '+  devName);
         await Plant.findOne({
             name: data.name,
@@ -68,7 +69,8 @@ router.post('/api/addPlant', async (req, res) => {
             if (validation.isValid)
             {
                 const pnotes = (!isEmpty(req.body.notes) ? req.body.notes : '');
-                const dName = (!isEmpty(req.body.devName) ? req.body.devName : '');
+                var devName = (!isEmpty(data.devName) ? data.devName : '');
+                var devName = (!isEmpty(data.deviceName) ? data.deviceName : devName);
                 const pType = (!isEmpty(req.body.type) ? req.body.type : '');
                 const tempTol = (!isEmpty(req.body.temperatureTolerance) ? req.body.temperatureTolerance : '');
                 const lightTol = (!isEmpty(req.body.lightTolerance) ? req.body.lightTolerance : '');
