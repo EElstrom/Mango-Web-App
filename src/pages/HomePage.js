@@ -78,8 +78,11 @@ class HomePage extends React.Component
 
         // modes: create, data, settings
         this.state = {
-			mode: 'data'
+            mode: 'data',
+            devices: []
         };
+
+        this.getDevices();
     }
 
     setModeAdd = async event =>
@@ -92,12 +95,28 @@ class HomePage extends React.Component
     {
         event.preventDefault();
         this.setState({mode: 'data'});
+
+        this.getDevices();
     }
 
     setModeSettings = async event =>
     {
         event.preventDefault();
         this.setState({mode: 'settings'});
+    }
+
+    getDevices = async () =>
+    {
+        // Fetch Devices
+        const response = await fetch('api/getDevices', {
+			method: 'POST',
+			headers: {'Content-Type': 'application/json'},
+			body: JSON.stringify({})
+        }).then(response => {return response.json()});
+        
+        console.log(response);
+
+        this.setState({devices: response.devices});
     }
 
 	render()
@@ -127,7 +146,7 @@ class HomePage extends React.Component
                 </div>
                 <div>
                     {(this.state.mode === 'add') ? <Add/> : <div />}
-					{(this.state.mode === 'data') ? <DataDisplay/> : <div />}
+					{(this.state.mode === 'data') ? this.state.devices.map((item, i) => <DataDisplay key={i} deviceName={item.alias} deviceID={item._id}/>) : <div />}
 					{(this.state.mode === 'settings') ? <Settings/> : <div />}
                 </div>
 			</div>

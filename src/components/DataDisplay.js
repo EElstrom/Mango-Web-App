@@ -22,11 +22,13 @@ class DataDisplay extends React.Component
 {
 	constructor(props)
     {
-        super(props);
+		super(props);
+
+		console.log(this.props);
 
         this.state = {
 			// mode can be prompt, create, or data
-			mode: 'prompt'
+			mode: 'data'
         };
 	}
 
@@ -43,7 +45,7 @@ class DataDisplay extends React.Component
 				<div style={orange}>
 				{(this.state.mode === 'prompt') ? <Create_gh_prompt update={this.setCreate}/> : <div />}
 				{(this.state.mode === 'create') ? <Create_gh/> : <div />}
-				{(this.state.mode === 'data') ? <DataDetails/> : <div />}
+				{(this.state.mode === 'data') ? <DataDetails deviceName={this.props.deviceName} deviceID={this.props.deviceID}/> : <div />}
 				<div>
 					{/* Icons made by <a href="https://www.flaticon.com/authors/smalllikeart" title="smalllikeart">smalllikeart</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> */}
 				</div>
