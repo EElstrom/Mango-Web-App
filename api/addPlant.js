@@ -69,8 +69,8 @@ router.post('/api/addPlant', async (req, res) => {
             if (validation.isValid)
             {
                 const pnotes = (!isEmpty(req.body.notes) ? req.body.notes : '');
-                var devName = (!isEmpty(data.devName) ? data.devName : '');
-                var devName = (!isEmpty(data.deviceName) ? data.deviceName : devName);
+                var dName = (!isEmpty(req.body.devName) ? req.body.devName : '');
+                var dName = (!isEmpty(req.body.deviceName) ? req.body.deviceName : dName);
                 const pType = (!isEmpty(req.body.type) ? req.body.type : '');
                 const tempTol = (!isEmpty(req.body.temperatureTolerance) ? req.body.temperatureTolerance : '');
                 const lightTol = (!isEmpty(req.body.lightTolerance) ? req.body.lightTolerance : '');
