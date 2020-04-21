@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "description": "Mango API. Mango application creates a reliable connection between a user and their greenhouse hydorponic sensors. This application keeps logs of data for various sensors and arranges the information in helpful ways. Users may store information about several sensors, plants, and long-term parsed data.",
+    "description": "Mango API. Mango application creates a reliable connection between a user and their greenhouse hydroponic sensors. This application keeps logs of data for various sensors and arranges the information in helpful ways. Users may store information about several sensors, plants, and long-term parsed data. Please refer to [Post Frequency Algorithm](https://github.com/devon-gadarowski/Mango-Web-App/wiki/API-Specifications#Post-Frequency-Algorithm) to see details on editing a sensor.",
     "version": "1.0.0-oas3",
     "title": "Mango App API",
     "contact": {
