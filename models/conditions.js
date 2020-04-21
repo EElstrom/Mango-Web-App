@@ -42,6 +42,12 @@ const conditionsSchema = new mongoose.Schema(
         {
             type: Number,
             required: true
+        },
+
+        airQuality:
+        {
+            type: Number,
+            required: true
         }
     }
 );
