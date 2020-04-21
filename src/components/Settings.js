@@ -23,8 +23,41 @@ const name_style = {
     color: '#000000',
       
     position: 'fixed',
-    top: '30%',
-    left: '75%',
+    top: '35%',
+    left: '15%',
+}
+
+const email_style = {
+    fontFamily: 'Nunito',
+    fontSize: '35px',
+    padding: '0px 0px 27px 0px',
+    color: '#000000',
+      
+    position: 'fixed',
+    top: '50%',
+    left: '15%',
+}
+
+const password_style = {
+    fontFamily: 'Nunito',
+    fontSize: '35px',
+    padding: '0px 0px 27px 0px',
+    color: '#000000',
+      
+    position: 'fixed',
+    top: '65%',
+    left: '15%',
+}
+
+const pollFreq_style = {
+    fontFamily: 'Nunito',
+    fontSize: '35px',
+    padding: '0px 0px 27px 0px',
+    color: '#000000',
+      
+    position: 'fixed',
+    top: '80%',
+    left: '15%',
 }
 
 class Settings extends React.Component
@@ -34,10 +67,10 @@ class Settings extends React.Component
 		return(
 			<div style={yellow}>
 				<div class='card'>
-					<div style={name_style}>name</div>
-					<div>email</div>
-					<div>password</div>
-					<div>polling frequency</div>
+					<div style={name_style}>name: </div>
+					<div style={email_style}>email: </div>
+					<div style={password_style}>password: </div>
+					<div style={pollFreq_style}>polling frequency: </div>
 				</div>
 			</div>
 		);
