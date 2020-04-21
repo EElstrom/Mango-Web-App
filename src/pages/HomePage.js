@@ -5,7 +5,7 @@ import Logo from '../components/Logo';
 import Settings from '../components/Settings';
 import DataDisplay from '../components/DataDisplay';
 import Add from '../components/Add';
-import {Plus, Leaf, Gear} from '../components/SVGs';
+import {Plus, Leaf, Gear, Logout} from '../components/SVGs';
 import '../App.css';
 
 const header = {
@@ -55,16 +55,17 @@ const red_tab = {
     boxShadow: '7px -2px 5px #EEEEEE'
 }
 
-const profilePic_style = {
-    width: '50px',
-    height: '50px',
-      
-    position: 'fixed',
-    top: '5%',
-    left: '90%'
+const icon_style = {
+    height: '45px',
+    width: '45px',
+    margin: '10px 20px 0px 20px'
 }
 
-const icon_style = {
+const logout_style = {  
+    position: 'fixed',
+    top: '4%',
+    left: '94%',
+
     height: '45px',
     width: '45px',
     margin: '10px 20px 0px 20px'
@@ -119,6 +120,23 @@ class HomePage extends React.Component
         this.setState({devices: response.devices});
     }
 
+    logout = async event => {
+        event.preventDefault();
+
+        // TODO: call to API
+		
+		console.log('api/logout');
+		const response = await fetch('api/logout', {
+			method: 'POST',
+			headers: {'Content-Type': 'application/json'},
+			body: '{}'
+		}).then(response => {return response.json()});
+		console.log(JSON.stringify(response));
+		
+		window.location.replace('/');
+
+    }
+
 	render()
 	{
 		return(
@@ -143,6 +161,9 @@ class HomePage extends React.Component
                     {/* <div style={profilePic_style}>
                      <ProfilePic/>
                     </div> */}
+                    <div onClick={this.logout} style={logout_style}>
+                        <Logout/>
+                    </div>
                 </div>
                 <div>
                     {(this.state.mode === 'add') ? <Add/> : <div />}
