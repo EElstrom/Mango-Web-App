@@ -167,7 +167,7 @@ class HomePage extends React.Component
                 </div>
                 <div>
                     {(this.state.mode === 'add') ? <Add/> : <div />}
-					{(this.state.mode === 'data') ? this.state.devices.map((item, i) => <DataDisplay key={i} deviceName={item.alias} deviceID={item._id}/>) : <div />}
+					{(this.state.mode === 'data') ? ((this.state.devices.length > 0) ? this.state.devices.map((item, i) => <DataDisplay key={i} deviceName={item.alias} deviceID={item._id} mode='data'/>) : <DataDisplay mode='prompt'/> ): <div />}
 					{(this.state.mode === 'settings') ? <Settings/> : <div />}
                 </div>
 			</div>

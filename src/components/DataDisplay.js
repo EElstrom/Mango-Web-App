@@ -28,7 +28,7 @@ class DataDisplay extends React.Component
 
         this.state = {
 			// mode can be prompt, create, or data
-			mode: 'data'
+			mode: this.props.mode
         };
 	}
 
