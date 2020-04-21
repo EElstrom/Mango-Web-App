@@ -81,6 +81,55 @@
         }
       }
     },
+    "/api/verify": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Verify account",
+        "operationId": "verify",
+        "description": "Used to verify the code send in an email to establish a new user. If successful, new user will automatically be logged in with a secure jwt session.",
+        "responses": {
+          "200": {
+            "description": "login successful",
+            "headers": {
+              "Set-Cookie": {
+                "schema": {
+                  "type": "string",
+                  "example": "SESSIONID=ghjk2345; Path=/; HttpOnly"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation errors (email cannot be sent)"
+          },
+          "401": {
+            "description": "Bad authorization code"
+          },
+          "500": {
+            "description": "incorrect email"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/user"
+              },
+              "examples": {
+                "verify": {
+                  "summary": "verify the account",
+                  "value": {
+                    "authCode": "123456"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/login": {
       "post": {
         "tags": [
