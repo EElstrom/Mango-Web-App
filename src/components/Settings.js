@@ -64,7 +64,7 @@ const login_field = {
 	color: '#FFFFFF',
 	backgroundColor: '#CDDFBC',
 	outline: 'none',
-	width: '10em',
+	width: '5em',
 	height: '2em',
   	margin: '15px',
 	borderRadius: '10px',
@@ -181,7 +181,11 @@ class Settings extends React.Component
 					</div>
 					<div style={pollFreq_style}>
 						polling frequency: 
-						<input style={login_field} type='text' placeholder='x times per hour' ref={(value) => this.state.freq = value}/><br />
+						<input style={login_field} type='text' placeholder='x' ref={(value) => this.state.freq = value}/>
+						times per
+						<input style={login_field} type='text' placeholder='y' ref={(value) => this.state.freq = value}/>
+						hour(s)
+						<br />
 					</div>
 					<div style={button_style}>
 						<input style={login_button} type='submit' value='Update'/>
